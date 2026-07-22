@@ -1,6 +1,6 @@
 +++
 date = '2026-07-22T01:01:03-04:00'
-draft = true
+draft = false
 title = "Java的单例模式"
 tags = ["Java", "Programming", "Design Pattern"]
 categories = ["学习"]

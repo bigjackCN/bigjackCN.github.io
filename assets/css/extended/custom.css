@@ -1,0 +1,14 @@
+.entry-cover img,
+.entry-cover .post-cover-image {
+    width: 100%;
+    aspect-ratio: 21 / 9; 
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.entry-content {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

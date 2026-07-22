@@ -1,7 +1,0 @@
-.entry-cover img,
-.entry-cover .post-cover-image {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: 8px;
-}

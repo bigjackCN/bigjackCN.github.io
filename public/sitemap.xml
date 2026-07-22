@@ -8,9 +8,6 @@
     <loc>http://localhost:1313/tags/design-pattern/</loc>
     <lastmod>2026-07-22T01:01:03-04:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/java/</loc>
-    <lastmod>2026-07-22T01:01:03-04:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/tags/java/</loc>
     <lastmod>2026-07-22T01:01:03-04:00</lastmod>
   </url><url>
@@ -24,6 +21,9 @@
     <lastmod>2026-07-22T01:01:03-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2026-07-22T01:01:03-04:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2026-07-22T01:01:03-04:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/</loc>

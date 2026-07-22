@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>Categories | 黄人日记</title>
+<title>学习 | 黄人日记</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/categories/">
+<link rel="canonical" href="http://localhost:1313/categories/%E5%AD%A6%E4%B9%A0/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.a940b09ccd245b9131c16208daab6b37c4921897140e2dd71c89f1e6b562447d.css" integrity="sha256-qUCwnM0kW5ExwWII2qtrN8SSGJcUDi3XHInx5rViRH0=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
@@ -18,8 +18,8 @@
 <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/categories/index.xml" title="rss">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/categories/">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/categories/%E5%AD%A6%E4%B9%A0/index.xml" title="rss">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/categories/%E5%AD%A6%E4%B9%A0/">
 <noscript>
     <style>
         #theme-toggle,
@@ -72,7 +72,7 @@
             </li>
             <li>
                 <a href="http://localhost:1313/categories/" title="Categories">
-                    <span class="active">Categories</span>
+                    <span>Categories</span>
                 </a>
             </li>
             <li>
@@ -89,16 +89,33 @@
         </ul>
     </nav>
 </header>
-<main class="main">
+<main class="main"> 
 <header class="page-header">
-    <h1>Categories</h1>
+  <h1>
+    学习
+  </h1>
 </header>
 
-<ul class="terms-tags">
-            <li>
-                <a href="http://localhost:1313/categories/%E5%AD%A6%E4%B9%A0/">学习 <sup><strong><sup>1</sup></strong></sup> </a>
-            </li>
-</ul>
+<article class="post-entry tag-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="http://localhost:1313/images/flying-pig.jpg" alt="flying pig">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Java的单例模式
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>单例模式 (Singleton Pattern) 一个类只有一个实例
+静态内部类 只有调用getInstance方法时实例化
+实现懒加载
+public class Singleton { private Singleton() {} private static class SingletonHolder { private static final Singleton INSTANCE = new Singleton(); } public static Singleton getInstance() { return SingletonHolder.INSTANCE } } 枚举 天然保证单例和线程安全
+public enum Singleton { INSTANCE; public void doSomething() { System.out.println(&#34;单例方法被调用&#34;) } } // 调用方式 Singleton.INSTANCE.doSomething(); </p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-22 01:01:03 -0400 EDT'>July 22, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Java的单例模式" href="http://localhost:1313/posts/singletonpattern/"></a>
+</article>
     </main>
     
 <footer class="footer">

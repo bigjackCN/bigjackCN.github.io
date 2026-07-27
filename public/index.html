@@ -117,6 +117,25 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">两数之和(Two Sum)
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+Brute Force Time: O(n^2)
+Space: O(1)
+class Solution { public int[] twoSum(int[] nums, int target) { for (int i = 0; i &lt; nums.length - 1; i&#43;&#43;) { for (int j = i &#43; 1; j &lt; nums.length; j&#43;&#43;) { if (nums[i] &#43; nums[j] == target) { return new int[]{i, j}; } } } return new int[]{-1, -1}; } } Hash Map Time: O(n)
+Space: O(n)
+class Solution { public int[] twoSum(int[] nums, int target) { Map&lt;Integer, Integer&gt; hash = new HashMap&lt;&gt;(); for (int i = 0; i &lt; nums.length; i&#43;&#43;) { int toFind = target - nums[i]; if (hash.containsKey(toFind)) { return new int[] {hash.get(toFind), i}; } hash.put(nums[i], i); } return new int[] {-1, -1}; } } </p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-26 23:26:46 -0400 EDT'>July 26, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 两数之和(Two Sum)" href="http://localhost:1313/posts/twosum/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Java的单例模式
     </h2>
   </header>

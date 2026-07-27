@@ -11,7 +11,7 @@ alt = ""
 caption = ""
 +++
 
-![problem summary](/static/images/two-sum.png)
+![problem summary](/images/two-sum.png)
 
 ### Brute Force 
 Time: O(n^2)  

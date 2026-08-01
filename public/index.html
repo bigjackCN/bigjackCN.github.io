@@ -117,6 +117,27 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">存在重复元素(Contains Duplicate)
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+Brute Force Time: O(n^2)
+Space: O(1)
+class Solution { public boolean containsDuplicate(int[] nums) { for (int i = 0; i &lt; nums.length; i&#43;&#43;) { for (int j = i &#43; 1; j &lt; nums.length; j&#43;&#43;) { if (nums[i] == nums[j]) { return true; } } } return false; } } Array Sort Time: O(nlogn)
+Space: O(logn)
+import java.util.Arrays; class Solution { public boolean containsDuplicate(int[] nums) { Arrays.sort(nums); for (int i = 1; i &lt; nums.length; i&#43;&#43;) { if (nums[i] == nums[i-1]) { return true; } } return false; } } HashSet Time: O(n)
+Space: O(n)
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-01 13:14:41 +0800 CST'>August 1, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 存在重复元素(Contains Duplicate)" href="http://localhost:1313/posts/containsduplicate/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">两数之和(Two Sum)
     </h2>
   </header>
@@ -130,7 +151,7 @@ class Solution { public int[] twoSum(int[] nums, int target) { Map&lt;Integer, I
   </div>
   <footer class="entry-footer">
 
-<span title='2026-07-26 23:26:46 -0400 EDT'>July 26, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+<span title='2026-07-26 23:26:46 -0400 -0400'>July 26, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
   <a class="entry-link" aria-label="post link to 两数之和(Two Sum)" href="http://localhost:1313/posts/twosum/"></a>
 </article>
 
@@ -148,7 +169,7 @@ public enum Singleton { INSTANCE; public void doSomething() { System.out.println
   </div>
   <footer class="entry-footer">
 
-<span title='2026-07-22 01:01:03 -0400 EDT'>July 22, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+<span title='2026-07-22 01:01:03 -0400 -0400'>July 22, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
   <a class="entry-link" aria-label="post link to Java的单例模式" href="http://localhost:1313/posts/singletonpattern/"></a>
 </article>
     </main>

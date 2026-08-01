@@ -98,16 +98,41 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">存在重复元素(Contains Duplicate)
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+Brute Force Time: O(n^2)
+Space: O(1)
+class Solution { public boolean containsDuplicate(int[] nums) { for (int i = 0; i &lt; nums.length; i&#43;&#43;) { for (int j = i &#43; 1; j &lt; nums.length; j&#43;&#43;) { if (nums[i] == nums[j]) { return true; } } } return false; } } Array Sort Time: O(nlogn)
+Space: O(1)
+class Solution { public boolean containsDuplicate(int[] nums) { Arrays.sort(nums); for (int i = 0; i &lt; nums.length - 1; i&#43;&#43;) { if (nums[i] == nums[i&#43;1]) { return true; } } return false; } } HashSet Time: O(n)
+Space: O(n)
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-01 13:14:41 +0800 CST'>August 1, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 存在重复元素(Contains Duplicate)" href="http://localhost:1313/posts/containsduplicate/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">两数之和(Two Sum)
     </h2>
   </header>
   <div class="entry-content">
     <p>
-</p>
+Brute Force Time: O(n^2)
+Space: O(1)
+class Solution { public int[] twoSum(int[] nums, int target) { for (int i = 0; i &lt; nums.length - 1; i&#43;&#43;) { for (int j = i &#43; 1; j &lt; nums.length; j&#43;&#43;) { if (nums[i] &#43; nums[j] == target) { return new int[]{i, j}; } } } return new int[]{-1, -1}; } } Hash Map Time: O(n)
+Space: O(n)
+class Solution { public int[] twoSum(int[] nums, int target) { Map&lt;Integer, Integer&gt; hash = new HashMap&lt;&gt;(); for (int i = 0; i &lt; nums.length; i&#43;&#43;) { int toFind = target - nums[i]; if (hash.containsKey(toFind)) { return new int[] {hash.get(toFind), i}; } hash.put(nums[i], i); } return new int[] {-1, -1}; } } </p>
   </div>
   <footer class="entry-footer">
 
-<span title='2026-07-26 23:26:46 -0400 EDT'>July 26, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+<span title='2026-07-26 23:26:46 -0400 -0400'>July 26, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
   <a class="entry-link" aria-label="post link to 两数之和(Two Sum)" href="http://localhost:1313/posts/twosum/"></a>
 </article>
     </main>

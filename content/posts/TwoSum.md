@@ -37,16 +37,21 @@ Time: O(n)
 Space: O(n)
 
 ```java
+import java.util.HashMap;
+import java.util.Map;
+
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> hash = new HashMap<>();
+        // avoid resizing
+        int capacity = (int) (nums.length / 0.75f) + 1;
+        Map<Integer, Integer> map = new HashMap<>(capacity);
 
         for (int i = 0; i < nums.length; i++) {
             int toFind = target - nums[i];
-            if (hash.containsKey(toFind)) {
-                return new int[] {hash.get(toFind), i};
+            if (map.containsKey(toFind)) {
+                return new int[] {map.get(toFind), i};
             }
-            hash.put(nums[i], i);
+            map.put(nums[i], i);
         }
         return new int[] {-1, -1};
     }

@@ -106,8 +106,8 @@
 Brute Force Time: O(n^2)
 Space: O(1)
 class Solution { public boolean containsDuplicate(int[] nums) { for (int i = 0; i &lt; nums.length; i&#43;&#43;) { for (int j = i &#43; 1; j &lt; nums.length; j&#43;&#43;) { if (nums[i] == nums[j]) { return true; } } } return false; } } Array Sort Time: O(nlogn)
-Space: O(1)
-class Solution { public boolean containsDuplicate(int[] nums) { Arrays.sort(nums); for (int i = 0; i &lt; nums.length - 1; i&#43;&#43;) { if (nums[i] == nums[i&#43;1]) { return true; } } return false; } } HashSet Time: O(n)
+Space: O(logn)
+import java.util.Arrays; class Solution { public boolean containsDuplicate(int[] nums) { Arrays.sort(nums); for (int i = 1; i &lt; nums.length; i&#43;&#43;) { if (nums[i] == nums[i-1]) { return true; } } return false; } } HashSet Time: O(n)
 Space: O(n)
 ...</p>
   </div>
@@ -128,7 +128,7 @@ Brute Force Time: O(n^2)
 Space: O(1)
 class Solution { public int[] twoSum(int[] nums, int target) { for (int i = 0; i &lt; nums.length - 1; i&#43;&#43;) { for (int j = i &#43; 1; j &lt; nums.length; j&#43;&#43;) { if (nums[i] &#43; nums[j] == target) { return new int[]{i, j}; } } } return new int[]{-1, -1}; } } Hash Map Time: O(n)
 Space: O(n)
-class Solution { public int[] twoSum(int[] nums, int target) { Map&lt;Integer, Integer&gt; hash = new HashMap&lt;&gt;(); for (int i = 0; i &lt; nums.length; i&#43;&#43;) { int toFind = target - nums[i]; if (hash.containsKey(toFind)) { return new int[] {hash.get(toFind), i}; } hash.put(nums[i], i); } return new int[] {-1, -1}; } } </p>
+import java.util.HashMap; import java.util.Map; class Solution { public int[] twoSum(int[] nums, int target) { // avoid resizing int capacity = (int) (nums.length / 0.75f) &#43; 1; Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;(capacity); for (int i = 0; i &lt; nums.length; i&#43;&#43;) { int toFind = target - nums[i]; if (map.containsKey(toFind)) { return new int[] {map.get(toFind), i}; } map.put(nums[i], i); } return new int[] {-1, -1}; } } </p>
   </div>
   <footer class="entry-footer">
 

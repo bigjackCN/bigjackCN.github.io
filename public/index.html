@@ -117,7 +117,24 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">除了自身以外数组的乘积(Product Of Array Except Self)
+    <h2 class="entry-hint-parent">寻找旋转排序数组中的最小值
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+Binary Search Time: O(logn)
+Space: O(1)
+class Solution { public int findMin(int[] nums) { int left = 0; int right = nums.length - 1; while (left &lt; right) { int mid = left &#43; (right - left) / 2; if (nums[mid] &gt; nums[right]) { left = mid &#43; 1; } else { right = mid; } } return nums[left]; } } </p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-06 21:28:07 +0800 CST'>August 6, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 寻找旋转排序数组中的最小值" href="http://localhost:1313/posts/findminimuminrotatedsortedarray/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">除了自身以外数组的乘积
     </h2>
   </header>
   <div class="entry-content">
@@ -131,12 +148,12 @@ Space: O(1)
   <footer class="entry-footer">
 
 <span title='2026-08-05 21:35:19 +0800 CST'>August 5, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 除了自身以外数组的乘积(Product Of Array Except Self)" href="http://localhost:1313/posts/productofarrayexceptself/"></a>
+  <a class="entry-link" aria-label="post link to 除了自身以外数组的乘积" href="http://localhost:1313/posts/productofarrayexceptself/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">买卖股票的最佳时机(Best Time To Buy And Sell Stock)
+    <h2 class="entry-hint-parent">买卖股票的最佳时机
     </h2>
   </header>
   <div class="entry-content">
@@ -150,12 +167,12 @@ class Solution { public int maxProfit(int[] prices) { int boughtPrice = prices[0
   <footer class="entry-footer">
 
 <span title='2026-08-03 20:51:09 +0800 CST'>August 3, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 买卖股票的最佳时机(Best Time To Buy And Sell Stock)" href="http://localhost:1313/posts/besttimetobuyandsellstock/"></a>
+  <a class="entry-link" aria-label="post link to 买卖股票的最佳时机" href="http://localhost:1313/posts/besttimetobuyandsellstock/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">存在重复元素(Contains Duplicate)
+    <h2 class="entry-hint-parent">存在重复元素
     </h2>
   </header>
   <div class="entry-content">
@@ -171,12 +188,12 @@ Space: O(n)
   <footer class="entry-footer">
 
 <span title='2026-08-01 13:14:41 +0800 CST'>August 1, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 存在重复元素(Contains Duplicate)" href="http://localhost:1313/posts/containsduplicate/"></a>
+  <a class="entry-link" aria-label="post link to 存在重复元素" href="http://localhost:1313/posts/containsduplicate/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">两数之和(Two Sum)
+    <h2 class="entry-hint-parent">两数之和
     </h2>
   </header>
   <div class="entry-content">
@@ -190,12 +207,12 @@ import java.util.HashMap; import java.util.Map; class Solution { public int[] tw
   <footer class="entry-footer">
 
 <span title='2026-07-26 23:26:46 -0400 -0400'>July 26, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 两数之和(Two Sum)" href="http://localhost:1313/posts/twosum/"></a>
+  <a class="entry-link" aria-label="post link to 两数之和" href="http://localhost:1313/posts/twosum/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Java的单例模式
+    <h2 class="entry-hint-parent">单例模式
     </h2>
   </header>
   <div class="entry-content">
@@ -208,7 +225,7 @@ public enum Singleton { INSTANCE; public void doSomething() { System.out.println
   <footer class="entry-footer">
 
 <span title='2026-07-22 01:01:03 -0400 -0400'>July 22, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to Java的单例模式" href="http://localhost:1313/posts/singletonpattern/"></a>
+  <a class="entry-link" aria-label="post link to 单例模式" href="http://localhost:1313/posts/singletonpattern/"></a>
 </article>
     </main>
     

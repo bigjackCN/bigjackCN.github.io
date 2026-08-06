@@ -1,7 +1,7 @@
 +++
 date = '2026-07-26T23:26:46-04:00'
 draft = false
-title = "两数之和(Two Sum)"
+title = "两数之和"
 tags = ["Java", "LeetCode", "Blind 75"]
 categories = ["学习"]
 

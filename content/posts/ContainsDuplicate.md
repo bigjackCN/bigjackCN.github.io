@@ -1,7 +1,7 @@
 +++
 date = '2026-08-01T13:14:41+08:00'
 draft = false
-title = "存在重复元素(Contains Duplicate)"
+title = "存在重复元素"
 tags = ["Java", "LeetCode", "Blind 75"]
 categories = ["学习"]
 

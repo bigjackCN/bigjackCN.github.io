@@ -1,7 +1,7 @@
 +++
 date = '2026-08-05T21:35:19+08:00'
 draft = false
-title = "除了自身以外数组的乘积(Product Of Array Except Self)"
+title = "除了自身以外数组的乘积"
 tags = ["Java", "LeetCode", "Blind 75"]
 categories = ["学习"]
 

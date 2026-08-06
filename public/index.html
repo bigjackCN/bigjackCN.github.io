@@ -117,7 +117,26 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">买卖股票的最佳时机(Best Time to Buy And Sell Stock)
+    <h2 class="entry-hint-parent">除了自身以外数组的乘积(Product Of Array Except Self)
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+Prefix &#43; Suffix Array Time: O(n)
+Space: O(n)
+class Solution { public int[] productExceptSelf(int[] nums) { int[] prefix = new int[nums.length]; prefix[0] = 1; for (int i = 1; i &lt; nums.length; i&#43;&#43;) { prefix[i] = prefix[i-1] * nums[i-1]; } int[] suffix = new int[nums.length]; suffix[nums.length-1] = 1; for (int i = nums.length - 2; i &gt;= 0 ; i--) { suffix[i] = suffix[i&#43;1] * nums[i&#43;1]; } int[] res = new int[nums.length]; for (int i = 0; i &lt; res.length; i&#43;&#43;) { res[i] = prefix[i] * suffix[i]; } return res; } } No Extra Space Time: O(n)
+Space: O(1)
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-05 21:35:19 +0800 CST'>August 5, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 除了自身以外数组的乘积(Product Of Array Except Self)" href="http://localhost:1313/posts/productofarrayexceptself/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">买卖股票的最佳时机(Best Time To Buy And Sell Stock)
     </h2>
   </header>
   <div class="entry-content">
@@ -131,7 +150,7 @@ class Solution { public int maxProfit(int[] prices) { int boughtPrice = prices[0
   <footer class="entry-footer">
 
 <span title='2026-08-03 20:51:09 +0800 CST'>August 3, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 买卖股票的最佳时机(Best Time to Buy And Sell Stock)" href="http://localhost:1313/posts/besttimetobuyandsellstock/"></a>
+  <a class="entry-link" aria-label="post link to 买卖股票的最佳时机(Best Time To Buy And Sell Stock)" href="http://localhost:1313/posts/besttimetobuyandsellstock/"></a>
 </article>
 
 <article class="post-entry"> 

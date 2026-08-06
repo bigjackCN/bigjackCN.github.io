@@ -1,7 +1,7 @@
 +++
 date = '2026-08-03T20:51:09+08:00'
 draft = false
-title = "买卖股票的最佳时机(Best Time to Buy And Sell Stock)"
+title = "买卖股票的最佳时机(Best Time To Buy And Sell Stock)"
 tags = ["Java", "LeetCode", "Blind 75"]
 categories = ["学习"]
 

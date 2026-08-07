@@ -13,7 +13,7 @@ caption = ""
 
 ![problem summary](/images/find-minimum-in-rotated-sorted-array.png)
 
-### Binary Search
+### Modified Binary Search
 Time: O(logn)  
 Space: O(1)
 ```java

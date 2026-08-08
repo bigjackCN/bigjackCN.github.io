@@ -98,6 +98,23 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">三数之和
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+Sorting &#43; Two Pointers Time: O(n^2)
+Space: O(1)
+class Solution { public List&lt;List&lt;Integer&gt;&gt; threeSum(int[] nums) { List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;(); Arrays.sort(nums); for (int i = 0; i &lt;= nums.length - 3; i&#43;&#43;) { // pruning for threeSum &gt; 0 if (nums[i] &gt; 0) break; // remove current duplicate number if (i &gt; 0 &amp;&amp; nums[i] == nums[i - 1]) continue; // if current and next two number sum &gt; 0, then no upcoming solutions if (nums[i] &#43; nums[i&#43;1] &#43; nums[i&#43;2] &gt; 0) break; // if current and two largest number sum &lt; 0, then no solution for current number if (nums[i] &#43; nums[nums.length - 1] &#43; nums[nums.length - 2] &lt; 0) continue; int left = i &#43; 1; int right = nums.length - 1; int target = -nums[i]; while (left &lt; right) { int sum = nums[left] &#43; nums[right]; if (sum == target) { res.add(Arrays.asList(nums[i], nums[left], nums[right])); // avoid duplicate number while (left &lt; right &amp;&amp; nums[left] == nums[left&#43;1]) left&#43;&#43;; while (left &lt; right &amp;&amp; nums[right] == nums[right-1]) right--; left&#43;&#43;; right--; } else if (sum &gt; target) { right--; } else { left&#43;&#43;; } } } return res; } } </p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-09 06:55:36 +0800 CST'>August 9, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 三数之和" href="http://localhost:1313/posts/threesum/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">搜索旋转排序数组
     </h2>
   </header>

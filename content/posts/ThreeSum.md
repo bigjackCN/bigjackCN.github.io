@@ -22,20 +22,20 @@ class Solution {
         List<List<Integer>> res = new ArrayList<>();
         Arrays.sort(nums);
 
-        for (int i = 0; i <= nums.length - 3; i++) {
+        for (int i = 0; i <= nums.length-3; i++) {
             // pruning for threeSum > 0
             if (nums[i] > 0) break;
 
             // remove current duplicate number
-            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            if (i > 0 && nums[i] == nums[i-1]) continue;
 
             // if current and next two number sum > 0, then no upcoming solutions
             if (nums[i] + nums[i+1] + nums[i+2] > 0) break;
             // if current and two largest number sum < 0, then no solution for current number
-            if (nums[i] + nums[nums.length - 1] + nums[nums.length - 2] < 0) continue;
+            if (nums[i] + nums[nums.length-1] + nums[nums.length-2] < 0) continue;
 
-            int left = i + 1;
-            int right = nums.length - 1;
+            int left = i+1;
+            int right = nums.length-1;
             int target = -nums[i];
             
             while (left < right) {

@@ -117,6 +117,23 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">最大子数组和
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+Dynamic Programming Time: O(n)
+Space: O(1)
+class Solution { public int maxSubArray(int[] nums) { if (nums.length == 1) return nums[0]; int acc = 0; int max = nums[0]; for (int num : nums) { acc &#43;= num; // handle num all negative case if (num &gt; max) { max = num; } if (acc &lt; 0) { acc = 0; continue; } if (acc &gt; max) { max = acc; } } return max; } } </p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-10 21:48:37 +0800 CST'>August 10, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 最大子数组和" href="http://localhost:1313/posts/maximumsubarray/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">盛最多水的容器
     </h2>
   </header>

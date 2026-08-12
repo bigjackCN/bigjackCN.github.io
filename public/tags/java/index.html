@@ -98,12 +98,29 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">最大子数组和
+    <h2 class="entry-hint-parent">乘积最大子数组
     </h2>
   </header>
   <div class="entry-content">
     <p>
 Dynamic Programming Time: O(n)
+Space: O(1)
+class Solution { public int maxProduct(int[] nums) { if (nums.length == 1) return nums[0]; int max = nums[0]; int min = nums[0]; int res = nums[0]; // res maintain global max for (int i = 1; i &lt; nums.length; i&#43;&#43;) { // swap max &amp; min when nums[i] is negative if (nums[i] &lt; 0) { int tmp = max; max = min; min = tmp; } max = Math.max(nums[i], nums[i] * max); min = Math.min(nums[i], nums[i] * min); res = Math.max(res, max); } return res; } } </p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-11 22:24:15 +0800 CST'>August 11, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 乘积最大子数组" href="http://localhost:1313/posts/maximumproductsubarray/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">最大子数组和
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+Kadane Algorithm (DP) Time: O(n)
 Space: O(1)
 class Solution { public int maxSubArray(int[] nums) { if (nums.length == 1) return nums[0]; int acc = 0; int max = nums[0]; for (int num : nums) { acc &#43;= num; // handle num all negative case if (num &gt; max) { max = num; } if (acc &lt; 0) { acc = 0; continue; } if (acc &gt; max) { max = acc; } } return max; } } </p>
   </div>
@@ -258,24 +275,12 @@ import java.util.HashMap; import java.util.Map; class Solution { public int[] tw
 <span title='2026-07-26 23:26:46 -0400 -0400'>July 26, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
   <a class="entry-link" aria-label="post link to 两数之和" href="http://localhost:1313/posts/twosum/"></a>
 </article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">单例模式
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>单例模式 (Singleton Pattern) 一个类只有一个实例
-静态内部类 只有调用getInstance方法时实例化
-实现懒加载
-public class Singleton { private Singleton() {} private static class SingletonHolder { private static final Singleton INSTANCE = new Singleton(); } public static Singleton getInstance() { return SingletonHolder.INSTANCE } } 枚举 天然保证单例和线程安全
-public enum Singleton { INSTANCE; public void doSomething() { System.out.println(&#34;单例方法被调用&#34;) } } // 调用方式 Singleton.INSTANCE.doSomething(); </p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-07-22 01:01:03 -0400 -0400'>July 22, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 单例模式" href="http://localhost:1313/posts/singletonpattern/"></a>
-</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="http://localhost:1313/tags/java/page/2/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
     </main>
     
 <footer class="footer">

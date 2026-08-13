@@ -13,7 +13,7 @@ caption = ""
 
 ![problem summary](/images/valid-parentheses.png)
 
-### Use Array To Count
+### Stack
 Time: O(n)  
 Space: O(1)
 

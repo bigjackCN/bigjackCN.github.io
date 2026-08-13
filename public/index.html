@@ -117,6 +117,57 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">有效的括号
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+Use Array To Count Time: O(n)
+Space: O(1)
+class Solution { public boolean isValid(String s) { Stack&lt;Character&gt; stack = new Stack&lt;&gt;(); for (char c : s.toCharArray()) { if (c == &#39;(&#39;) { stack.push(&#39;)&#39;); } else if (c == &#39;{&#39;) { stack.push(&#39;}&#39;); } else if (c == &#39;[&#39;) { stack.push(&#39;]&#39;); } else if (stack.isEmpty() || stack.pop() != c) { return false; } } return stack.isEmpty(); } } </p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-13 22:00:05 +0800 CST'>August 13, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 有效的括号" href="http://localhost:1313/posts/validparentheses/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">字母异位词分组
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+Use Array To Count Time: O(nk)
+Space: O(n)
+class Solution { public List&lt;List&lt;String&gt;&gt; groupAnagrams(String[] strs) { Map&lt;String, List&lt;String&gt;&gt; hashmap = new HashMap&lt;&gt;(); for (String str : strs) { int[] counts = new int[26]; for (char c : str.toCharArray()) { counts[c - &#39;a&#39;]&#43;&#43;; } StringBuilder s = new StringBuilder(); for (int count : counts) { // &#39;#&#39; split for each character s.append(count).append(&#39;#&#39;); } String key = s.toString(); hashmap.computeIfAbsent(key, k -&gt; new ArrayList&lt;&gt;()).add(str); } return new ArrayList&lt;&gt;(hashmap.values()); } } </p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-12 21:26:15 +0800 CST'>August 12, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 字母异位词分组" href="http://localhost:1313/posts/groupanagrams/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">有效的字母异位词
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+Use Array To Count Time: O(n)
+Space: O(1)
+class Solution { public boolean isAnagram(String s, String t) { if (s.length() != t.length()) return false; int[] counts = new int[26]; for (char c : s.toCharArray()) { counts[c - &#39;a&#39;]&#43;&#43;; } for (char c : t.toCharArray()) { counts[c - &#39;a&#39;]--; } for (int count : counts) { if (count != 0) { return false; } } return true; } } </p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-12 20:12:09 +0800 CST'>August 12, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 有效的字母异位词" href="http://localhost:1313/posts/validanagram/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">乘积最大子数组
     </h2>
   </header>
@@ -234,65 +285,6 @@ Space: O(1)
 
 <span title='2026-08-05 21:35:19 +0800 CST'>August 5, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
   <a class="entry-link" aria-label="post link to 除了自身以外数组的乘积" href="http://localhost:1313/posts/productofarrayexceptself/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">买卖股票的最佳时机
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-Brute Force Time: O(n^2)
-Space: O(1)
-class Solution { public int maxProfit(int[] prices) { int maxProfit = 0; for (int i = 0; i &lt; prices.length; i&#43;&#43;) { for (int j = i &#43; 1; j &lt; prices.length; j&#43;&#43;) { int profit = prices[j] - prices[i]; if (profit &gt; maxProfit) { maxProfit = profit; } } } return maxProfit; } } Heuristic Time: O(n)
-Space: O(1)
-class Solution { public int maxProfit(int[] prices) { int boughtPrice = prices[0]; int maxProfit = 0; for (int i = 1; i &lt; prices.length; i&#43;&#43;) { int sellPrice = prices[i]; if ((sellPrice - boughtPrice) &gt; maxProfit) { maxProfit = sellPrice - boughtPrice; } if (sellPrice &lt; boughtPrice) { boughtPrice = sellPrice; } } return maxProfit; } } </p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-08-03 20:51:09 +0800 CST'>August 3, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 买卖股票的最佳时机" href="http://localhost:1313/posts/besttimetobuyandsellstock/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">存在重复元素
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-Brute Force Time: O(n^2)
-Space: O(1)
-class Solution { public boolean containsDuplicate(int[] nums) { for (int i = 0; i &lt; nums.length; i&#43;&#43;) { for (int j = i &#43; 1; j &lt; nums.length; j&#43;&#43;) { if (nums[i] == nums[j]) { return true; } } } return false; } } Array Sort Time: O(nlogn)
-Space: O(logn)
-import java.util.Arrays; class Solution { public boolean containsDuplicate(int[] nums) { Arrays.sort(nums); for (int i = 1; i &lt; nums.length; i&#43;&#43;) { if (nums[i] == nums[i-1]) { return true; } } return false; } } HashSet Time: O(n)
-Space: O(n)
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-08-01 13:14:41 +0800 CST'>August 1, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 存在重复元素" href="http://localhost:1313/posts/containsduplicate/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">两数之和
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-Brute Force Time: O(n^2)
-Space: O(1)
-class Solution { public int[] twoSum(int[] nums, int target) { for (int i = 0; i &lt; nums.length - 1; i&#43;&#43;) { for (int j = i &#43; 1; j &lt; nums.length; j&#43;&#43;) { if (nums[i] &#43; nums[j] == target) { return new int[]{i, j}; } } } return new int[]{-1, -1}; } } Hash Map Time: O(n)
-Space: O(n)
-import java.util.HashMap; import java.util.Map; class Solution { public int[] twoSum(int[] nums, int target) { // avoid resizing int capacity = (int) (nums.length / 0.75f) &#43; 1; Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;(capacity); for (int i = 0; i &lt; nums.length; i&#43;&#43;) { int toFind = target - nums[i]; if (map.containsKey(toFind)) { return new int[] {map.get(toFind), i}; } map.put(nums[i], i); } return new int[] {-1, -1}; } } </p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-07-26 23:26:46 -0400 -0400'>July 26, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 两数之和" href="http://localhost:1313/posts/twosum/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

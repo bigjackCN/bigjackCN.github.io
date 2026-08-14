@@ -98,13 +98,47 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">回文子串
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+Manacher Algorithm (Optimal) Time: O(n)
+Space: O(n)
+class Solution { public int countSubstrings(String s) { // Transform: &#34;abc&#34; -&gt; &#34;^#a#b#c#$&#34; StringBuilder sb = new StringBuilder(&#34;^#&#34;); for (char c : s.toCharArray()) { sb.append(c).append(&#34;#&#34;); } sb.append(&#34;$&#34;); String t = sb.toString(); int n = t.length(); int[] p = new int[n]; // p[i] = radius steps (excluding center) int center = 0; int right = 0; int count = 0; for (int i = 1; i &lt; n - 1; i&#43;&#43;) { // Mirror index int mirror = 2 * center - i; // If within current right boundary, use mirrored value if (i &lt; right) { p[i] = Math.min(right - i, p[mirror]); } // Expand around center i (sentinels avoid bound checks) while (t.charAt(i &#43; p[i] &#43; 1) == t.charAt(i - p[i] - 1)) { p[i]&#43;&#43;; } // Update center and right boundary if (i &#43; p[i] &gt; right) { center = i; right = i &#43; p[i]; } // Count palindromes centered at i // In transformed string, every radius step contributes 1 palindrome in original count &#43;= (p[i] &#43; 1) / 2; } return count; } } </p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-14 23:03:12 +0800 CST'>August 14, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 回文子串" href="http://localhost:1313/posts/palindromicsubstring/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">验证回文串
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+Two Pointers Time: O(n)
+Space: O(1)
+class Solution { public boolean isPalindrome(String s) { int left = 0; int right = s.length() - 1; while (left &lt; right) { // skip invalid characters while (left &lt; right &amp;&amp; !Character.isLetterOrDigit(s.charAt(left))) left&#43;&#43;; while (left &lt; right &amp;&amp; !Character.isLetterOrDigit(s.charAt(right))) right--; if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) return false; left&#43;&#43;; right--; } return true; } } </p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-13 22:29:33 +0800 CST'>August 13, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 验证回文串" href="http://localhost:1313/posts/validpalindrome/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">有效的括号
     </h2>
   </header>
   <div class="entry-content">
     <p>
-Use Array To Count Time: O(n)
-Space: O(1)
+Stack Time: O(n)
+Space: O(n)
 class Solution { public boolean isValid(String s) { Stack&lt;Character&gt; stack = new Stack&lt;&gt;(); for (char c : s.toCharArray()) { if (c == &#39;(&#39;) { stack.push(&#39;)&#39;); } else if (c == &#39;{&#39;) { stack.push(&#39;}&#39;); } else if (c == &#39;[&#39;) { stack.push(&#39;]&#39;); } else if (stack.isEmpty() || stack.pop() != c) { return false; } } return stack.isEmpty(); } } </p>
   </div>
   <footer class="entry-footer">
@@ -230,42 +264,6 @@ class Solution { public int search(int[] nums, int target) { int left = 0; int r
 
 <span title='2026-08-08 07:13:38 +0800 CST'>August 8, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
   <a class="entry-link" aria-label="post link to 搜索旋转排序数组" href="http://localhost:1313/posts/searchinrotatedsortedarray/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">寻找旋转排序数组中的最小值
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-Modified Binary Search Time: O(logn)
-Space: O(1)
-class Solution { public int findMin(int[] nums) { int left = 0; int right = nums.length - 1; while (left &lt; right) { int mid = left &#43; (right - left) / 2; if (nums[mid] &gt; nums[right]) { left = mid &#43; 1; } else { right = mid; } } return nums[left]; } } </p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-08-06 21:28:07 +0800 CST'>August 6, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 寻找旋转排序数组中的最小值" href="http://localhost:1313/posts/findminimuminrotatedsortedarray/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">除了自身以外数组的乘积
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-Prefix &#43; Suffix Array Time: O(n)
-Space: O(n)
-class Solution { public int[] productExceptSelf(int[] nums) { int[] prefix = new int[nums.length]; prefix[0] = 1; for (int i = 1; i &lt; nums.length; i&#43;&#43;) { prefix[i] = prefix[i-1] * nums[i-1]; } int[] suffix = new int[nums.length]; suffix[nums.length-1] = 1; for (int i = nums.length - 2; i &gt;= 0 ; i--) { suffix[i] = suffix[i&#43;1] * nums[i&#43;1]; } int[] res = new int[nums.length]; for (int i = 0; i &lt; res.length; i&#43;&#43;) { res[i] = prefix[i] * suffix[i]; } return res; } } No Extra Space Time: O(n)
-Space: O(1)
-...</p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-08-05 21:35:19 +0800 CST'>August 5, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 除了自身以外数组的乘积" href="http://localhost:1313/posts/productofarrayexceptself/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

@@ -94,6 +94,42 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">寻找旋转排序数组中的最小值
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+Modified Binary Search Time: O(logn)
+Space: O(1)
+class Solution { public int findMin(int[] nums) { int left = 0; int right = nums.length - 1; while (left &lt; right) { int mid = left &#43; (right - left) / 2; if (nums[mid] &gt; nums[right]) { left = mid &#43; 1; } else { right = mid; } } return nums[left]; } } </p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-06 21:28:07 +0800 CST'>August 6, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 寻找旋转排序数组中的最小值" href="http://localhost:1313/posts/findminimuminrotatedsortedarray/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">除了自身以外数组的乘积
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>
+Prefix &#43; Suffix Array Time: O(n)
+Space: O(n)
+class Solution { public int[] productExceptSelf(int[] nums) { int[] prefix = new int[nums.length]; prefix[0] = 1; for (int i = 1; i &lt; nums.length; i&#43;&#43;) { prefix[i] = prefix[i-1] * nums[i-1]; } int[] suffix = new int[nums.length]; suffix[nums.length-1] = 1; for (int i = nums.length - 2; i &gt;= 0 ; i--) { suffix[i] = suffix[i&#43;1] * nums[i&#43;1]; } int[] res = new int[nums.length]; for (int i = 0; i &lt; res.length; i&#43;&#43;) { res[i] = prefix[i] * suffix[i]; } return res; } } No Extra Space Time: O(n)
+Space: O(1)
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-08-05 21:35:19 +0800 CST'>August 5, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 除了自身以外数组的乘积" href="http://localhost:1313/posts/productofarrayexceptself/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">买卖股票的最佳时机
     </h2>
   </header>

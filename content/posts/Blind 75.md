@@ -463,3 +463,75 @@ class Solution {
     }
 }
 ```
+
+## 17. 最小覆盖子串（LeetCode 76）
+
+**题目**：给定两个字符串 s 和 t，长度分别是 m 和 n，返回 s 中的 最短窗口 子串，使得该子串包含 t 中的每一个字符（包括重复字符）。如果没有这样的子串，返回空字符串 ""。
+
+### 滑动窗口
+
+Time: O(n)
+Space: O(k)
+
+```java
+class Solution {
+    public String minWindow(String s, String t) {
+        Map<Character, Integer> freq = new HashMap<>();
+        for (char c : t.toCharArray()) {
+            freq.put(c, freq.getOrDefault(c, 0) + 1);
+        }
+        int remaining = freq.size();   // 还需要多少种字符
+        int left = 0, minStart = 0, minLen = Integer.MAX_VALUE;
+
+        for (int right = 0; right < s.length(); right++) {
+            char ch = s.charAt(right);
+            if (freq.containsKey(ch)) {
+                freq.put(ch, freq.get(ch) - 1);
+                if (freq.get(ch) == 0) remaining--;
+            }
+
+            while (remaining == 0) {          // 当前窗口已覆盖 t
+                int windowLen = right - left + 1;
+                if (windowLen < minLen) {
+                    minLen = windowLen;
+                    minStart = left;
+                }
+
+                char leftChar = s.charAt(left);
+                if (freq.containsKey(leftChar)) {
+                    freq.put(leftChar, freq.get(leftChar) + 1);
+                    if (freq.get(leftChar) > 0) remaining++;
+                }
+                left++;
+            }
+        }
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLen);
+    }
+}
+```
+
+## 18.反转链表（LeetCode 206）
+
+**题目**：给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。
+
+### Three Pointers
+
+Time: O(n)
+Space: O(1)
+
+```java
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode cur = head;
+
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
+    }
+}
+```

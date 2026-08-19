@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="light">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Blind 75 刷题笔记（长期更新） | 黄人日记</title>
+<meta name="keywords" content="Java, LeetCode, Blind 75">
+<meta name="description" content="
+本文汇总 Blind 75 中经典题目的 Java 解法，持续更新。每道题均附思路简述、复杂度分析及核心代码。
+
+
+1. 两数之和（LeetCode 1）
+题目：给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回它们的数组下标。
+哈希表
+Time: O(n)
+Space: O(n)
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        int capacity = (int) (nums.length / 0.75f) &#43; 1;
+        Map&lt;Integer, Integer&gt; hash = new HashMap&lt;&gt;(capacity);
+        for (int i = 0; i &lt; nums.length; i&#43;&#43;) {
+            if (hash.get(nums[i]) != null) {
+                return new int[] {hash.get(nums[i]), i};
+            }
+            hash.put(target - nums[i], i);
+        }
+        return null;
+    }
+}
+2. 无重复字符的最长子串（LeetCode 3）
+题目：给定一个字符串 s，请你找出其中不含有重复字符的 最长子串 的长度。">
+<meta name="author" content="big jack">
+<link rel="canonical" href="http://localhost:1313/posts/blind-75/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cea4162ca5924032a6677cc353380460a6f707453d59a000c148c64d67502a14.css" integrity="sha256-zqQWLKWSQDKmZ3zDUzgEYKb3B0U9WaAAwUjGTWdQKhQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/blind-75/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="黄人日记 (Alt + H)">黄人日记</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/bigjackCN" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Blind 75 刷题笔记（长期更新）
+    </h1>
+    <div class="post-meta">
+
+<span title='2026-08-19 21:57:33 +0800 CST'>August 19, 2026</span>&nbsp;·&nbsp;<span>big jack</span>
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="http://localhost:1313/images/blind-75.png" alt="leetcode page">
+        
+</figure>
+  <div class="post-content md-content"><blockquote>
+<p>本文汇总 Blind 75 中经典题目的 Java 解法，持续更新。每道题均附思路简述、复杂度分析及核心代码。</p>
+</blockquote>
+<hr>
+<h2 id="1-两数之和leetcode-1">1. 两数之和（LeetCode 1）<a hidden class="anchor" aria-hidden="true" href="#1-两数之和leetcode-1">#</a></h2>
+<p><strong>题目</strong>：给定一个整数数组 <code>nums</code> 和一个目标值 <code>target</code>，请你在该数组中找出和为目标值的那 <strong>两个</strong> 整数，并返回它们的数组下标。</p>
+<h3 id="哈希表">哈希表<a hidden class="anchor" aria-hidden="true" href="#哈希表">#</a></h3>
+<p>Time: O(n)
+Space: O(n)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> <span style="color:#a6e22e">twoSum</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> nums, <span style="color:#66d9ef">int</span> target) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> capacity <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span>) (nums.<span style="color:#a6e22e">length</span> <span style="color:#f92672">/</span> 0.<span style="color:#a6e22e">75f</span>) <span style="color:#f92672">+</span> 1;
+</span></span><span style="display:flex;"><span>        Map<span style="color:#f92672">&lt;</span>Integer, Integer<span style="color:#f92672">&gt;</span> hash <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;</span>(capacity);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> nums.<span style="color:#a6e22e">length</span>; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (hash.<span style="color:#a6e22e">get</span>(nums<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>) <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> {hash.<span style="color:#a6e22e">get</span>(nums<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>), i};
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            hash.<span style="color:#a6e22e">put</span>(target <span style="color:#f92672">-</span> nums<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>, i);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="2-无重复字符的最长子串leetcode-3">2. 无重复字符的最长子串（LeetCode 3）<a hidden class="anchor" aria-hidden="true" href="#2-无重复字符的最长子串leetcode-3">#</a></h2>
+<p><strong>题目</strong>：给定一个字符串 s，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+<h3 id="滑动窗口hashmap-跳跃版">滑动窗口（HashMap 跳跃版）<a hidden class="anchor" aria-hidden="true" href="#滑动窗口hashmap-跳跃版">#</a></h3>
+<p>Time: O(n)
+Space: O(min(m, n))</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">lengthOfLongestSubstring</span>(String s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (s <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">||</span> s.<span style="color:#a6e22e">length</span>() <span style="color:#f92672">==</span> 0) <span style="color:#66d9ef">return</span> 0;
+</span></span><span style="display:flex;"><span>        Map<span style="color:#f92672">&lt;</span>Character, Integer<span style="color:#f92672">&gt;</span> map <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> 0, max <span style="color:#f92672">=</span> 0;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> right <span style="color:#f92672">=</span> 0; right <span style="color:#f92672">&lt;</span> s.<span style="color:#a6e22e">length</span>(); right<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">char</span> c <span style="color:#f92672">=</span> s.<span style="color:#a6e22e">charAt</span>(right);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (map.<span style="color:#a6e22e">containsKey</span>(c)) {
+</span></span><span style="display:flex;"><span>                left <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">max</span>(left, map.<span style="color:#a6e22e">get</span>(c) <span style="color:#f92672">+</span> 1);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            map.<span style="color:#a6e22e">put</span>(c, right);
+</span></span><span style="display:flex;"><span>            max <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">max</span>(max, right <span style="color:#f92672">-</span> left <span style="color:#f92672">+</span> 1);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> max;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="3-盛最多水的容器leetcode-11">3. 盛最多水的容器（LeetCode 11）<a hidden class="anchor" aria-hidden="true" href="#3-盛最多水的容器leetcode-11">#</a></h2>
+<p><strong>题目</strong>：给定 n 个非负整数 height，每个整数代表坐标中的一个点 (i, height[i])。找出两条线与 x 轴共同构成的容器，使其能容纳最多的水。</p>
+<h3 id="双指针">双指针<a hidden class="anchor" aria-hidden="true" href="#双指针">#</a></h3>
+<p>Time: O(n)
+Space: O(1)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">maxArea</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> height) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> 0, right <span style="color:#f92672">=</span> height.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> 1, max <span style="color:#f92672">=</span> 0;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&lt;</span> right) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> area <span style="color:#f92672">=</span> (right <span style="color:#f92672">-</span> left) <span style="color:#f92672">*</span> Math.<span style="color:#a6e22e">min</span>(height<span style="color:#f92672">[</span>left<span style="color:#f92672">]</span>, height<span style="color:#f92672">[</span>right<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>            max <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">max</span>(max, area);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (height<span style="color:#f92672">[</span>left<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> height<span style="color:#f92672">[</span>right<span style="color:#f92672">]</span>) left<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> right<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> max;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="4-三数之和leetcode-15">4. 三数之和（LeetCode 15）<a hidden class="anchor" aria-hidden="true" href="#4-三数之和leetcode-15">#</a></h2>
+<p><strong>题目</strong>：给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0？请你找出所有和为 0 且不重复的三元组。</p>
+<h3 id="排序--双指针">排序 + 双指针<a hidden class="anchor" aria-hidden="true" href="#排序--双指针">#</a></h3>
+<p>Time: O(n²)
+Space: O(1)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;&gt;</span> <span style="color:#a6e22e">threeSum</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> nums) {
+</span></span><span style="display:flex;"><span>        Arrays.<span style="color:#a6e22e">sort</span>(nums);
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;&gt;</span> res <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> nums.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> 2; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (nums<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;</span> 0) <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&gt;</span> 0 <span style="color:#f92672">&amp;&amp;</span> nums<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> nums<span style="color:#f92672">[</span>i <span style="color:#f92672">-</span> 1<span style="color:#f92672">]</span>) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> 1, right <span style="color:#f92672">=</span> nums.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> 1, target <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>nums<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&lt;</span> right) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> nums<span style="color:#f92672">[</span>left<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> nums<span style="color:#f92672">[</span>right<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (sum <span style="color:#f92672">==</span> target) {
+</span></span><span style="display:flex;"><span>                    res.<span style="color:#a6e22e">add</span>(Arrays.<span style="color:#a6e22e">asList</span>(nums<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>, nums<span style="color:#f92672">[</span>left<span style="color:#f92672">]</span>, nums<span style="color:#f92672">[</span>right<span style="color:#f92672">]</span>));
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&lt;</span> right <span style="color:#f92672">&amp;&amp;</span> nums<span style="color:#f92672">[</span>left<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> nums<span style="color:#f92672">[</span>left <span style="color:#f92672">+</span> 1<span style="color:#f92672">]</span>) left<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&lt;</span> right <span style="color:#f92672">&amp;&amp;</span> nums<span style="color:#f92672">[</span>right<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> nums<span style="color:#f92672">[</span>right <span style="color:#f92672">-</span> 1<span style="color:#f92672">]</span>) right<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>                    left<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>                    right<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (sum <span style="color:#f92672">&lt;</span> target) {
+</span></span><span style="display:flex;"><span>                    left<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                    right<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> res;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="5-有效的括号leetcode-20">5. 有效的括号（LeetCode 20）<a hidden class="anchor" aria-hidden="true" href="#5-有效的括号leetcode-20">#</a></h2>
+<p><strong>题目</strong>：给定一个只包括 &lsquo;(&rsquo;，&rsquo;)&rsquo;，&rsquo;{&rsquo;，&rsquo;}&rsquo;，&rsquo;[&rsquo;，&rsquo;]&rsquo; 的字符串 s，判断字符串是否有效。</p>
+<h3 id="栈">栈<a hidden class="anchor" aria-hidden="true" href="#栈">#</a></h3>
+<p>Time: O(n)
+Space: O(n)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isValid</span>(String s) {
+</span></span><span style="display:flex;"><span>        Stack<span style="color:#f92672">&lt;</span>Character<span style="color:#f92672">&gt;</span> stack <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Stack<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">char</span> c : s.<span style="color:#a6e22e">toCharArray</span>()) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;(&#39;</span>) stack.<span style="color:#a6e22e">push</span>(<span style="color:#e6db74">&#39;)&#39;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;{&#39;</span>) stack.<span style="color:#a6e22e">push</span>(<span style="color:#e6db74">&#39;}&#39;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;[&#39;</span>) stack.<span style="color:#a6e22e">push</span>(<span style="color:#e6db74">&#39;]&#39;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (stack.<span style="color:#a6e22e">isEmpty</span>() <span style="color:#f92672">||</span> stack.<span style="color:#a6e22e">pop</span>() <span style="color:#f92672">!=</span> c) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> stack.<span style="color:#a6e22e">isEmpty</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="6-搜索旋转排序数组leetcode-33">6. 搜索旋转排序数组（LeetCode 33）<a hidden class="anchor" aria-hidden="true" href="#6-搜索旋转排序数组leetcode-33">#</a></h2>
+<p><strong>题目</strong>：整数数组 nums 按升序排列，在某个未知点进行了旋转。给定一个目标值 target，如果目标值在数组中返回其下标，否则返回 -1。</p>
+<h3 id="修改的二分查找">修改的二分查找<a hidden class="anchor" aria-hidden="true" href="#修改的二分查找">#</a></h3>
+<p>Time: O(logn)
+Space: O(1)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">search</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> nums, <span style="color:#66d9ef">int</span> target) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> 0, right <span style="color:#f92672">=</span> nums.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> 1;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&lt;=</span> right) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> left <span style="color:#f92672">+</span> (right <span style="color:#f92672">-</span> left) <span style="color:#f92672">/</span> 2;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (nums<span style="color:#f92672">[</span>mid<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> target) <span style="color:#66d9ef">return</span> mid;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (nums<span style="color:#f92672">[</span>left<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;=</span> nums<span style="color:#f92672">[</span>mid<span style="color:#f92672">]</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (target <span style="color:#f92672">&gt;=</span> nums<span style="color:#f92672">[</span>left<span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> target <span style="color:#f92672">&lt;</span> nums<span style="color:#f92672">[</span>mid<span style="color:#f92672">]</span>) right <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> 1;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span> left <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> 1;
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (target <span style="color:#f92672">&gt;</span> nums<span style="color:#f92672">[</span>mid<span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> target <span style="color:#f92672">&lt;=</span> nums<span style="color:#f92672">[</span>right<span style="color:#f92672">]</span>) left <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> 1;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span> right <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> 1;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="7-字母异位词分组leetcode-49">7. 字母异位词分组（LeetCode 49）<a hidden class="anchor" aria-hidden="true" href="#7-字母异位词分组leetcode-49">#</a></h2>
+<p><strong>题目</strong>：给定字符串数组 strs，将所有字母异位词（由相同字母重排列形成的词）组合在一起。</p>
+<h3 id="计数数组作为-key">计数数组作为 key<a hidden class="anchor" aria-hidden="true" href="#计数数组作为-key">#</a></h3>
+<p>Time: O(nk)（k 为字符串最大长度）
+Space: O(n)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;&gt;</span> <span style="color:#a6e22e">groupAnagrams</span>(String<span style="color:#f92672">[]</span> strs) {
+</span></span><span style="display:flex;"><span>        Map<span style="color:#f92672">&lt;</span>String, List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;&gt;</span> map <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (String str : strs) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> counts <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>26<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">char</span> c : str.<span style="color:#a6e22e">toCharArray</span>()) counts<span style="color:#f92672">[</span>c <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">]++</span>;
+</span></span><span style="display:flex;"><span>            StringBuilder sb <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuilder();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> count : counts) sb.<span style="color:#a6e22e">append</span>(count).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#39;#&#39;</span>);
+</span></span><span style="display:flex;"><span>            String key <span style="color:#f92672">=</span> sb.<span style="color:#a6e22e">toString</span>();
+</span></span><span style="display:flex;"><span>            map.<span style="color:#a6e22e">computeIfAbsent</span>(key, k <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>()).<span style="color:#a6e22e">add</span>(str);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>(map.<span style="color:#a6e22e">values</span>());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="8-最大子数组和leetcode-53">8. 最大子数组和（LeetCode 53）<a hidden class="anchor" aria-hidden="true" href="#8-最大子数组和leetcode-53">#</a></h2>
+<p><strong>题目</strong>：给你一个整数数组 nums，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+<h3 id="kadane-算法dp">Kadane 算法（DP）<a hidden class="anchor" aria-hidden="true" href="#kadane-算法dp">#</a></h3>
+<p>Time: O(n)
+Space: O(1)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">maxSubArray</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> nums) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> acc <span style="color:#f92672">=</span> 0, max <span style="color:#f92672">=</span> nums<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> num : nums) {
+</span></span><span style="display:flex;"><span>            acc <span style="color:#f92672">+=</span> num;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (num <span style="color:#f92672">&gt;</span> max) max <span style="color:#f92672">=</span> num;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (acc <span style="color:#f92672">&lt;</span> 0) acc <span style="color:#f92672">=</span> 0;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (acc <span style="color:#f92672">&gt;</span> max) max <span style="color:#f92672">=</span> acc;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> max;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="9-买卖股票的最佳时机leetcode-121">9. 买卖股票的最佳时机（LeetCode 121）<a hidden class="anchor" aria-hidden="true" href="#9-买卖股票的最佳时机leetcode-121">#</a></h2>
+<p><strong>题目</strong>：给定一个数组 prices，其中 prices[i] 表示第 i 天的股票价格。你只能选择某一天买入，并在未来的某一天卖出，求能获得的最大利润。</p>
+<h3 id="一次遍历">一次遍历<a hidden class="anchor" aria-hidden="true" href="#一次遍历">#</a></h3>
+<p>Time: O(n)
+Space: O(1)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">maxProfit</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> prices) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> minPrice <span style="color:#f92672">=</span> prices<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>, maxProfit <span style="color:#f92672">=</span> 0;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 1; i <span style="color:#f92672">&lt;</span> prices.<span style="color:#a6e22e">length</span>; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (prices<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> minPrice) minPrice <span style="color:#f92672">=</span> prices<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (prices<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">-</span> minPrice <span style="color:#f92672">&gt;</span> maxProfit) maxProfit <span style="color:#f92672">=</span> prices<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">-</span> minPrice;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> maxProfit;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="10-验证回文串leetcode-125">10. 验证回文串（LeetCode 125）<a hidden class="anchor" aria-hidden="true" href="#10-验证回文串leetcode-125">#</a></h2>
+<p><strong>题目</strong>：给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，忽略字母的大小写。</p>
+<h3 id="双指针-1">双指针<a hidden class="anchor" aria-hidden="true" href="#双指针-1">#</a></h3>
+<p>Time: O(n)
+Space: O(1)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isPalindrome</span>(String s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> 0, right <span style="color:#f92672">=</span> s.<span style="color:#a6e22e">length</span>() <span style="color:#f92672">-</span> 1;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&lt;</span> right) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&lt;</span> right <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Character.<span style="color:#a6e22e">isLetterOrDigit</span>(s.<span style="color:#a6e22e">charAt</span>(left))) left<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&lt;</span> right <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>Character.<span style="color:#a6e22e">isLetterOrDigit</span>(s.<span style="color:#a6e22e">charAt</span>(right))) right<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (Character.<span style="color:#a6e22e">toLowerCase</span>(s.<span style="color:#a6e22e">charAt</span>(left)) <span style="color:#f92672">!=</span> Character.<span style="color:#a6e22e">toLowerCase</span>(s.<span style="color:#a6e22e">charAt</span>(right))) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>            left<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>            right<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="11-乘积最大子数组leetcode-152">11. 乘积最大子数组（LeetCode 152）<a hidden class="anchor" aria-hidden="true" href="#11-乘积最大子数组leetcode-152">#</a></h2>
+<p><strong>题目</strong>：给你一个整数数组 nums，请你找出数组中乘积最大的连续子数组，并返回该子数组的乘积。</p>
+<h3 id="动态规划维护最大最小">动态规划（维护最大最小）<a hidden class="anchor" aria-hidden="true" href="#动态规划维护最大最小">#</a></h3>
+<p>Time: O(n)
+Space: O(1)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">maxProduct</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> nums) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> max <span style="color:#f92672">=</span> nums<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>, min <span style="color:#f92672">=</span> nums<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>, res <span style="color:#f92672">=</span> nums<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 1; i <span style="color:#f92672">&lt;</span> nums.<span style="color:#a6e22e">length</span>; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (nums<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> 0) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">int</span> tmp <span style="color:#f92672">=</span> max;
+</span></span><span style="display:flex;"><span>                max <span style="color:#f92672">=</span> min;
+</span></span><span style="display:flex;"><span>                min <span style="color:#f92672">=</span> tmp;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            max <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">max</span>(nums<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>, max <span style="color:#f92672">*</span> nums<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>            min <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">min</span>(nums<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>, min <span style="color:#f92672">*</span> nums<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>            res <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">max</span>(res, max);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> res;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="12-寻找旋转排序数组中的最小值leetcode-153">12. 寻找旋转排序数组中的最小值（LeetCode 153）<a hidden class="anchor" aria-hidden="true" href="#12-寻找旋转排序数组中的最小值leetcode-153">#</a></h2>
+<p><strong>题目</strong>：已知一个长度为 n 的升序数组，在未知点进行了旋转。请找出数组中的最小元素。</p>
+<h3 id="修改的二分查找-1">修改的二分查找<a hidden class="anchor" aria-hidden="true" href="#修改的二分查找-1">#</a></h3>
+<p>Time: O(logn)
+Space: O(1)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">findMin</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> nums) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> 0, right <span style="color:#f92672">=</span> nums.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> 1;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&lt;</span> right) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> left <span style="color:#f92672">+</span> (right <span style="color:#f92672">-</span> left) <span style="color:#f92672">/</span> 2;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (nums<span style="color:#f92672">[</span>mid<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;</span> nums<span style="color:#f92672">[</span>right<span style="color:#f92672">]</span>) left <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> 1;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> right <span style="color:#f92672">=</span> mid;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> nums<span style="color:#f92672">[</span>left<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="13-存在重复元素leetcode-217">13. 存在重复元素（LeetCode 217）<a hidden class="anchor" aria-hidden="true" href="#13-存在重复元素leetcode-217">#</a></h2>
+<p><strong>题目</strong>：给定一个整数数组，判断是否存在重复元素。如果存在一值在数组中出现至少两次，返回 true；否则返回 false。</p>
+<h3 id="哈希表-1">哈希表<a hidden class="anchor" aria-hidden="true" href="#哈希表-1">#</a></h3>
+<p>Time: O(n)
+Space: O(n)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">containsDuplicate</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> nums) {
+</span></span><span style="display:flex;"><span>        Set<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> set <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashSet<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> num : nums) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>set.<span style="color:#a6e22e">add</span>(num)) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="14-除了自身以外数组的乘积leetcode-238">14. 除了自身以外数组的乘积（LeetCode 238）<a hidden class="anchor" aria-hidden="true" href="#14-除了自身以外数组的乘积leetcode-238">#</a></h2>
+<p><strong>题目</strong>：给你一个整数数组 nums，返回数组 answer，其中 answer[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积。题目保证数组元素乘积在 32 位整数范围内。</p>
+<h3 id="前缀积--后缀积空间-o1">前缀积 + 后缀积（空间 O(1)）<a hidden class="anchor" aria-hidden="true" href="#前缀积--后缀积空间-o1">#</a></h3>
+<p>Time: O(n)
+Space: O(1)（不考虑返回数组）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> <span style="color:#a6e22e">productExceptSelf</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> nums) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> res <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>nums.<span style="color:#a6e22e">length</span><span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>        res<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> 1;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 1; i <span style="color:#f92672">&lt;</span> nums.<span style="color:#a6e22e">length</span>; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            res<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> res<span style="color:#f92672">[</span>i <span style="color:#f92672">-</span> 1<span style="color:#f92672">]</span> <span style="color:#f92672">*</span> nums<span style="color:#f92672">[</span>i <span style="color:#f92672">-</span> 1<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> suffix <span style="color:#f92672">=</span> 1;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> nums.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> 1; i <span style="color:#f92672">&gt;=</span> 0; i<span style="color:#f92672">--</span>) {
+</span></span><span style="display:flex;"><span>            res<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">*=</span> suffix;
+</span></span><span style="display:flex;"><span>            suffix <span style="color:#f92672">*=</span> nums<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> res;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="15-有效的字母异位词leetcode-242">15. 有效的字母异位词（LeetCode 242）<a hidden class="anchor" aria-hidden="true" href="#15-有效的字母异位词leetcode-242">#</a></h2>
+<p><strong>题目</strong>：给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。</p>
+<h3 id="计数数组">计数数组<a hidden class="anchor" aria-hidden="true" href="#计数数组">#</a></h3>
+<p>Time: O(n)
+Space: O(1)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">isAnagram</span>(String s, String t) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (s.<span style="color:#a6e22e">length</span>() <span style="color:#f92672">!=</span> t.<span style="color:#a6e22e">length</span>()) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> counts <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>26<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">char</span> c : s.<span style="color:#a6e22e">toCharArray</span>()) counts<span style="color:#f92672">[</span>c <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">]++</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">char</span> c : t.<span style="color:#a6e22e">toCharArray</span>()) counts<span style="color:#f92672">[</span>c <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">]--</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> count : counts) <span style="color:#66d9ef">if</span> (count <span style="color:#f92672">!=</span> 0) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="16-回文子串leetcode-647">16. 回文子串（LeetCode 647）<a hidden class="anchor" aria-hidden="true" href="#16-回文子串leetcode-647">#</a></h2>
+<p><strong>题目</strong>：给你一个字符串 s，请你统计并返回这个字符串中 回文子串 的数目。</p>
+<h3 id="manacher-算法">Manacher 算法<a hidden class="anchor" aria-hidden="true" href="#manacher-算法">#</a></h3>
+<p>Time: O(n)
+Space: O(n)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">countSubstrings</span>(String s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// convert s to odd length</span>
+</span></span><span style="display:flex;"><span>        StringBuilder sb <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuilder(<span style="color:#e6db74">&#34;^#&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">char</span> c : s.<span style="color:#a6e22e">toCharArray</span>()) {
+</span></span><span style="display:flex;"><span>            sb.<span style="color:#a6e22e">append</span>(c).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;#&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        sb.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;$&#34;</span>);
+</span></span><span style="display:flex;"><span>        s <span style="color:#f92672">=</span> sb.<span style="color:#a6e22e">toString</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>s.<span style="color:#a6e22e">length</span>()<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> center <span style="color:#f92672">=</span> 0;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> right <span style="color:#f92672">=</span> 0;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> 0;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 1; i <span style="color:#f92672">&lt;</span> s.<span style="color:#a6e22e">length</span>() <span style="color:#f92672">-</span> 1; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> mirror <span style="color:#f92672">=</span> 2 <span style="color:#f92672">*</span> center <span style="color:#f92672">-</span> i;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&lt;</span> right) {
+</span></span><span style="display:flex;"><span>                p<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">min</span>(right <span style="color:#f92672">-</span> i, p<span style="color:#f92672">[</span>mirror<span style="color:#f92672">]</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span> (s.<span style="color:#a6e22e">charAt</span>(i <span style="color:#f92672">+</span> p<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> 1) <span style="color:#f92672">==</span> s.<span style="color:#a6e22e">charAt</span>(i <span style="color:#f92672">-</span> p<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">-</span> 1)) {
+</span></span><span style="display:flex;"><span>                p<span style="color:#f92672">[</span>i<span style="color:#f92672">]++</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">+</span> p<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;</span> right) {
+</span></span><span style="display:flex;"><span>                center <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>                right <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> p<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            count <span style="color:#f92672">+=</span> (p<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> 1) <span style="color:#f92672">/</span> 2;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> count;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/java/">Java</a></li>
+      <li><a href="http://localhost:1313/tags/leetcode/">LeetCode</a></li>
+      <li><a href="http://localhost:1313/tags/blind-75/">Blind 75</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">黄人日记</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

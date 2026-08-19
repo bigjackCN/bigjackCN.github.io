@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="big jack">
 <link rel="canonical" href="http://localhost:1313/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.10c653278add37f92f5bdec413e7e73e5878a4b64ebfa1d27f456b92bac1f30b.css" integrity="sha256-EMZTJ4rdN/kvW97EE&#43;fnPlh4pLZOv6HSf0VrkrrB8ws=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.cea4162ca5924032a6677cc353380460a6f707453d59a000c148c64d67502a14.css" integrity="sha256-zqQWLKWSQDKmZ3zDUzgEYKb3B0U9WaAAwUjGTWdQKhQ=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -117,179 +117,39 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">回文子串
+    <h2 class="entry-hint-parent">Blind 75 刷题笔记（长期更新）
     </h2>
   </header>
   <div class="entry-content">
-    <p>
-Manacher Algorithm Time: O(n)
-Space: O(n)
-class Solution { public int countSubstrings(String s) { // Transform: &#34;abc&#34; -&gt; &#34;^#a#b#c#$&#34; StringBuilder sb = new StringBuilder(&#34;^#&#34;); for (char c : s.toCharArray()) { sb.append(c).append(&#34;#&#34;); } sb.append(&#34;$&#34;); String t = sb.toString(); int n = t.length(); int[] p = new int[n]; // p[i] = radius steps (excluding center) int center = 0; int right = 0; int count = 0; for (int i = 1; i &lt; n - 1; i&#43;&#43;) { // Mirror index int mirror = 2 * center - i; // If within current right boundary, use mirrored value if (i &lt; right) { p[i] = Math.min(right - i, p[mirror]); } // Expand around center i (sentinels avoid bound checks) while (t.charAt(i &#43; p[i] &#43; 1) == t.charAt(i - p[i] - 1)) { p[i]&#43;&#43;; } // Update center and right boundary if (i &#43; p[i] &gt; right) { center = i; right = i &#43; p[i]; } // Count palindromes centered at i // In transformed string, every radius step contributes 1 palindrome in original count &#43;= (p[i] &#43; 1) / 2; } return count; } } </p>
+    <p> 本文汇总 Blind 75 中经典题目的 Java 解法，持续更新。每道题均附思路简述、复杂度分析及核心代码。
+1. 两数之和（LeetCode 1） 题目：给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回它们的数组下标。
+哈希表 Time: O(n) Space: O(n)
+class Solution { public int[] twoSum(int[] nums, int target) { int capacity = (int) (nums.length / 0.75f) &#43; 1; Map&lt;Integer, Integer&gt; hash = new HashMap&lt;&gt;(capacity); for (int i = 0; i &lt; nums.length; i&#43;&#43;) { if (hash.get(nums[i]) != null) { return new int[] {hash.get(nums[i]), i}; } hash.put(target - nums[i], i); } return null; } } 2. 无重复字符的最长子串（LeetCode 3） 题目：给定一个字符串 s，请你找出其中不含有重复字符的 最长子串 的长度。
+...</p>
   </div>
   <footer class="entry-footer">
 
-<span title='2026-08-14 23:03:12 +0800 CST'>August 14, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 回文子串" href="http://localhost:1313/posts/palindromicsubstring/"></a>
+<span title='2026-08-19 21:57:33 +0800 CST'>August 19, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to Blind 75 刷题笔记（长期更新）" href="http://localhost:1313/posts/blind-75/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">验证回文串
+    <h2 class="entry-hint-parent">单例模式
     </h2>
   </header>
   <div class="entry-content">
-    <p>
-Two Pointers Time: O(n)
-Space: O(1)
-class Solution { public boolean isPalindrome(String s) { int left = 0; int right = s.length() - 1; while (left &lt; right) { // skip invalid characters while (left &lt; right &amp;&amp; !Character.isLetterOrDigit(s.charAt(left))) left&#43;&#43;; while (left &lt; right &amp;&amp; !Character.isLetterOrDigit(s.charAt(right))) right--; if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) return false; left&#43;&#43;; right--; } return true; } } </p>
+    <p>单例模式 (Singleton Pattern) 一个类只有一个实例
+静态内部类 只有调用getInstance方法时实例化
+实现懒加载
+public class Singleton { private Singleton() {} private static class SingletonHolder { private static final Singleton INSTANCE = new Singleton(); } public static Singleton getInstance() { return SingletonHolder.INSTANCE } } 枚举 天然保证单例和线程安全
+public enum Singleton { INSTANCE; public void doSomething() { System.out.println(&#34;单例方法被调用&#34;) } } // 调用方式 Singleton.INSTANCE.doSomething(); </p>
   </div>
   <footer class="entry-footer">
 
-<span title='2026-08-13 22:29:33 +0800 CST'>August 13, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 验证回文串" href="http://localhost:1313/posts/validpalindrome/"></a>
+<span title='2026-07-22 01:01:03 -0400 -0400'>July 22, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
+  <a class="entry-link" aria-label="post link to 单例模式" href="http://localhost:1313/posts/singletonpattern/"></a>
 </article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">有效的括号
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-Stack Time: O(n)
-Space: O(n)
-class Solution { public boolean isValid(String s) { Stack&lt;Character&gt; stack = new Stack&lt;&gt;(); for (char c : s.toCharArray()) { if (c == &#39;(&#39;) { stack.push(&#39;)&#39;); } else if (c == &#39;{&#39;) { stack.push(&#39;}&#39;); } else if (c == &#39;[&#39;) { stack.push(&#39;]&#39;); } else if (stack.isEmpty() || stack.pop() != c) { return false; } } return stack.isEmpty(); } } </p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-08-13 22:00:05 +0800 CST'>August 13, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 有效的括号" href="http://localhost:1313/posts/validparentheses/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">字母异位词分组
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-Use Array To Count Time: O(nk)
-Space: O(n)
-class Solution { public List&lt;List&lt;String&gt;&gt; groupAnagrams(String[] strs) { Map&lt;String, List&lt;String&gt;&gt; hashmap = new HashMap&lt;&gt;(); for (String str : strs) { int[] counts = new int[26]; for (char c : str.toCharArray()) { counts[c - &#39;a&#39;]&#43;&#43;; } StringBuilder s = new StringBuilder(); for (int count : counts) { // &#39;#&#39; split for each character s.append(count).append(&#39;#&#39;); } String key = s.toString(); hashmap.computeIfAbsent(key, k -&gt; new ArrayList&lt;&gt;()).add(str); } return new ArrayList&lt;&gt;(hashmap.values()); } } </p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-08-12 21:26:15 +0800 CST'>August 12, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 字母异位词分组" href="http://localhost:1313/posts/groupanagrams/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">有效的字母异位词
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-Use Array To Count Time: O(n)
-Space: O(1)
-class Solution { public boolean isAnagram(String s, String t) { if (s.length() != t.length()) return false; int[] counts = new int[26]; for (char c : s.toCharArray()) { counts[c - &#39;a&#39;]&#43;&#43;; } for (char c : t.toCharArray()) { counts[c - &#39;a&#39;]--; } for (int count : counts) { if (count != 0) { return false; } } return true; } } </p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-08-12 20:12:09 +0800 CST'>August 12, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 有效的字母异位词" href="http://localhost:1313/posts/validanagram/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">乘积最大子数组
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-Dynamic Programming Time: O(n)
-Space: O(1)
-class Solution { public int maxProduct(int[] nums) { if (nums.length == 1) return nums[0]; int max = nums[0]; int min = nums[0]; int res = nums[0]; // res maintain global max for (int i = 1; i &lt; nums.length; i&#43;&#43;) { // swap max &amp; min when nums[i] is negative if (nums[i] &lt; 0) { int tmp = max; max = min; min = tmp; } max = Math.max(nums[i], nums[i] * max); min = Math.min(nums[i], nums[i] * min); res = Math.max(res, max); } return res; } } </p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-08-11 22:24:15 +0800 CST'>August 11, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 乘积最大子数组" href="http://localhost:1313/posts/maximumproductsubarray/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">最大子数组和
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-Kadane Algorithm (DP) Time: O(n)
-Space: O(1)
-class Solution { public int maxSubArray(int[] nums) { if (nums.length == 1) return nums[0]; int acc = 0; int max = nums[0]; for (int num : nums) { acc &#43;= num; // handle num all negative case if (num &gt; max) { max = num; } if (acc &lt; 0) { acc = 0; continue; } if (acc &gt; max) { max = acc; } } return max; } } </p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-08-10 21:48:37 +0800 CST'>August 10, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 最大子数组和" href="http://localhost:1313/posts/maximumsubarray/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">盛最多水的容器
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-Two Pointers Time: O(n)
-Space: O(1)
-class Solution { public int maxArea(int[] height) { int left = 0; int right = height.length - 1; int max = 0; while (left &lt; right) { int current = (right - left) * Math.min(height[left], height[right]); if (current &gt; max) max = current; if (height[left] &lt; height[right]) { left &#43;= 1; } else { right -= 1; } } return max; } } </p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-08-09 22:01:46 +0800 CST'>August 9, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 盛最多水的容器" href="http://localhost:1313/posts/containerwithmostwater/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">三数之和
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-Sorting &#43; Two Pointers Time: O(n^2)
-Space: O(1)
-class Solution { public List&lt;List&lt;Integer&gt;&gt; threeSum(int[] nums) { List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;(); Arrays.sort(nums); for (int i = 0; i &lt;= nums.length-3; i&#43;&#43;) { // pruning for threeSum &gt; 0 if (nums[i] &gt; 0) break; // remove current duplicate number if (i &gt; 0 &amp;&amp; nums[i] == nums[i-1]) continue; // if current and next two number sum &gt; 0, then no upcoming solutions if (nums[i] &#43; nums[i&#43;1] &#43; nums[i&#43;2] &gt; 0) break; // if current and two largest number sum &lt; 0, then no solution for current number if (nums[i] &#43; nums[nums.length-1] &#43; nums[nums.length-2] &lt; 0) continue; int left = i&#43;1; int right = nums.length-1; int target = -nums[i]; while (left &lt; right) { int sum = nums[left] &#43; nums[right]; if (sum == target) { res.add(Arrays.asList(nums[i], nums[left], nums[right])); // avoid duplicate number while (left &lt; right &amp;&amp; nums[left] == nums[left&#43;1]) left&#43;&#43;; while (left &lt; right &amp;&amp; nums[right] == nums[right-1]) right--; left&#43;&#43;; right--; } else if (sum &gt; target) { right--; } else { left&#43;&#43;; } } } return res; } } </p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-08-09 06:55:36 +0800 CST'>August 9, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 三数之和" href="http://localhost:1313/posts/threesum/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">搜索旋转排序数组
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-Modified Binary Search Time: O(logn)
-Space: O(1)
-class Solution { public int search(int[] nums, int target) { int left = 0; int right = nums.length - 1; while (left &lt;= right) { int mid = left &#43; (right - left) / 2; if (nums[mid] == target) { return mid; } // left part ascending if (nums[left] &lt;= nums[mid]) { if (target &gt;= nums[left] &amp;&amp; target &lt; nums[mid]) { right = mid - 1; } else { left = mid &#43; 1; } } // right part ascending else { if (target &gt; nums[mid] &amp;&amp; target &lt;= nums[right]) { left = mid &#43; 1; } else { right = mid - 1; } } } return -1; } } </p>
-  </div>
-  <footer class="entry-footer">
-
-<span title='2026-08-08 07:13:38 +0800 CST'>August 8, 2026</span>&nbsp;·&nbsp;<span>big jack</span></footer>
-  <a class="entry-link" aria-label="post link to 搜索旋转排序数组" href="http://localhost:1313/posts/searchinrotatedsortedarray/"></a>
-</article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="next" href="http://localhost:1313/page/2/">Next&nbsp;&nbsp;»
-    </a>
-  </nav>
-</footer>
     </main>
     
 <footer class="footer">

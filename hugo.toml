@@ -1,5 +1,5 @@
 baseURL = 'https://bigjackCN.github.io/'
-locale = 'en-us'
+languageCode = 'zh-cn'          # 原 locale = 'en-us' 修正为 languageCode
 title = '黄人日记'
 theme = "PaperMod"
 
@@ -8,7 +8,14 @@ theme = "PaperMod"
   author = "big jack"
   copyright = "© 2026 big jack"
   
-  # 顶部介绍区域
+  # 自定义样式（合并后移到此处）
+  customCSS = ["css/extended/custom.css"]
+
+  # 封面图在列表页隐藏（原第二个 params 中的 cover 配置）
+  [params.cover]
+    hiddenInList = true
+
+  # 顶部介绍区域（原 homeInfoParams）
   [params.homeInfoParams]
     Title = "你能不能推测一下为什么叫黄人日记"
     Content = '''
@@ -31,10 +38,7 @@ theme = "PaperMod"
 —— deepseek
 '''
 
-[params.cover]
-    hiddenInList = true
-
-# 菜单配置
+# 菜单配置（独立于 params，无需改动）
 [[menu.main]]
 identifier = "tags"
 name = "Tags"

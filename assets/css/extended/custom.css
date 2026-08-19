@@ -1,14 +1,56 @@
+/* ===== 列表页封面图 ===== */
 .entry-cover img,
 .entry-cover .post-cover-image {
     width: 100%;
-    aspect-ratio: 16 / 9; 
-    object-fit: cover;
+    aspect-ratio: 16 / 9;          /* 保留比例，但配合 contain 会有留白 */
+    object-fit: contain;           /* 改为 contain，保证图片完整显示 */
     border-radius: 8px;
+    background-color: var(--theme); /* 留白区域背景色，可改为浅色或深色 */
 }
 
+/* 如果你希望图片宽度撑满，但高度自适应（不强制比例），可以去掉 aspect-ratio，用 height: auto 替代 */
+/* 但这样可能导致卡片高度不一致，建议保留 aspect-ratio + contain */
+
+/* 移动端适配 */
+@media (max-width: 480px) {
+    .entry-cover img,
+    .entry-cover .post-cover-image {
+        aspect-ratio: 4 / 3;      /* 手机端改用 4:3，更显高，留白区域相应变化 */
+    }
+}
+
+/* ===== 文章内图片 ===== */
+.entry-content img:not(.entry-cover img) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 图片说明 */
+.entry-content figure {
+    margin: 2rem 0;
+    text-align: center;
+}
+.entry-content figcaption {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    margin-top: 0.5rem;
+}
+
+/* ===== 文章摘要文字 ===== */
 .entry-content {
     display: -webkit-box;
-    -webkit-line-clamp: 2; 
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+    .entry-content {
+        -webkit-line-clamp: 3;
+    }
 }

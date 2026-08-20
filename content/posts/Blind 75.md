@@ -22,7 +22,7 @@ caption = ""
 
 ### 哈希表
 
-Time: O(n)
+Time: O(n)  
 Space: O(n)
 
 ```java
@@ -48,7 +48,7 @@ class Solution {
 
 ### 滑动窗口（HashMap 跳跃版）
 
-Time: O(n)
+Time: O(n)  
 Space: O(min(m, n))
 
 ```java
@@ -77,7 +77,7 @@ class Solution {
 
 ### 双指针
 
-Time: O(n)
+Time: O(n)  
 Space: O(1)
 
 ```java
@@ -102,7 +102,7 @@ class Solution {
 
 ### 排序 + 双指针
 
-Time: O(n²)
+Time: O(n²)     
 Space: O(1)
 
 ```java
@@ -141,7 +141,7 @@ class Solution {
 
 ### 栈
 
-Time: O(n)
+Time: O(n)  
 Space: O(n)
 
 ```java
@@ -166,7 +166,7 @@ class Solution {
 
 ### 修改的二分查找
 
-Time: O(logn)
+Time: O(logn)   
 Space: O(1)
 
 ```java
@@ -196,7 +196,7 @@ class Solution {
 
 ### 计数数组作为 key
 
-Time: O(nk)（k 为字符串最大长度）
+Time: O(nk)（k 为字符串最大长度）   
 Space: O(n)
 
 ```java
@@ -223,7 +223,7 @@ class Solution {
 
 ### Kadane 算法（DP）
 
-Time: O(n)
+Time: O(n)  
 Space: O(1)
 
 ```java
@@ -248,7 +248,7 @@ class Solution {
 
 ### 一次遍历
 
-Time: O(n)
+Time: O(n)  
 Space: O(1)
 
 ```java
@@ -271,7 +271,7 @@ class Solution {
 
 ### 双指针
 
-Time: O(n)
+Time: O(n)  
 Space: O(1)
 
 ```java
@@ -297,7 +297,7 @@ class Solution {
 
 ### 动态规划（维护最大最小）
 
-Time: O(n)
+Time: O(n)  
 Space: O(1)
 
 ```java
@@ -326,7 +326,7 @@ class Solution {
 
 ### 修改的二分查找
 
-Time: O(logn)
+Time: O(logn)   
 Space: O(1)
 
 ```java
@@ -350,7 +350,7 @@ class Solution {
 
 ### 哈希表
 
-Time: O(n)
+Time: O(n)  
 Space: O(n)
 
 ```java
@@ -372,7 +372,7 @@ class Solution {
 
 ### 前缀积 + 后缀积（空间 O(1)）
 
-Time: O(n)
+Time: O(n)  
 Space: O(1)（不考虑返回数组）
 
 ```java
@@ -400,7 +400,7 @@ class Solution {
 
 ### 计数数组
 
-Time: O(n)
+Time: O(n)  
 Space: O(1)
 
 ```java
@@ -423,7 +423,7 @@ class Solution {
 
 ### Manacher 算法
 
-Time: O(n)
+Time: O(n)  
 Space: O(n)
 
 ```java
@@ -470,7 +470,7 @@ class Solution {
 
 ### 滑动窗口
 
-Time: O(n)
+Time: O(n)  
 Space: O(k)
 
 ```java
@@ -516,7 +516,7 @@ class Solution {
 
 ### Three Pointers
 
-Time: O(n)
+Time: O(n)  
 Space: O(1)
 
 ```java
@@ -532,6 +532,63 @@ class Solution {
             cur = next;
         }
         return prev;
+    }
+}
+```
+
+## 19.环形链表（LeetCode 141）
+
+**题目**：给你一个链表的头节点 head ，判断链表中是否有环。
+
+### Slow + Fast Pointers
+
+Time: O(n)       
+Space: O(1)
+
+```java
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if (head == null) return false;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) return true;
+        }
+        return false;
+    }
+}
+```
+
+## 20.合并两个有序链表（LeetCode 21）
+
+**题目**：将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
+
+### Compare Merge
+
+Time: O(m+n)      
+Space: O(1)
+
+```java
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode(-1);
+        ListNode current = dummy;
+
+        while (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                current.next = list1;
+                list1 = list1.next;
+            } else {
+                current.next = list2;
+                list2 = list2.next;
+            }
+            current = current.next;
+        }
+        if (list1 != null) current.next = list1;
+        if (list2 != null) current.next = list2;
+        return dummy.next;
     }
 }
 ```

@@ -592,3 +592,43 @@ class Solution {
     }
 }
 ```
+
+## 21.合并 K 个升序链表（LeetCode 23）
+
+**题目**：给你一个链表数组，每个链表都已经按升序排列。 
+
+### MinHeap
+
+Time: O(nlogk)      
+Space: O(k)
+
+```java
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0) return null;
+        PriorityQueue<ListNode> minHeap = new PriorityQueue<>
+                            ((a, b) -> Integer.compare(a.val, b.val));
+
+        for (int i = 0; i < lists.length; i++) {
+            if (lists[i] != null) {
+                minHeap.offer(lists[i]);
+            }
+        }
+
+        ListNode dummy = new ListNode(-1);
+        ListNode current = dummy;
+
+        while (!minHeap.isEmpty()) {
+            ListNode minNode = minHeap.poll();
+            
+            current.next = minNode;
+            current = current.next;
+            
+            if (minNode.next != null) {
+                minHeap.offer(minNode.next);
+            }
+        }
+        return dummy.next;
+    }
+}
+```

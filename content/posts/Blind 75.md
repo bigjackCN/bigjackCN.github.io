@@ -664,3 +664,81 @@ class Solution {
     }
 }
 ```
+
+## 23.重排链表（LeetCode 143）
+
+**题目**：给定一个单链表 L 的头节点 head ，单链表 L 表示为：
+
+L0 → L1 → … → Ln - 1 → Ln
+请将其重新排列后变为：
+
+L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。 
+
+### Slow Fast Pointers + Reverse Merge
+
+Time: O(n)      
+Space: O(1)
+
+```java
+class Solution {
+    public void reorderList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        ListNode second = slow.next;
+        slow.next = null;
+        second = reverseList(second);
+
+        ListNode first = head;
+        while (second != null) {
+            ListNode nextFirst = first.next;
+            ListNode nextSecond = second.next;
+            first.next = second;
+            second.next = nextFirst;
+            first = nextFirst;
+            second = nextSecond;
+        }
+    }
+
+    private ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode cur = head;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+        }
+        return prev;
+    }
+}
+```
+
+## 24.两整数之和（LeetCode 371）
+
+**题目**：给你两个整数 a 和 b ，不使用 运算符 + 和 - ​​​​​​​，计算并返回两整数之和。
+
+### XOR + AND
+
+Time: O(1)      
+Space: O(1)
+
+```java
+class Solution {
+    public int getSum(int a, int b) {
+        while (b != 0) {
+            int temp_add = a ^ b;
+            int temp_carry = (a & b) << 1;
+            a = temp_add;
+            b = temp_carry;
+        } 
+        return a;
+    }
+}
+```

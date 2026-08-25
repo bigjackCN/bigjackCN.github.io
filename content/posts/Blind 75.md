@@ -742,3 +742,25 @@ class Solution {
     }
 }
 ```
+
+## 25.位1的个数（LeetCode 191）
+
+**题目**：给定一个正整数 n，编写一个函数，获取一个正整数的二进制形式并返回其二进制表达式中 设置位 的个数（也被称为汉明重量）。
+
+### n &= (n-1) -> 消掉最右边的1
+
+Time: O(1)      
+Space: O(1)
+
+```java
+class Solution {
+    public int hammingWeight(int n) {
+        int count = 0;
+        while (n != 0) {
+            n &= (n-1);
+            count++;
+        }
+        return count;
+    }
+}
+```

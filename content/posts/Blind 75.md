@@ -785,3 +785,77 @@ class Solution {
     }
 }
 ```
+
+## 27.颠倒二进制位（LeetCode 190）
+
+**题目**：颠倒给定的 32 位有符号整数的二进制位。
+
+### bit operation
+
+Time: O(1)      
+Space: O(1)
+
+```java
+class Solution {
+    public int reverseBits(int n) {
+        int res = 0;
+        for (int i = 0; i < 32; i++) {
+            res = (res << 1) | ((n >> i) & 1);
+        }
+        return res;
+    }
+}
+```
+
+## 28.矩阵置零（LeetCode 73）
+
+**题目**：给定一个 m x n 的矩阵，如果一个元素为 0 ，则将其所在行和列的所有元素都设为 0 。请使用 原地 算法。
+
+### use row and col zero + one extra block 
+
+Time: O(m*n)      
+Space: O(1)
+
+```java
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int extraRow = 1;
+
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                if (matrix[row][col] == 0) {
+                    matrix[0][col] = 0;
+                    if (row > 0) {
+                        matrix[row][0] = 0;
+                    } else {
+                        extraRow = 0;
+                    }
+                }
+            }
+        }
+
+        for (int row = 1; row < rows; row++) {
+            for (int col = 1; col < cols; col++) {
+                if (matrix[row][0] == 0 || matrix[0][col] == 0) {
+                    matrix[row][col] = 0;
+                }
+            }
+        }
+
+        if (matrix[0][0] == 0) {
+            for (int row = 1; row < rows; row++) {
+                matrix[row][0] = 0;
+            }
+        }
+
+        // need to count from col = 0
+        if (extraRow == 0) {
+            for (int col = 0; col < cols; col++) {
+                matrix[0][col] = 0;
+            }
+        }
+    }
+}
+```

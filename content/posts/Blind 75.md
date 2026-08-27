@@ -899,3 +899,32 @@ class Solution {
     }
 }
 ```
+
+## 30.旋转图像（LeetCode 48）
+
+**题目**：给定一个 n × n 的二维矩阵 matrix 表示一个图像。请你将图像顺时针旋转 90 度。
+
+### use one extra block + 4 angles rotation
+
+Time: O(m*n)      
+Space: O(1)
+
+```java
+class Solution {
+    public void rotate(int[][] matrix) {
+        int left = 0, right = matrix[0].length - 1;
+        while(left < right) {
+            int top = left, bottom = right;
+            for (int i = 0; i < right - left; i++) {
+                int temp = matrix[top][left + i];
+                matrix[top][left + i] = matrix[bottom - i][left];
+                matrix[bottom - i][left] = matrix[bottom][right - i];
+                matrix[bottom][right - i] = matrix[top + i][right];
+                matrix[top + i][right] = temp;
+            }
+            left++;
+            right--;
+        }
+    }
+}
+```

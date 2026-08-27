@@ -859,3 +859,43 @@ class Solution {
     }
 }
 ```
+
+## 29.螺旋矩阵（LeetCode 54）
+
+**题目**：给你一个 m 行 n 列的矩阵 matrix ，请按照 顺时针螺旋顺序 ，返回矩阵中的所有元素。
+
+### left -> right, top -> bottom, right -> left, bottom -> top. 
+
+Time: O(m*n)      
+Space: O(1)
+
+```java
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int left = 0, right = matrix[0].length, top = 0, bottom = matrix.length;
+        List<Integer> res = new ArrayList<>();
+        while (left < right && top < bottom) {
+            for (int i = left; i < right; i++) {
+                res.add(matrix[top][i]);
+            }
+            top++;
+            if (top >= bottom) break;
+            for (int j = top; j < bottom; j++) {
+                res.add(matrix[j][right - 1]); 
+            }
+            right--;
+            if (left >= right) break;
+            for (int k = right - 1; k >= left; k--) {
+                res.add(matrix[bottom - 1][k]);
+            }
+            bottom--;
+            if (top >= bottom) break;
+            for (int l = bottom - 1; l >= top; l--) {
+                res.add(matrix[l][left]);
+            }
+            left++;
+        }
+        return res;
+    }
+}
+```

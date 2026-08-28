@@ -928,3 +928,44 @@ class Solution {
     }
 }
 ```
+
+## 31.单词搜索（LeetCode 79）
+
+**题目**：给定一个 m x n 二维字符网格 board 和一个字符串单词 word 。如果 word 存在于网格中，返回 true ；否则，返回 false 。
+
+### dfs 
+
+Time: O(m*n*3^k)      
+Space: O(m*n)
+
+```java
+class Solution {
+    public boolean exist(char[][] board, String word) {
+        int rows = board.length;
+        int cols = board[0].length;
+        boolean[][] visit = new boolean[rows][cols];
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (dfs(board, word, r, c, 0, visit)) return true;
+            }
+        }
+        return false;
+    }
+
+    boolean dfs(char[][] board, String word, int r, int c, int i, boolean[][] visit) {
+        if (i == word.length()) return true;
+        int rows = board.length;
+        int cols = board[0].length;
+        if (r < 0 || r >= rows || c < 0 || c >= cols) return false;
+        if (visit[r][c] || board[r][c] != word.charAt(i)) return false;
+
+        visit[r][c] = true;
+        boolean found = dfs(board, word, r + 1, c, i + 1, visit)
+                     || dfs(board, word, r, c + 1, i + 1, visit)
+                     || dfs(board, word, r - 1, c, i + 1, visit)
+                     || dfs(board, word, r, c - 1, i + 1, visit);
+        visit[r][c] = false;
+        return found;
+    }
+}
+```

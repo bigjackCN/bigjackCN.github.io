@@ -969,3 +969,21 @@ class Solution {
     }
 }
 ```
+
+## 32.二叉树的最大深度（LeetCode 104）
+
+**题目**：给定一个二叉树 root ，返回其最大深度。
+
+### recursion
+
+Time: O(n)      
+Space: O(h)
+
+```java
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if (root == null) return 0;
+        return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+    }
+}
+```

@@ -1007,3 +1007,55 @@ class Solution {
     }
 }
 ```
+
+## 34.翻转二叉树（LeetCode 226）
+
+**题目**：给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。
+
+### recursion
+
+Time: O(n)      
+Space: O(h)
+
+```java
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) return root;
+        
+        TreeNode left = invertTree(root.left);
+        TreeNode right = invertTree(root.right);
+
+        root.left = right;
+        root.right = left;
+
+        return root;
+    }
+}
+```
+
+## 35.另一棵树的子树（LeetCode 572）
+
+**题目**：给你两棵二叉树 root 和 subRoot 。检验 root 中是否包含和 subRoot 具有相同结构和节点值的子树。如果存在，返回 true ；否则，返回 false 。
+
+### recursion
+
+Time: O(m*n)      
+Space: O(h)
+
+```java
+class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        if (subRoot == null) return true;
+        if (root == null) return false;
+        if (isSameTree(root, subRoot)) return true;
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+    }
+
+    boolean isSameTree(TreeNode root, TreeNode subRoot) {
+        if (root == null && subRoot == null) return true;
+        if (root == null || subRoot == null) return false;
+        if (root.val != subRoot.val) return false;
+        return isSameTree(root.left, subRoot.left) && isSameTree(root.right, subRoot.right);
+    }
+}
+```

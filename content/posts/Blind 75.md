@@ -1059,3 +1059,29 @@ class Solution {
     }
 }
 ```
+
+## 36.验证二叉搜索树（LeetCode 98）
+
+**题目**：给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。
+
+### Inorder Traversal
+
+Time: O(n)      
+Space: O(h)
+
+```java
+class Solution {
+    private TreeNode pre = null;
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) return true;
+
+        // left -> root -> right
+        if (!isValidBST(root.left)) return false;
+
+        if (pre != null && pre.val >= root.val) return false;
+        pre = root;
+
+        return isValidBST(root.right);
+    }
+}
+```

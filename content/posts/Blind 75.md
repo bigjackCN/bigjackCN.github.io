@@ -1085,3 +1085,34 @@ class Solution {
     }
 }
 ```
+
+## 37.二叉搜索树中第 K 小的元素（LeetCode 230）
+
+**题目**：给定一个二叉搜索树的根节点 root ，和一个整数 k ，请你设计一个算法查找其中第 k 小的元素（k 从 1 开始计数）。
+
+### Stack
+
+Time: O(n)      
+Space: O(h)
+
+```java
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        int count = 0;
+        
+        while (cur != null || !stack.isEmpty()) {
+            while (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            }
+            cur = stack.pop();
+            count++;
+            if (count == k) return cur.val;  
+            cur = cur.right;
+        }
+        return -1;
+    }
+}
+```

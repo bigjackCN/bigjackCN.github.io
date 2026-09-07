@@ -1282,3 +1282,40 @@ public class Codec {
     }
 }
 ```
+
+## 43.二叉树的层序遍历（LeetCode 102）
+
+**题目**：给你二叉树的根节点 root ，返回其节点值的 层序遍历 。 （即逐层地，从左到右访问所有节点）。
+
+### BFS
+
+Time: O(n)      
+Space: O(n)
+
+```java
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        Queue<TreeNode> deque = new LinkedList<>();
+        if (root != null) deque.offer(root);
+        while (!deque.isEmpty()) {
+            List<Integer> list = new ArrayList<>();
+
+            int length = deque.size();
+            for (int i = 0; i < length; i++) {
+                TreeNode node = deque.poll();
+                list.add(node.val);
+
+                if (node.left != null) {
+                    deque.add(node.left);
+                }
+                if (node.right != null) {
+                    deque.add(node.right);
+                }
+            }
+            res.add(list);
+        }
+        return res;
+    }
+}
+```

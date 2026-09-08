@@ -1319,3 +1319,27 @@ class Solution {
     }
 }
 ```
+
+## 44.爬楼梯（LeetCode 70）
+
+**题目**：假设你正在爬楼梯。需要 n 阶你才能到达楼顶。每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+
+### DP
+
+Time: O(n)      
+Space: O(1)
+
+```java
+class Solution {
+    public int climbStairs(int n) {
+        int prev1 = 1, prev2 = 1;
+        int cur = 1;
+        for (int i = 2; i <= n; i++) {
+            cur = prev1 + prev2;
+            prev1 = prev2;
+            prev2 = cur;
+        }
+        return cur;
+    }
+}
+```

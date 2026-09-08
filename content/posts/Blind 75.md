@@ -1343,3 +1343,30 @@ class Solution {
     }
 }
 ```
+
+## 45.打家劫舍（LeetCode 198）
+
+**题目**：你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
+
+### DP
+
+Time: O(n)      
+Space: O(1)
+
+```java
+class Solution {
+    public int rob(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        
+        int prev1 = 0;  // dp[i-1]
+        int prev2 = 0;  // dp[i-2]
+
+        for (int num : nums) {
+            int cur = Math.max(prev1, prev2 + num);
+            prev2 = prev1;
+            prev1 = cur;
+        }
+        return prev1;
+    }
+}
+```

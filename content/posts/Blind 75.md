@@ -1404,3 +1404,36 @@ class Solution {
     }
 }
 ```
+
+## 47.零钱兑换（LeetCode 322）
+
+**题目**：给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。
+
+### DP for both amount and coins value
+
+Time: O(a*c)      
+Space: O(a)
+
+```java
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, amount + 1);
+
+        dp[0] = 0;
+        for (int i = 1; i <= amount; i++) {
+            for (int j = 0; j < coins.length; j++) {
+                if (i - coins[j] >= 0) {
+                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+                }
+            }
+        }
+        
+        if (dp[amount] == amount + 1) {
+            return -1;
+        } else {
+            return dp[amount];
+        }
+    }
+}
+```

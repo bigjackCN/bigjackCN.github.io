@@ -1370,3 +1370,37 @@ class Solution {
     }
 }
 ```
+
+## 46.打家劫舍 II（LeetCode 213）
+
+**题目**：你是一个专业的小偷，计划偷窃沿街的房屋，每间房内都藏有一定的现金。这个地方所有的房屋都 围成一圈 ，这意味着第一个房屋和最后一个房屋是紧挨着的。同时，相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警 。
+
+### DP twice to break the loop
+
+Time: O(n)      
+Space: O(1)
+
+```java
+class Solution {
+    public int rob(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        if (nums.length == 1) return nums[0];
+
+        int case1 = robHelper(nums, 0, nums.length - 1);
+        int case2 = robHelper(nums, 1, nums.length);
+
+        return Math.max(case1, case2);
+    }
+
+    private int robHelper(int[] nums, int start, int end) {
+        int prev1 = 0;  // dp[i-1]
+        int prev2 = 0;  // dp[i-2]
+        for (int i = start; i < end; i++) {
+            int cur = Math.max(prev1, prev2 + nums[i]);
+            prev2 = prev1;
+            prev1 = cur;
+        }
+        return prev1;
+    }
+}
+```

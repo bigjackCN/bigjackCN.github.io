@@ -1438,7 +1438,7 @@ class Solution {
 }
 ```
 
-## 48.不同路径（LeetCode 322）
+## 48.不同路径（LeetCode 62）
 
 **题目**：一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。
 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。
@@ -1460,6 +1460,40 @@ class Solution {
             }
         }
         return dp[n-1];
+    }
+}
+```
+
+## 49.解码方法（LeetCode 91）
+
+**题目**：给你一个只含数字的 非空 字符串 s ，请计算并返回 解码 方法的 总数 。如果没有合法的方式解码整个字符串，返回 0。
+
+### DP with digit verify
+
+Time: O(n)      
+Space: O(n)
+
+```java
+class Solution {
+    public int numDecodings(String s) {
+        int[] dp = new int[s.length() + 1];
+        dp[0] = 1;
+
+        for (int i = 1; i <= s.length(); i++) {
+            if (s.charAt(i-1) != '0') {
+                dp[i] = dp[i-1];
+            }
+            if (i >= 2) {
+                char firstDigit = s.charAt(i - 2);
+                char secondDigit = s.charAt(i - 1);
+                if (firstDigit == '1' || 
+                (firstDigit == '2' && 
+                    secondDigit >= '0' && secondDigit <= '6')) {
+                    dp[i] += dp[i - 2];
+                }
+            }
+        }
+        return dp[s.length()];
     }
 }
 ```

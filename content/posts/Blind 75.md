@@ -1497,3 +1497,38 @@ class Solution {
     }
 }
 ```
+
+## 50.组合总和（LeetCode 39）
+
+**题目**：给你一个 无重复元素 的整数数组 candidates 和一个目标整数 target ，找出 candidates 中可以使数字和为目标数 target 的 所有 不同组合 ，并以列表形式返回。你可以按 任意顺序 返回这些组合。
+
+### backtracking
+
+Time: O(n ^ (t / c))      
+Space: O(t / c)
+
+```java
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();
+        helper(candidates, target, 0, res, temp);
+        return res;
+    }
+
+    private void helper(int[] candidates, int target, int start, List<List<Integer>> res, List<Integer> temp) {
+        if (target < 0) return;
+        if (target == 0) {
+            res.add(new ArrayList<>(temp));
+            return;
+        }
+        for (int i = start; i < candidates.length; i++) {
+            if (target - candidates[i] >= 0) {
+                temp.add(candidates[i]);
+                helper(candidates, target - candidates[i], i, res, temp);
+                temp.remove(temp.size() - 1);
+            }
+        }
+    }
+}
+```

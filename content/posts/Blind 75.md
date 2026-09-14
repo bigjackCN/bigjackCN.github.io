@@ -1562,3 +1562,33 @@ class Solution {
     }
 }
 ```
+
+## 52.单词拆分（LeetCode 193）
+
+**题目**：给你一个字符串 s 和一个字符串列表 wordDict 作为字典。如果可以利用字典中出现的一个或多个单词拼接出 s 则返回 true。
+
+### dp
+
+Time: O(n*m*l)      
+Space: O(n)
+
+```java
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        int n = s.length();
+        boolean[] dp = new boolean[n + 1];
+        dp[0] = true;
+
+        for (int i = 0; i < n; i++) {
+            if (!dp[i]) continue;
+            for (String word : wordDict) {
+                int end = i + word.length();
+                if (end <= n && s.substring(i, end).equals(word)) {
+                    dp[end] = true;
+                }
+            }
+        }
+        return dp[n];
+    }
+}
+```

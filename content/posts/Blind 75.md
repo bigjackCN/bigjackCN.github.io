@@ -1592,3 +1592,28 @@ class Solution {
     }
 }
 ```
+
+## 53.Jump Game（LeetCode 55）
+
+**题目**：You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
+
+### Greedy on jump cover
+
+Time: O(n)      
+Space: O(1)
+
+```java
+class Solution {
+    public boolean canJump(int[] nums) {
+        int cover = 0;
+
+        for (int i = 0; i <= cover; i++) {
+            cover = Math.max(cover, i + nums[i]);
+            if (cover >= nums.length - 1) {
+                return true;
+            } 
+        }
+        return false;
+    }
+}
+```

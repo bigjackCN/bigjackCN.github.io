@@ -1617,3 +1617,41 @@ class Solution {
     }
 }
 ```
+
+## 54.Merge Intervals（LeetCode 56）
+
+**题目**：Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+
+### Greedy
+
+Time: O(nlogn)      
+Space: O(1)
+
+```java
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+
+        int index = 0;
+        int start = intervals[0][0];
+        int end = intervals[0][1];
+
+        for (int i = 1; i < intervals.length; i++) {
+            if (end >= intervals[i][0]) {
+                end = Math.max(end, intervals[i][1]);
+            } else {
+                intervals[index][0] = start;
+                intervals[index][1] = end;
+                index++;
+
+                start = intervals[i][0];
+                end = intervals[i][1];
+            }
+        }
+        intervals[index][0] = start;
+        intervals[index][1] = end;
+        index++;
+        return Arrays.copyOf(intervals, index);
+    }
+}
+```

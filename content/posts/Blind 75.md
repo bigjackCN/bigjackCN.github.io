@@ -1563,7 +1563,7 @@ class Solution {
 }
 ```
 
-## 52.单词拆分（LeetCode 193）
+## 52.单词拆分（LeetCode 139）
 
 **题目**：给你一个字符串 s 和一个字符串列表 wordDict 作为字典。如果可以利用字典中出现的一个或多个单词拼接出 s 则返回 true。
 
@@ -1685,6 +1685,97 @@ class Solution {
             }
         }
         return max;
+    }
+}
+```
+
+## 56.Clone Graph（LeetCode 133）
+
+**题目**：Given a reference of a node in a connected undirected graph. Return a deep copy (clone) of the graph.
+
+### DFS
+
+Time: O(v + e)      
+Space: O(v)
+
+```java
+class Solution {
+    private Map<Node, Node> visited = new HashMap<>();
+
+    public Node cloneGraph(Node node) {
+        if (node == null) return null;
+
+        if (visited.containsKey(node)) {
+            return visited.get(node);
+        }
+
+        Node clone = new Node(node.val);
+        visited.put(node, clone);
+
+        for (Node neighbor : node.neighbors) {
+            clone.neighbors.add(cloneGraph(neighbor));
+        }    
+
+        return clone;
+    }
+}
+```
+
+## 57.Number of Islands（LeetCode 200）
+
+**题目**：Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.
+
+### BFS
+
+Time: O(r*c)      
+Space: O(r*c)
+
+```java
+class Solution {
+    public int numIslands(char[][] grid) {
+        if (grid == null || grid.length == 0) return 0;
+
+        int rows = grid.length;
+        int cols = grid[0].length;
+        boolean[][] visited = new boolean[rows][cols];
+        int count = 0;
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (grid[i][j] == '1' && !visited[i][j]) {
+                    count++;
+                    bfs(grid, i, j, visited);
+                }
+            }
+        }
+        return count;
+    }
+
+    private void bfs(char[][] grid, int row, int col, boolean[][] visited) {
+        int rows = grid.length;
+        int cols = grid[0].length;
+
+        Queue<int[]> queue = new LinkedList<>();
+        queue.offer(new int[]{row, col});
+        visited[row][col] = true;
+
+        int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+        while (!queue.isEmpty()) {
+            int[] cur = queue.poll();
+            int r = cur[0];
+            int c = cur[1];
+
+            for (int[] d : dirs) {
+                int nr = r + d[0];
+                int nc = c + d[1];
+
+                if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && !visited[nr][nc] && grid[nr][nc] == '1') {
+                    visited[nr][nc] = true;
+                    queue.offer(new int[]{nr, nc});
+                }
+            }
+        }
     }
 }
 ```

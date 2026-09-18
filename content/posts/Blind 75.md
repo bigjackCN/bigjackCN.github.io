@@ -1655,3 +1655,36 @@ class Solution {
     }
 }
 ```
+
+## 55.Longest Consecutive Sequence（LeetCode 128）
+
+**题目**：Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+
+### HashSet
+
+Time: O(n)      
+Space: O(n)
+
+```java
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        int max = 0;
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
+        for (int num : set) {
+            if (!set.contains(num - 1)) {
+                int count = 1;
+                num++;
+                while (set.contains(num)) {
+                    count++;
+                    num++;
+                }
+                max = Math.max(max, count);
+            }
+        }
+        return max;
+    }
+}
+```

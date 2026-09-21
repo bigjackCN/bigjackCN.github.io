@@ -1893,3 +1893,63 @@ class Trie {
     }
 }
 ```
+
+## 60. Design Add and Search Words Data Structure（LeetCode 211）
+
+**题目**：Design a data structure that supports adding new words and finding if a string matches any previously added string.
+
+### Use Array with size 26
+
+```java
+class WordDictionary {
+    private static class TrieNode {
+        TrieNode[] children = new TrieNode[26];
+        boolean isWord;
+    }
+
+    private final TrieNode root;
+
+    public WordDictionary() {
+        root = new TrieNode();
+    }
+    
+    //  Time: O(l)      
+    //  Space: O(l)
+    public void addWord(String word) {
+        TrieNode node = root;
+        for (char c : word.toCharArray()) {
+            int i = c - 'a';
+            if (node.children[i] == null) {
+                node.children[i] = new TrieNode();
+            }
+            node = node.children[i];
+        }
+        node.isWord = true;
+    }
+    
+    //  Time: O(l)      
+    //  Space: O(26^l)
+    public boolean search(String word) {
+        return dfs(word, 0, root);
+    }
+
+    private boolean dfs(String word, int index, TrieNode node) {
+        if (node == null) return false;
+        if (index == word.length()) return node.isWord;
+
+        char c = word.charAt(index);
+
+        if (c == '.') {
+            for (TrieNode child : node.children) {
+                if (child != null && dfs(word, index + 1, child)) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            int i = c - 'a';
+            return dfs(word, index + 1, node.children[i]);
+        }
+    }
+}
+```

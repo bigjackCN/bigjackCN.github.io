@@ -1953,3 +1953,95 @@ class WordDictionary {
     }
 }
 ```
+
+## 61. Word Search II（LeetCode 212）
+
+**题目**：Given an m x n board of characters and a list of strings words, return all words on the board.
+
+### Trie
+
+```java
+class Solution {
+    private int m, n;
+    private int[] dirs = {-1, 0, 1, 0, -1};
+
+    class TrieNode {
+            TrieNode[] children = new TrieNode[26];
+            String word;
+        }
+
+    public List<String> findWords(char[][] board, String[] words) {
+        TrieNode root = new TrieNode();
+        for (String w : words) {
+            TrieNode node = root;
+            for (char c : w.toCharArray()) {
+                int i = c - 'a';
+                if (node.children[i] == null) {
+                    node.children[i] = new TrieNode();
+                }
+                node = node.children[i];
+            }
+            node.word = w;
+        }
+        List<String> ans = new ArrayList<>();
+        m = board.length;
+        n = board[0].length;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                dfs(board, i, j, root, ans);
+            }
+        }
+        return ans;
+    }
+    
+    private void dfs(char[][] board, int i, int j, TrieNode node, List<String> ans) {
+        char c = board[i][j];
+        if (c == '#' || node.children[c - 'a'] == null) return;
+        TrieNode next = node.children[c - 'a'];
+        if (next.word != null) {
+            ans.add(next.word);
+            next.word = null;
+        }
+        board[i][j] = '#';
+
+        for (int d = 0; d < 4; d++) {
+            int ni = i + dirs[d];
+            int nj = j + dirs[d+1];
+            if (ni >= 0 && ni < m && nj >= 0 && nj < n && board[ni][nj] != '#') {
+                dfs(board, ni, nj, next, ans);
+            }
+        }
+        board[i][j] = c;
+        if (isEmpty(next)) {
+            node.children[c - 'a'] = null;
+        }
+    }
+    private boolean isEmpty(TrieNode node) {
+            for (TrieNode child : node.children) {
+                if (child != null) return false;
+            }
+            return true;
+        }
+}
+```
+
+## 62. Contains Duplicate（LeetCode 217）
+
+**题目**：Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+
+### Set
+
+```java
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            if (!set.add(num)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+```

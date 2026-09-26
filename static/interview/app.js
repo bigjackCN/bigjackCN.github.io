@@ -94,13 +94,7 @@
     var ta = el('textarea', { class: 'fallback', spellcheck: 'false', 'aria-label': 'Java code' });
     ta.style.fontSize = S.cfg.font + 'px';
     ta.addEventListener('keydown', function (e) {
-      if (e.key === 'Tab') {
-        e.preventDefault();
-        var s = ta.selectionStart, en = ta.selectionEnd;
-        ta.value = ta.value.slice(0, s) + '    ' + ta.value.slice(en);
-        ta.selectionStart = ta.selectionEnd = s + 4;
-        Ed.onChange();
-      }
+      if (e.key === 'Tab') e.preventDefault(); // Tab does nothing: indent with spaces yourself
     });
     ta.addEventListener('input', function () { Ed.onChange(); });
     host.appendChild(ta);
@@ -155,6 +149,10 @@
         links: false, colorDecorators: false, renameOnType: false, linkedEditing: false, unicodeHighlight: { ambiguousCharacters: false, invisibleCharacters: false }
       });
       Ed.m.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Space, function () { /* no manual completion either */ });
+      // Tab / Shift+Tab do nothing (no indenting, no outdenting); Ctrl/Cmd+] and [ are disabled too
+      [monaco.KeyCode.Tab, monaco.KeyMod.Shift | monaco.KeyCode.Tab,
+       monaco.KeyMod.CtrlCmd | monaco.KeyCode.BracketRight, monaco.KeyMod.CtrlCmd | monaco.KeyCode.BracketLeft
+      ].forEach(function (k) { Ed.m.addCommand(k, function () { /* no-op */ }); });
       Ed.m.onDidChangeModelContent(function () { Ed.onChange(); });
       Ed.m.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Quote, function () { runCode(false); });
       Ed.m.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, function () { runCode(true); });

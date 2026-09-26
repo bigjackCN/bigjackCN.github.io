@@ -2080,3 +2080,34 @@ class MedianFinder {
     }
 }
 ```
+
+## 64. Top K Frequent Elements（LeetCode 347）
+
+**题目**：Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+### Heap
+
+```java
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.compute(num, (key, v) -> v == null ? 1 : v + 1);
+        }
+        
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        for (Map.Entry<Integer, Integer> e : map.entrySet()) {
+            heap.offer(new int[]{e.getKey(), e.getValue()});
+            if (heap.size() > k) {
+                heap.poll();
+            }
+        }
+
+        int[] ans = new int[k];
+        for (int i = 0; i < k; i++) {
+            ans[i] = heap.poll()[0];
+        }
+        return ans;
+    }
+}
+```

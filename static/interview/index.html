@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Java Interview Simulator</title>
+<meta name="description" content="A LeetCode-style Java coding interview simulator: timer, random problems, run and submit against test cases.">
+<meta name="robots" content="noindex">
+<script>
+  // Apply the saved theme before first paint (shares PaperMod's "pref-theme" key).
+  try {
+    var t = localStorage.getItem('pref-theme');
+    if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="tb-group">
+    <a class="back" href="/" title="Back to the blog">&larr; 黄人日记</a>
+    <span class="brand">Java Interview Sim</span>
+  </div>
+
+  <div class="tb-group tb-center">
+    <button id="btn-problems" class="btn" type="button">Problems</button>
+    <button id="btn-random" class="btn" type="button" title="Open a random problem (prefers ones you have not solved)">Random</button>
+    <button id="btn-start" class="btn btn-accent" type="button">Start interview</button>
+    <div id="timer" class="timer" hidden>
+      <span id="timer-label">Time left</span>
+      <b id="timer-val">30:00</b>
+      <button id="btn-end" class="btn btn-small" type="button">End</button>
+    </div>
+  </div>
+
+  <div class="tb-group">
+    <button id="btn-run" class="btn" type="button" title="Run the sample tests (Ctrl/Cmd + ')">&#9654; Run</button>
+    <button id="btn-submit" class="btn btn-go" type="button" title="Run all tests, including hidden ones (Ctrl/Cmd + Enter)">Submit</button>
+    <button id="btn-history" class="btn" type="button">History</button>
+    <button id="btn-settings" class="btn btn-icon" type="button" title="Settings" aria-label="Settings">&#9881;</button>
+    <button id="btn-theme" class="btn" type="button" title="Toggle light/dark" aria-label="Toggle theme">Theme</button>
+  </div>
+</header>
+
+<main id="main">
+  <section id="pane-left" aria-label="Problem">
+    <div id="problem"></div>
+  </section>
+
+  <div id="split-v" class="splitter v" role="separator" aria-orientation="vertical"></div>
+
+  <section id="pane-right" aria-label="Code editor">
+    <div class="editor-head">
+      <span class="lang">Java 17</span>
+      <span id="save-state" class="muted"></span>
+      <span class="spacer"></span>
+      <button id="btn-reset" class="btn btn-small" type="button">Reset code</button>
+    </div>
+    <div id="editor-wrap"><div id="editor"></div></div>
+    <div id="split-h" class="splitter h" role="separator" aria-orientation="horizontal"></div>
+    <div id="results" aria-live="polite">
+      <div class="res-empty">Run your code to see results here.<br><span class="muted">Run = sample tests &middot; Submit = all tests (including hidden). java.util.*, java.util.function.*, java.util.stream.* and java.util.concurrent.* are pre-imported.</span></div>
+    </div>
+  </section>
+</main>
+
+<!-- Start interview -->
+<dialog id="dlg-start">
+  <form method="dialog" id="form-start">
+    <h2>Start an interview</h2>
+    <p class="muted">You get one problem and a countdown. Tags and the reference solution are hidden until you finish.</p>
+    <label>Difficulty
+      <select id="start-diff">
+        <option value="Any">Any</option>
+        <option value="Easy">Easy</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="Hard">Hard</option>
+      </select>
+    </label>
+    <label>Time limit
+      <select id="start-time">
+        <option value="900">15 minutes</option>
+        <option value="1200">20 minutes</option>
+        <option value="1800" selected>30 minutes</option>
+        <option value="2700">45 minutes</option>
+        <option value="3600">60 minutes</option>
+        <option value="0">No limit (count up)</option>
+      </select>
+    </label>
+    <div class="dlg-actions">
+      <button type="button" class="btn" data-close>Cancel</button>
+      <button type="submit" class="btn btn-accent" value="go">Start</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Problem list -->
+<dialog id="dlg-problems" class="wide">
+  <div class="dlg-head">
+    <h2>Problems</h2>
+    <button type="button" class="btn btn-small" data-close>Close</button>
+  </div>
+  <div class="filters">
+    <input id="pl-search" type="search" placeholder="Search title or tag" aria-label="Search problems">
+    <div id="pl-diff" class="chips"></div>
+  </div>
+  <div id="pl-list" class="plist"></div>
+</dialog>
+
+<!-- History -->
+<dialog id="dlg-history" class="wide">
+  <div class="dlg-head">
+    <h2>Your progress</h2>
+    <button type="button" class="btn btn-small" data-close>Close</button>
+  </div>
+  <div id="hist-stats" class="stats"></div>
+  <div id="hist-table-wrap"></div>
+  <div class="dlg-actions">
+    <button type="button" id="hist-export" class="btn btn-small">Export JSON</button>
+    <button type="button" id="hist-clear" class="btn btn-small btn-danger">Clear history</button>
+  </div>
+  <p class="muted small">History and drafts are stored in this browser only (localStorage).</p>
+</dialog>
+
+<!-- Settings -->
+<dialog id="dlg-settings">
+  <form method="dialog" id="form-settings">
+    <h2>Settings</h2>
+    <label>Editor font size (px)
+      <input id="set-font" type="number" min="11" max="28" step="1">
+    </label>
+    <label>Judge0 endpoint <span class="muted">(optional)</span>
+      <input id="set-endpoint" type="url" placeholder="https://ce.judge0.com (default)">
+    </label>
+    <p class="muted small">Your code is compiled and run on a remote Java 17 runner: the free public Judge0 CE service, with Wandbox as automatic fallback. Point this at your own Judge0 instance if the public one is busy or you do not want to use it.</p>
+    <div class="dlg-actions">
+      <button type="button" class="btn" data-close>Cancel</button>
+      <button type="submit" class="btn btn-accent" value="save">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Generic confirm / info -->
+<dialog id="dlg-msg">
+  <form method="dialog">
+    <h2 id="msg-title"></h2>
+    <div id="msg-body"></div>
+    <div class="dlg-actions" id="msg-actions"></div>
+  </form>
+</dialog>
+
+<script src="rt.js"></script>
+<script src="problems.js"></script>
+<script src="runner.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

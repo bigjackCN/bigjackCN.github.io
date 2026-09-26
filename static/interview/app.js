@@ -2,7 +2,8 @@
 (function () {
   'use strict';
 
-  var PROBLEMS = window.JK_PROBLEMS;
+  var PROBLEMS = window.JK_PROBLEMS.slice().sort(function (a, b) { return a.n - b.n; });
+  PROBLEMS.forEach(function (p) { p.difficulty = p.diff; });
   var Runner = window.JKRunner;
   var $ = function (id) { return document.getElementById(id); };
 
@@ -35,11 +36,7 @@
     return h ? h + ':' + mm + ':' + ss : mm + ':' + ss;
   }
   function byId(id) { return PROBLEMS.filter(function (p) { return p.id === id; })[0]; }
-  function starterFor(p) {
-    var params = p.sig.params.map(function (x) { return x[0] + ' ' + x[1]; }).join(', ');
-    return (p.pre ? p.pre + '\n' : '') +
-      'class Solution {\n    public ' + p.sig.ret + ' ' + p.sig.method + '(' + params + ') {\n        // write your solution here\n        \n    }\n}\n';
-  }
+  function starterFor() { return ''; } // the editor always starts empty
   function fmtDate(ts) {
     var d = new Date(ts);
     return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ' ' +
@@ -195,37 +192,28 @@
     var interview = !!S.active;
     var solved = solvedSet()[p.id];
 
-    box.appendChild(el('h1', { class: 'p-title', text: p.title }));
+    box.appendChild(el('h1', { class: 'p-title', text: p.n + '. ' + p.title }));
     var meta = el('div', { class: 'p-meta' }, [el('span', { class: 'badge ' + p.difficulty, text: p.difficulty })]);
     if (solved) meta.appendChild(el('span', { class: 'badge solved', text: 'Solved' }));
-    if (!interview) p.tags.forEach(function (t) { meta.appendChild(el('span', { class: 'tag', text: t })); });
     box.appendChild(meta);
 
-    box.appendChild(el('div', { class: 'p-desc', html: p.desc }));
+    box.appendChild(el('div', { class: 'p-desc', html: p.desc })); // our own trusted strings
 
-    box.appendChild(el('h3', { class: 'p-h', text: 'Examples' }));
-    p.examples.forEach(function (ex, i) {
+    p.ex.forEach(function (ex, i) {
       var d = el('div', { class: 'p-ex' }, [
-        el('div', {}, [el('span', { class: 'lbl', text: 'Example ' + (i + 1) + ' - Input: ' }), el('code', { text: ex.in })]),
-        el('div', {}, [el('span', { class: 'lbl', text: 'Output: ' }), el('code', { text: ex.out })])
+        el('div', {}, [el('span', { class: 'lbl', text: 'Example ' + (i + 1) + ' - Input: ' }), el('code', { class: 'pre-l', text: ex[0] })]),
+        el('div', {}, [el('span', { class: 'lbl', text: 'Output: ' }), el('code', { text: ex[1] })])
       ]);
-      if (ex.note) d.appendChild(el('div', { class: 'muted', text: ex.note }));
+      if (ex[2]) d.appendChild(el('div', { class: 'muted', text: ex[2] }));
       box.appendChild(d);
     });
 
-    box.appendChild(el('h3', { class: 'p-h', text: 'Constraints' }));
-    var ul = el('ul', { class: 'p-cons' });
-    p.constraints.forEach(function (c) { ul.appendChild(el('li', { html: c })); }); // our own trusted strings; may contain <sub>
-    box.appendChild(ul);
-
-    if (!interview) {
-      var det = el('details', { class: 'ref' }, [
-        el('summary', { text: 'Reference solution (spoilers)' }),
-        el('pre', { class: 'code', text: p.solution })
-      ]);
-      box.appendChild(det);
-    }
-    document.title = p.title + ' - Java Interview Simulator';
+    // just the method the tests call (and the helper classes, if the problem uses any)
+    var sig = Runner.signatureText(p);
+    box.appendChild(el('pre', { class: 'sig', text: sig }));
+    var prov = Runner.providedText(p);
+    if (prov.length) box.appendChild(el('div', { class: 'muted small', text: 'Provided: ' + prov.join('; ') }));
+    document.title = p.n + '. ' + p.title;
     $('pane-left').scrollTop = 0;
   }
 
@@ -240,11 +228,7 @@
     Ed.markers && Ed.markers([]);
     S.lastRes = null;
     $('results').textContent = '';
-    $('results').appendChild(el('div', { class: 'res-empty' }, [
-      'Run your code to see results here.',
-      el('br'),
-      el('span', { class: 'muted', text: 'Run = sample tests. Submit = all tests (including hidden). java.util.*, java.util.function.*, java.util.stream.* and java.util.concurrent.* are pre-imported.' })
-    ]));
+    $('results').appendChild(el('div', { class: 'res-empty', text: 'Run your code to see results here.' }));
     $('save-state').textContent = '';
   }
 
@@ -273,7 +257,6 @@
     box.appendChild(el('div', { class: 'res-empty' }, [
       el('span', { class: 'spinner' }),
       submit ? 'Submitting - compiling and running all tests...' : 'Running sample tests...',
-      el('br'), el('span', { class: 'muted', text: 'The first run can take a few seconds while the remote runner compiles your code.' })
     ]));
     var started = Date.now();
     if (S.active) { S.active[submit ? 'submits' : 'runs'] = (S.active[submit ? 'submits' : 'runs'] || 0) + 1; store.set('active', S.active); }
@@ -299,7 +282,6 @@
     if (res.kind !== 'compile') head.appendChild(el('span', { class: 'muted', text: res.passed + ' / ' + res.total + ' testcases passed' }));
     var runtime = res.cases.length ? res.cases.reduce(function (a, c) { return a + (c.ms || 0); }, 0) : null;
     if (runtime !== null && res.kind !== 'compile') head.appendChild(el('span', { class: 'muted', text: 'test time ' + runtime + ' ms' }));
-    head.appendChild(el('span', { class: 'muted small', text: (submit ? 'Submit' : 'Run') + ' via ' + res.backend }));
     box.appendChild(head);
 
     if (res.kind === 'compile') {
@@ -311,40 +293,32 @@
     }
     if (!res.cases.length) return;
 
-    var tabs = el('div', { class: 'cases' });
-    var detail = el('div', {});
-    box.appendChild(tabs); box.appendChild(detail);
-    var firstBad = 0;
-    res.cases.forEach(function (c, i) { if (!firstBad && c.verdict !== 'PASS') firstBad = i + 1; });
-    var buttons = [];
-
-    function show(i) {
-      buttons.forEach(function (b, j) { b.classList.toggle('sel', j === i); });
-      var c = res.cases[i];
-      detail.textContent = '';
-      if (c.hidden && c.verdict === 'PASS') {
-        detail.appendChild(el('div', { class: 'muted', text: 'Hidden test passed (' + c.ms + ' ms).' }));
+    var list = el('div', { class: 'case-list' });
+    box.appendChild(list);
+    var nVis = 0, nHid = 0;
+    res.cases.forEach(function (c) {
+      var label = c.hidden ? 'Hidden ' + (++nHid) : 'Case ' + (++nVis);
+      var row = el('div', { class: 'case-row' }, [
+        el('span', { class: 'dot ' + c.verdict }),
+        el('span', { class: 'case-name', text: label }),
+        el('span', { class: 'muted', text: c.verdict === 'PASS' ? (c.ms + ' ms') : c.verdict === 'TLE' ? 'time limit exceeded' : c.verdict === 'ERR' ? 'runtime error' : 'wrong answer' })
+      ]);
+      list.appendChild(row);
+      if (c.verdict === 'PASS') {
+        if (!c.hidden) list.appendChild(el('div', { class: 'case-detail' }, [el('pre', { text: c.input + '\n=> ' + c.actual })]));
         return;
       }
-      var fieldDefs = [['Input', c.input, false], ['Output', c.actual, c.verdict !== 'PASS'], ['Expected', c.expected, false]];
+      var fieldDefs = [['Input', c.input, false], ['Output', c.actual, true], ['Expected', c.expected, false]];
       if (c.verdict === 'TLE') fieldDefs = [['Input', c.input, false], ['Result', c.actual, true]];
       if (c.verdict === 'ERR') fieldDefs = [['Input', c.input, false], ['Error', c.actual, true]];
+      var detail = el('div', { class: 'case-detail' });
       fieldDefs.forEach(function (f) {
         detail.appendChild(el('div', { class: 'field' }, [el('div', { class: 'k', text: f[0] }), el('pre', { class: f[2] ? 'bad' : '', text: f[1] })]));
       });
       if (c.stdout) detail.appendChild(el('div', { class: 'field' }, [el('div', { class: 'k', text: 'Stdout' }), el('pre', { text: c.stdout })]));
-    }
-
-    var nVis = 0, nHid = 0;
-    res.cases.forEach(function (c, i) {
-      var label = c.hidden ? 'Hidden ' + (++nHid) : 'Case ' + (++nVis);
-      var b = el('button', { type: 'button', class: 'case-btn', onclick: function () { show(i); } }, [el('span', { class: 'dot ' + c.verdict }), label]);
-      buttons.push(b); tabs.appendChild(b);
+      list.appendChild(detail);
     });
-    for (var k = res.cases.length; k < res.total; k++) {
-      tabs.appendChild(el('button', { type: 'button', class: 'case-btn', disabled: 'disabled', title: 'Not run' }, [el('span', { class: 'dot' }), 'Not run']));
-    }
-    show(firstBad ? firstBad - 1 : 0);
+    if (res.cases.length < res.total) list.appendChild(el('div', { class: 'muted small', text: (res.total - res.cases.length) + ' more test(s) not run.' }));
     if (res.console) box.appendChild(el('div', { class: 'field' }, [el('div', { class: 'k', text: 'Runner output' }), el('pre', { text: res.console })]));
   }
 
@@ -450,7 +424,6 @@
     var body = el('div', {}, [
       el('p', { text: p.title + ' (' + p.difficulty + ')' }),
       el('p', { class: 'muted', text: 'Time used: ' + fmtClock(elapsed) + (a.limitSec ? ' of ' + fmtClock(a.limitSec) : '') + ' - best result: ' + (a.best || 0) + ' / ' + (a.total || p.tests.length) + ' tests - submissions: ' + (a.submits || 0) }),
-      el('p', { class: 'muted', text: 'The reference solution is now available under the problem description.' })
     ]);
     ask(title, body, [
       { label: 'Close', value: 'close' },
@@ -459,7 +432,7 @@
   }
 
   function endInterviewClicked() {
-    confirmDlg('End this interview?', 'It will be recorded as ended early. You will see the reference solution afterwards.', 'End interview', true)
+    confirmDlg('End this interview?', 'It will be recorded as ended early.', 'End interview', true)
       .then(function (ok) { if (ok) finishInterview('gaveup'); });
   }
 
@@ -484,13 +457,13 @@
     var q = plFilter.q.trim().toLowerCase();
     var rows = PROBLEMS.filter(function (p) {
       if (plFilter.diff !== 'All' && p.difficulty !== plFilter.diff) return false;
-      return !q || p.title.toLowerCase().indexOf(q) >= 0 || p.tags.join(' ').toLowerCase().indexOf(q) >= 0;
+      return !q || p.title.toLowerCase().indexOf(q) >= 0 || String(p.n) === q;
     });
     if (!rows.length) list.appendChild(el('div', { class: 'prow', text: 'No problems match.' }));
     rows.forEach(function (p) {
       list.appendChild(el('div', { class: 'prow', role: 'button', tabindex: '0', onclick: function () { $('dlg-problems').close(); loadProblem(p.id); } }, [
         el('span', { class: 'tick', text: solved[p.id] ? '✓' : '' }),
-        el('div', { class: 'name' }, [el('div', { text: p.title }), el('div', { class: 'tags', text: p.tags.join(' · ') })]),
+        el('div', { class: 'name', text: p.n + '. ' + p.title }),
         el('span', { class: 'badge ' + p.difficulty, text: p.difficulty })
       ]));
     });
@@ -501,7 +474,7 @@
   function renderHistory() {
     var h = history();
     var solved = solvedSet();
-    var solvedCount = Object.keys(solved).length;
+    var solvedCount = Object.keys(solved).filter(function (id) { return byId(id); }).length; // ignore ids of problems that no longer exist
     var byDiff = { Easy: 0, Medium: 0, Hard: 0 };
     Object.keys(solved).forEach(function (id) { var p = byId(id); if (p) byDiff[p.difficulty]++; });
     var totals = { Easy: 0, Medium: 0, Hard: 0 };
@@ -600,7 +573,7 @@
       store.set('cfg', S.cfg); Ed.setFont(f);
     });
     $('btn-reset').addEventListener('click', function () {
-      confirmDlg('Reset code?', 'Replace your code for this problem with the starter template.', 'Reset', true).then(function (ok) {
+      confirmDlg('Reset code?', 'Clear the editor for this problem.', 'Reset', true).then(function (ok) {
         if (ok && S.problem) { store.del('draft:' + S.problem.id); Ed.set(starterFor(S.problem)); Ed.markers([]); }
       });
     });

@@ -52,7 +52,6 @@
 
   <section id="pane-right" aria-label="Code editor">
     <div class="editor-head">
-      <span class="lang">Java 17</span>
       <span id="save-state" class="muted"></span>
       <span class="spacer"></span>
       <button id="btn-reset" class="btn btn-small" type="button">Reset code</button>
@@ -60,7 +59,7 @@
     <div id="editor-wrap"><div id="editor"></div></div>
     <div id="split-h" class="splitter h" role="separator" aria-orientation="horizontal"></div>
     <div id="results" aria-live="polite">
-      <div class="res-empty">Run your code to see results here.<br><span class="muted">Run = sample tests &middot; Submit = all tests (including hidden). java.util.*, java.util.function.*, java.util.stream.* and java.util.concurrent.* are pre-imported.</span></div>
+      <div class="res-empty">Run your code to see results here.</div>
     </div>
   </section>
 </main>
@@ -69,7 +68,7 @@
 <dialog id="dlg-start">
   <form method="dialog" id="form-start">
     <h2>Start an interview</h2>
-    <p class="muted">You get one problem and a countdown. Tags and the reference solution are hidden until you finish.</p>
+    <p class="muted">You get one random problem and a countdown.</p>
     <label>Difficulty
       <select id="start-diff">
         <option value="Any">Any</option>
@@ -102,7 +101,7 @@
     <button type="button" class="btn btn-small" data-close>Close</button>
   </div>
   <div class="filters">
-    <input id="pl-search" type="search" placeholder="Search title or tag" aria-label="Search problems">
+    <input id="pl-search" type="search" placeholder="Search by title or number" aria-label="Search problems">
     <div id="pl-diff" class="chips"></div>
   </div>
   <div id="pl-list" class="plist"></div>
@@ -133,7 +132,7 @@
     <label>Judge0 endpoint <span class="muted">(optional)</span>
       <input id="set-endpoint" type="url" placeholder="https://ce.judge0.com (default)">
     </label>
-    <p class="muted small">Your code is compiled and run on a remote Java 17 runner: the free public Judge0 CE service, with Wandbox as automatic fallback. Point this at your own Judge0 instance if the public one is busy or you do not want to use it.</p>
+    <p class="muted small">Your code is compiled and run on a remote runner (the free public Judge0 CE service, with Wandbox as automatic fallback), so it is sent to those services. Point this at your own Judge0 instance if you prefer.</p>
     <div class="dlg-actions">
       <button type="button" class="btn" data-close>Cancel</button>
       <button type="submit" class="btn btn-accent" value="save">Save</button>
@@ -151,7 +150,12 @@
 </dialog>
 
 <script src="rt.js"></script>
-<script src="problems.js"></script>
+<script src="dsl.js"></script>
+<script src="p01.js"></script>
+<script src="p02.js"></script>
+<script src="p03.js"></script>
+<script src="p04.js"></script>
+<script src="p05.js"></script>
 <script src="runner.js"></script>
 <script src="app.js"></script>
 </body>

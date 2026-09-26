@@ -13,7 +13,7 @@
     if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
   } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 
@@ -147,14 +147,15 @@
   </form>
 </dialog>
 
-<script src="rt.js"></script>
-<script src="dsl.js"></script>
-<script src="p01.js"></script>
-<script src="p02.js"></script>
-<script src="p03.js"></script>
-<script src="p04.js"></script>
-<script src="p05.js"></script>
-<script src="runner.js"></script>
-<script src="app.js"></script>
+<!-- ?v= busts stale browser/CDN caches; bump it when the scripts change -->
+<script src="rt.js?v=5"></script>
+<script src="dsl.js?v=5"></script>
+<script src="p01.js?v=5"></script>
+<script src="p02.js?v=5"></script>
+<script src="p03.js?v=5"></script>
+<script src="p04.js?v=5"></script>
+<script src="p05.js?v=5"></script>
+<script src="runner.js?v=5"></script>
+<script src="app.js?v=5"></script>
 </body>
 </html>

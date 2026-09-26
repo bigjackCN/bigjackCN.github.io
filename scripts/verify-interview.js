@@ -114,7 +114,11 @@ async function pool(items, n, fn) {
       ['stack overflow', 'class Solution { int f(int x) { return f(x + 1) + 1; } public int[] twoSum(int[] n, int t) { f(0); return null; } }', 'runtime'],
       ['compile error', 'class Solution { public int[] twoSum(int[] n, int t) { return 1 } }', 'compile'],
       ['no imports written -> compile error (nothing is pre-imported)', 'class Solution { public int[] twoSum(int[] n, int t) { Map<Integer,Integer> m = new HashMap<>(); return null; } }', 'compile'],
-      ['public class + prints + own imports', 'import java.util.*;\npublic class Solution { public int[] twoSum(int[] n, int t) { System.out.println("hello"); Map<Integer,Integer> m = new HashMap<>(); for (int i = 0; i < n.length; i++) { if (m.containsKey(t - n[i])) return new int[]{m.get(t - n[i]), i}; m.put(n[i], i); } return null; } }', 'ok']
+      ['public class + prints + own imports', 'import java.util.*;\npublic class Solution { public int[] twoSum(int[] n, int t) { System.out.println("hello"); Map<Integer,Integer> m = new HashMap<>(); for (int i = 0; i < n.length; i++) { if (m.containsKey(t - n[i])) return new int[]{m.get(t - n[i]), i}; m.put(n[i], i); } return null; } }', 'ok'],
+      ['own class + method names, helper class first', 'import java.util.*;\nclass Util { static int twice(int x) { return 2 * x; } int[] other(int[] a) { return a; } }\nclass Mine { private int[] helper(int[] a, int b) { return null; } public int[] whatever(int[] n, int t) { Map<Integer,Integer> m = new HashMap<>(); for (int i = 0; i < n.length; i++) { if (m.containsKey(t - n[i])) return new int[]{m.get(t - n[i]), i}; m.put(n[i], i); } return null; } }', 'ok'],
+      ['static method in a class with a private constructor', 'import java.util.*;\nclass X { private X() {} static int[] go(int[] n, int t) { for (int i = 0; i < n.length; i++) for (int j = i + 1; j < n.length; j++) if (n[i] + n[j] == t) return new int[]{i, j}; return null; } }', 'ok'],
+      ['method exists but takes other parameter types -> readable error', 'class Solution { public int[] twoSum(String s) { return null; } }', 'runtime'],
+      ['exception inside a differently named method', 'class Q { int[] f(int[] n, int t) { return new int[]{n[100], 0}; } }', 'runtime']
     ];
     for (const [name, code, kind] of cases) {
       const prog = Runner.buildProgram(p, code, true);

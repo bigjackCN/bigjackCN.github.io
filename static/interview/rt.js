@@ -33,6 +33,62 @@ class JKRT {
         System.setErr(SINK);
     }
 
+    // ---- the user names their own class and method: find it by parameter types ----
+    static String[] userClasses = new String[0];
+    static Class<?>[] sigTypes = new Class<?>[0];
+
+    static void sig(Class<?>... types) { sigTypes = types; }
+
+    @SuppressWarnings("unchecked")
+    static <T extends Throwable> void sneaky(Throwable t) throws T { throw (T) t; }
+
+    static String typeNames(Class<?>[] ts) {
+        StringBuilder b = new StringBuilder();
+        for (int i = 0; i < ts.length; i++) b.append(i > 0 ? ", " : "").append(ts[i].getSimpleName());
+        return b.toString();
+    }
+
+    static Object call(Object... args) {
+        java.lang.reflect.Method best = null;
+        Class<?> owner = null;
+        int bestScore = -1;
+        for (String name : userClasses) {
+            Class<?> c;
+            try { c = Class.forName(name); } catch (Throwable e) { continue; }
+            for (java.lang.reflect.Method m : c.getDeclaredMethods()) {
+                if (m.isSynthetic() || java.lang.reflect.Modifier.isPrivate(m.getModifiers()) || m.getName().equals("main")) continue;
+                Class<?>[] ps = m.getParameterTypes();
+                int score = -1;
+                if (java.util.Arrays.equals(ps, sigTypes)) score = 2;
+                else if (ps.length == sigTypes.length) score = 1;
+                if (score > bestScore) { bestScore = score; best = m; owner = c; }
+            }
+            if (bestScore == 2) break;
+        }
+        if (best == null) {
+            throw new IllegalStateException("No method found that takes (" + typeNames(sigTypes) + "). Write a method with " + sigTypes.length + " parameter(s) of those types, inside a class.");
+        }
+        try {
+            best.setAccessible(true);
+            Object inst = null;
+            if (!java.lang.reflect.Modifier.isStatic(best.getModifiers())) {
+                java.lang.reflect.Constructor<?> k = owner.getDeclaredConstructor();
+                k.setAccessible(true);
+                inst = k.newInstance();
+            }
+            return best.invoke(inst, args);
+        } catch (java.lang.reflect.InvocationTargetException e) {
+            JKRT.<RuntimeException>sneaky(e.getCause());
+            return null;
+        } catch (NoSuchMethodException e) {
+            throw new IllegalStateException("Class " + owner.getName() + " needs a constructor with no arguments.");
+        } catch (IllegalArgumentException e) {
+            throw new IllegalStateException("Your method takes different parameter types than (" + typeNames(sigTypes) + ").");
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException(String.valueOf(e));
+        }
+    }
+
     static void end() {
         REAL.println("@@END@@");
         REAL.flush();

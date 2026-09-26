@@ -8,7 +8,7 @@
     ex: [['listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3', '8'], ['listA = [1,9,1,2,4], listB = [3,2,4], skipA = 3, skipB = 1', '2'], ['listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2', 'null']],
     sig: 'ListNode getIntersectionNode(ListNode headA, ListNode headB)',
     args: 'int[] listA, int[] listB, int skipA, int skipB', ret: 'Integer',
-    body: 'ListNode[] p = JKL.intersect(a0, a1, a2, a3); ListNode r = new Solution().getIntersectionNode(p[0], p[1]); return r == null ? null : Integer.valueOf(r.val);',
+    body: 'ListNode[] p = JKL.intersect(a0, a1, a2, a3); ListNode r = (ListNode) JKRT.call(p[0], p[1]); return r == null ? null : Integer.valueOf(r.val);',
     tests: [
       t([[4, 1, 8, 4, 5], [5, 6, 1, 8, 4, 5], 2, 3], 8), t([[1, 9, 1, 2, 4], [3, 2, 4], 3, 1], 2), t([[2, 6, 4], [1, 5], 3, 2], null),
       h([[1], [1], 0, 0], 1), h([[1, 2, 3], [2, 3], 1, 0], 2), h([[1, 2], [3, 4, 5], 2, 3], null),
@@ -46,7 +46,7 @@
     desc: '<p>Given <code>head</code>, the head of a linked list, determine if the linked list has a cycle in it. A cycle exists if some node can be reached again by continuously following the <code>next</code> pointer.</p><p>In the tests <code>pos</code> is the index of the node that the tail\'s <code>next</code> pointer connects to (<code>-1</code> means no cycle). Follow-up: can you solve it using <code>O(1)</code> memory?</p>',
     ex: [['head = [3,2,0,-4], pos = 1', 'true'], ['head = [1,2], pos = 0', 'true'], ['head = [1], pos = -1', 'false']],
     sig: 'boolean hasCycle(ListNode head)', args: 'int[] head, int pos', ret: 'boolean',
-    body: 'return new Solution().hasCycle(JKL.cycleList(a0, a1));',
+    body: 'return JKRT.call(JKL.cycleList(a0, a1));',
     tests: [
       t([[3, 2, 0, -4], 1], true), t([[1, 2], 0], true), t([[1], -1], false),
       h([[1, 2, 3], -1], false), h([[1], 0], true),
@@ -60,7 +60,7 @@
     desc: '<p>Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return <code>null</code>.</p><p>In the tests <code>pos</code> is the index of the node the tail connects to (<code>-1</code> means no cycle) and the expected output is the index of the node your method returns (<code>-1</code> for <code>null</code>). Do not modify the linked list.</p>',
     ex: [['head = [3,2,0,-4], pos = 1', '1'], ['head = [1,2], pos = 0', '0'], ['head = [1], pos = -1', '-1']],
     sig: 'ListNode detectCycle(ListNode head)', args: 'int[] head, int pos', ret: 'int',
-    body: 'ListNode hd = JKL.cycleList(a0, a1); return JKL.indexOf(hd, new Solution().detectCycle(hd));',
+    body: 'ListNode hd = JKL.cycleList(a0, a1); return JKL.indexOf(hd, (ListNode) JKRT.call(hd));',
     tests: [
       t([[3, 2, 0, -4], 1], 1), t([[1, 2], 0], 0), t([[1], -1], -1),
       h([[1, 2, 3, 4, 5], 2], 2), h([[1], 0], 0), h([[1, 2, 3], -1], -1),
@@ -129,7 +129,7 @@
     desc: '<p>A linked list of length <code>n</code> is given such that each node contains an additional random pointer, which could point to any node in the list, or <code>null</code>. Construct a deep copy of the list. The deep copy must consist of exactly <code>n</code> brand new nodes; none of the pointers in the new list may point to nodes in the original list.</p><p>Lists are shown as <code>[[val, randomIndex], ...]</code> where <code>randomIndex</code> is the index of the node the random pointer points to (or <code>null</code>).</p>',
     ex: [['head = [[7,null],[13,0],[11,4],[10,2],[1,0]]', '[[7,null],[13,0],[11,4],[10,2],[1,0]]'], ['head = [[1,1],[2,1]]', '[[1,1],[2,1]]'], ['head = [[3,null],[3,0],[3,null]]', '[[3,null],[3,0],[3,null]]']],
     sig: 'Node copyRandomList(Node head)', args: 'Node head', ret: 'Node',
-    body: 'Node c = new Solution().copyRandomList(a0); return JKN.shares(a0, c) ? (Object) "your copy reuses nodes of the original list" : (Object) c;',
+    body: 'Node c = (Node) JKRT.call(a0); return JKN.shares(a0, c) ? (Object) "your copy reuses nodes of the original list" : (Object) c;',
     tests: [
       t([[[7, null], [13, 0], [11, 4], [10, 2], [1, 0]]], [[7, null], [13, 0], [11, 4], [10, 2], [1, 0]]),
       t([[[1, 1], [2, 1]]], [[1, 1], [2, 1]]),

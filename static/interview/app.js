@@ -105,7 +105,6 @@
     ta.addEventListener('input', function () { Ed.onChange(); });
     host.appendChild(ta);
     Ed.ta = ta;
-    if (note) $('save-state').textContent = note;
   }
 
   function loadMonaco() {
@@ -208,11 +207,6 @@
       box.appendChild(d);
     });
 
-    // just the method the tests call (and the helper classes, if the problem uses any)
-    var sig = Runner.signatureText(p);
-    box.appendChild(el('pre', { class: 'sig', text: sig }));
-    var prov = Runner.providedText(p);
-    if (prov.length) box.appendChild(el('div', { class: 'muted small', text: 'Provided: ' + prov.join('; ') }));
     document.title = p.n + '. ' + p.title;
     $('pane-left').scrollTop = 0;
   }
@@ -229,7 +223,6 @@
     S.lastRes = null;
     $('results').textContent = '';
     $('results').appendChild(el('div', { class: 'res-empty', text: 'Run your code to see results here.' }));
-    $('save-state').textContent = '';
   }
 
   /* ------------------------------------------------------------ run / submit / results */
@@ -599,14 +592,19 @@
     // debounce-save the draft
     var saveTimer = null;
     Ed.onChange = function () {
-      $('save-state').textContent = 'Saving...';
       Ed.markers && Ed.markers([]);
       clearTimeout(saveTimer);
       saveTimer = setTimeout(function () {
         if (S.problem) store.set('draft:' + S.problem.id, Ed.get());
-        $('save-state').textContent = 'Saved locally';
       }, 500);
     };
+
+    // drafts saved by the first version still contain the old starter template: drop them
+    try {
+      Object.keys(localStorage).forEach(function (k) {
+        if (k.indexOf('jk:draft:') === 0 && (localStorage.getItem(k) || '').indexOf('write your solution here') >= 0) localStorage.removeItem(k);
+      });
+    } catch (e) { /* ignore */ }
 
     // restore the interview in progress (a refresh must not reset the clock)
     var startId = S.active && byId(S.active.pid) ? S.active.pid : (byId(store.get('last', '')) ? store.get('last', '') : pickProblem('Easy', true).id);

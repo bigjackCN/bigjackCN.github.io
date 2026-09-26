@@ -128,6 +128,23 @@
     return q.params.map(function (x, i) { return x[1] + ' = ' + showArg(t.a[i]); }).join(', ');
   }
 
+  // Parameter types the user's method must take (a problem with a custom body may list them in `sigTypes`).
+  function sigParams(p) {
+    return parseSig(p.sig).params.map(function (x) { return x[0]; });
+  }
+  function classLit(type) {
+    var base = type.replace(/<.*>/g, '');
+    if (/^(List|Map|Set|Queue|Deque)(\[\])*$/.test(base)) base = 'java.util.' + base;
+    return base + '.class';
+  }
+  // names of the classes declared in the user's code (the runtime looks for the method inside them)
+  function userClassNames(code) {
+    var stripped = String(code).replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/\/\/.*$/gm, ' ').replace(/"(?:\\.|[^"\\\n])*"/g, '""');
+    var names = [], re = /\bclass\s+([A-Za-z_$][\w$]*)/g, m;
+    while ((m = re.exec(stripped))) if (names.indexOf(m[1]) < 0) names.push(m[1]);
+    return names;
+  }
+
   // Java lambda body (a Callable<Object>) for one test.
   function testLambda(p, t) {
     var q = prep(p);
@@ -152,9 +169,12 @@
     var names = q.params.map(function (x, i) { return 'a' + i; }).join(', ');
     var body;
     if (p.body) body = p.body;
-    else if (typeof p.inPlace === 'number') body = 'new Solution().' + q.method + '(' + names + '); return a' + p.inPlace + ';';
-    else body = 'return new Solution().' + q.method + '(' + names + ');';
-    return '() -> { ' + decls + ' ' + body + ' }';
+    // (explicit Object[]: a lone int[][] / String[] argument must not be spread by the varargs call)
+    else if (typeof p.inPlace === 'number') body = 'JKRT.call(new Object[]{' + names + '}); return a' + p.inPlace + ';';
+    else body = 'return JKRT.call(new Object[]{' + names + '});';
+    // the user's class/method is located by reflection (JKRT.call) from these parameter types
+    var sig = 'JKRT.sig(' + sigParams(p).map(classLit).join(', ') + '); ';
+    return '() -> { ' + sig + decls + ' ' + body + ' }';
   }
 
   function expectedLit(p, t) {
@@ -181,6 +201,7 @@
       '        java.util.Scanner sc = new java.util.Scanner(System.in);\n' +
       '        boolean submit = sc.hasNextLine() && sc.nextLine().trim().equals("SUBMIT");\n' +
       '        JKRT.begin(submit, ' + jstr(problem.cmp || 'exact') + ', ' + jstr(q.kind) + ', ' + (problem.timeMs || 3000) + 'L);\n' +
+      '        JKRT.userClasses = new String[]{' + userClassNames(userCode).map(jstr).join(', ') + '};\n' +
       lines.join('\n') + '\n' +
       '        JKRT.end();\n' +
       '    }\n' +

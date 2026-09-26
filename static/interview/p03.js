@@ -77,7 +77,7 @@
     desc: '<p>Given an integer array <code>nums</code> where the elements are sorted in ascending order, convert it to a height-balanced binary search tree.</p><p>Any valid height-balanced BST is accepted: the tests check that the in-order traversal of your tree equals <code>nums</code> and that the depths of the two subtrees of every node never differ by more than one.</p>',
     ex: [['nums = [-10,-3,0,5,9]', 'true', 'e.g. [0,-3,9,-10,null,5] is one valid answer.'], ['nums = [1,3]', 'true']],
     sig: 'TreeNode sortedArrayToBST(int[] nums)', args: 'int[] nums', ret: 'boolean',
-    body: 'return JKT.balancedBstOf(new Solution().sortedArrayToBST(a0), a0);',
+    body: 'return JKT.balancedBstOf((TreeNode) JKRT.call(a0), a0);',
     tests: [
       t([[-10, -3, 0, 5, 9]], true), t([[1, 3]], true), t([[1]], true),
       h([[1, 2, 3, 4, 5, 6, 7]], true), h([[-1, 0, 1, 2]], true),
@@ -159,7 +159,7 @@
     desc: '<p>Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.</p><p>The LCA of two nodes <code>p</code> and <code>q</code> is the lowest node that has both <code>p</code> and <code>q</code> as descendants (a node can be a descendant of itself). All values are unique and both nodes exist in the tree. In the tests <code>p</code> and <code>q</code> are given as values, and the expected output is the value of the LCA node.</p><p>' + TREE + '</p>',
     ex: [['root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1', '3'], ['root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4', '5'], ['root = [1,2], p = 1, q = 2', '1']],
     sig: 'TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)', args: 'TreeNode root, int p, int q', ret: 'Integer',
-    body: 'TreeNode r = new Solution().lowestCommonAncestor(a0, JKT.find(a0, a1), JKT.find(a0, a2)); return r == null ? null : Integer.valueOf(r.val);',
+    body: 'TreeNode r = (TreeNode) JKRT.call(a0, JKT.find(a0, a1), JKT.find(a0, a2)); return r == null ? null : Integer.valueOf(r.val);',
     tests: [
       t([[3, 5, 1, 6, 2, 0, 8, null, null, 7, 4], 5, 1], 3), t([[3, 5, 1, 6, 2, 0, 8, null, null, 7, 4], 5, 4], 5), t([[1, 2], 1, 2], 1),
       h([[3, 5, 1, 6, 2, 0, 8, null, null, 7, 4], 6, 4], 5), h([[3, 5, 1, 6, 2, 0, 8, null, null, 7, 4], 7, 8], 3), h([[2, 1], 2, 1], 2),

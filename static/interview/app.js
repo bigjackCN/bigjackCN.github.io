@@ -138,11 +138,23 @@
     return loadMonaco().then(function (monaco) {
       host.textContent = '';
       Ed.m = monaco.editor.create(host, {
-        value: initial, language: 'java', theme: currentTheme() === 'dark' ? 'vs-dark' : 'vs',
+        // A plain-text editor, like a shared doc in a real interview: no syntax colours, no completion,
+        // no auto-indent, no auto-closing brackets/quotes.
+        value: initial, language: 'plaintext', theme: currentTheme() === 'dark' ? 'vs-dark' : 'vs',
         automaticLayout: true, minimap: { enabled: false }, fontSize: S.cfg.font, tabSize: 4, insertSpaces: true,
         scrollBeyondLastLine: false, renderLineHighlight: 'line', padding: { top: 8 }, wordWrap: 'off',
-        lineNumbersMinChars: 3, fixedOverflowWidgets: true
+        lineNumbersMinChars: 3, fixedOverflowWidgets: true,
+        autoIndent: 'none', formatOnType: false, formatOnPaste: false, detectIndentation: false,
+        autoClosingBrackets: 'never', autoClosingQuotes: 'never', autoClosingOvertype: 'never', autoSurround: 'never',
+        quickSuggestions: false, suggestOnTriggerCharacters: false, wordBasedSuggestions: 'off',
+        acceptSuggestionOnEnter: 'off', acceptSuggestionOnCommitCharacter: false, tabCompletion: 'off',
+        snippetSuggestions: 'none', parameterHints: { enabled: false }, hover: { enabled: false },
+        inlineSuggest: { enabled: false }, suggest: { showWords: false, showSnippets: false, showKeywords: false },
+        lightbulb: { enabled: 'off' }, codeLens: false, occurrencesHighlight: 'off', selectionHighlight: false,
+        matchBrackets: 'never', bracketPairColorization: { enabled: false }, guides: { indentation: false, bracketPairs: false },
+        links: false, colorDecorators: false, renameOnType: false, linkedEditing: false, unicodeHighlight: { ambiguousCharacters: false, invisibleCharacters: false }
       });
+      Ed.m.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Space, function () { /* no manual completion either */ });
       Ed.m.onDidChangeModelContent(function () { Ed.onChange(); });
       Ed.m.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Quote, function () { runCode(false); });
       Ed.m.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, function () { runCode(true); });

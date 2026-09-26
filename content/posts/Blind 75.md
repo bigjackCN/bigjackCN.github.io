@@ -2045,3 +2045,38 @@ class Solution {
     }
 }
 ```
+
+## 63. Find Median from Data Stream（LeetCode 295）
+
+**题目**：The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.
+
+### Maintain two heaps
+
+```java
+class MedianFinder {
+    private PriorityQueue<Integer> small;
+    private PriorityQueue<Integer> large;
+
+    public MedianFinder() {
+        small = new PriorityQueue<>(Collections.reverseOrder());
+        large = new PriorityQueue<>();
+    }
+    
+    public void addNum(int num) {
+        small.offer(num);
+
+        large.offer(small.poll());
+
+        if (large.size() > small.size()) {
+            small.offer(large.poll());
+        }
+    }
+    
+    public double findMedian() {
+        if (small.size() > large.size()) {
+            return small.peek();
+        }
+        return (small.peek() + large.peek()) / 2.0; 
+    }
+}
+```

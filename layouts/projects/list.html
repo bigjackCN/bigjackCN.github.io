@@ -16,9 +16,7 @@
     <div class="project-body">
       <h2>{{ $p.Title }} <span class="project-arrow" aria-hidden="true">{{ if hasPrefix $p.Params.link "http" }}↗{{ else }}→{{ end }}</span></h2>
       <p>{{ $p.Summary | plainify }}</p>
-      {{- if hasPrefix $p.Params.link "http" }}
-      <span class="project-url">{{ replaceRE "^https?://|/$" "" $p.Params.link }}</span>
-      {{- end }}
+      <span class="project-url">{{ replaceRE "^https?://|/$" "" ($p.Params.link | absURL) | lower }}</span>
     </div>
   </a>
   {{- end }}

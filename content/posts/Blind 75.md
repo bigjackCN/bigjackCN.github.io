@@ -1328,453 +1328,7 @@ class Solution {
 }
 ```
 
-## 43. 打家劫舍 II（LeetCode 213）
-
-**题目**：你是一个专业的小偷，计划偷窃沿街的房屋，每间房内都藏有一定的现金。这个地方所有的房屋都 围成一圈 ，这意味着第一个房屋和最后一个房屋是紧挨着的。同时，相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警 。
-
-### DP twice to break the loop
-
-Time: O(n)      
-Space: O(1)
-
-```java
-class Solution {
-    public int rob(int[] nums) {
-        if (nums == null || nums.length == 0) return 0;
-        if (nums.length == 1) return nums[0];
-
-        int case1 = robHelper(nums, 0, nums.length - 1);
-        int case2 = robHelper(nums, 1, nums.length);
-
-        return Math.max(case1, case2);
-    }
-
-    private int robHelper(int[] nums, int start, int end) {
-        int prev1 = 0;  // dp[i-1]
-        int prev2 = 0;  // dp[i-2]
-        for (int i = start; i < end; i++) {
-            int cur = Math.max(prev1, prev2 + nums[i]);
-            prev2 = prev1;
-            prev1 = cur;
-        }
-        return prev1;
-    }
-}
-```
-
-## 44. 存在重复元素（LeetCode 217）
-
-**题目**：给定一个整数数组，判断是否存在重复元素。如果存在一值在数组中出现至少两次，返回 true；否则返回 false。
-
-### 哈希表
-
-Time: O(n)  
-Space: O(n)
-
-```java
-class Solution {
-    public boolean containsDuplicate(int[] nums) {
-        Set<Integer> set = new HashSet<>();
-        for (int num : nums) {
-            if (!set.add(num)) return true;
-        }
-        return false;
-    }
-}
-
-```
-
-## 45. 翻转二叉树（LeetCode 226）
-
-**题目**：给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。
-
-### recursion
-
-Time: O(n)      
-Space: O(h)
-
-```java
-class Solution {
-    public TreeNode invertTree(TreeNode root) {
-        if (root == null) return root;
-        
-        TreeNode left = invertTree(root.left);
-        TreeNode right = invertTree(root.right);
-
-        root.left = right;
-        root.right = left;
-
-        return root;
-    }
-}
-```
-
-## 46. 二叉搜索树中第 K 小的元素（LeetCode 230）
-
-**题目**：给定一个二叉搜索树的根节点 root ，和一个整数 k ，请你设计一个算法查找其中第 k 小的元素（k 从 1 开始计数）。
-
-### Stack
-
-Time: O(n)      
-Space: O(h)
-
-```java
-class Solution {
-    public int kthSmallest(TreeNode root, int k) {
-        Stack<TreeNode> stack = new Stack<>();
-        TreeNode cur = root;
-        int count = 0;
-        
-        while (cur != null || !stack.isEmpty()) {
-            while (cur != null) {
-                stack.push(cur);
-                cur = cur.left;
-            }
-            cur = stack.pop();
-            count++;
-            if (count == k) return cur.val;  
-            cur = cur.right;
-        }
-        return -1;
-    }
-}
-```
-
-## 47. 二叉搜索树的最近公共祖先（LeetCode 235）
-
-**题目**：给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
-
-### left -> right
-
-Time: O(h)      
-Space: O(h)
-
-```java
-class Solution {
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if (root.val > p.val && root.val > q.val) {
-            return lowestCommonAncestor(root.left, p, q);
-        } else if (root.val < p.val && root.val < q.val) {
-            return lowestCommonAncestor(root.right, p, q);
-        } else {
-            return root;
-        }
-    }
-}
-```
-
-## 48. 二叉树的最近公共祖先（LeetCode 236）
-
-**题目**：给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
-
-### Postorder Traversal
-
-Time: O(n)      
-Space: O(h)
-
-```java
-class Solution {
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null || root == p || root == q) return root;
-        TreeNode left = lowestCommonAncestor(root.left, p, q);
-        TreeNode right = lowestCommonAncestor(root.right, p, q);
-        if (left != null && right != null) return root;
-        return left != null ? left : right;
-    }
-}
-```
-
-## 49. 除了自身以外数组的乘积（LeetCode 238）
-
-**题目**：给你一个整数数组 nums，返回数组 answer，其中 answer[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积。题目保证数组元素乘积在 32 位整数范围内。
-
-### 前缀积 + 后缀积（空间 O(1)）
-
-Time: O(n)  
-Space: O(1)（不考虑返回数组）
-
-```java
-class Solution {
-    public int[] productExceptSelf(int[] nums) {
-        int[] res = new int[nums.length];
-        res[0] = 1;
-        for (int i = 1; i < nums.length; i++) {
-            res[i] = res[i - 1] * nums[i - 1];
-        }
-        int suffix = 1;
-        for (int i = nums.length - 1; i >= 0; i--) {
-            res[i] *= suffix;
-            suffix *= nums[i];
-        }
-        return res;
-    }
-}
-
-```
-
-## 50. 有效的字母异位词（LeetCode 242）
-
-**题目**：给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
-
-### 计数数组
-
-Time: O(n)  
-Space: O(1)
-
-```java
-class Solution {
-    public boolean isAnagram(String s, String t) {
-        if (s.length() != t.length()) return false;
-        int[] counts = new int[26];
-        for (char c : s.toCharArray()) counts[c - 'a']++;
-        for (char c : t.toCharArray()) counts[c - 'a']--;
-        for (int count : counts) if (count != 0) return false;
-        return true;
-    }
-}
-
-```
-
-## 51. 二叉树的序列化与反序列化（LeetCode 297）
-
-**题目**：请设计一个算法来实现二叉树的序列化与反序列化。这里不限定你的序列 / 反序列化算法执行逻辑，你只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构。
-
-### BFS
-
-Time: O(n)      
-Space: O(n)
-
-```java
-public class Codec {
-
-    // Encodes a tree to a single string.
-    public String serialize(TreeNode root) {
-        if (root == null) return "";
-        StringBuilder sb = new StringBuilder();
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        while (!queue.isEmpty()) {
-            TreeNode node = queue.poll();
-            if (node == null) {
-                sb.append("null,");
-                continue;
-            }
-            sb.append(node.val).append(",");
-            queue.offer(node.left);
-            queue.offer(node.right);
-        }
-        sb.setLength(sb.length() - 1);  // remove the last comma
-        return sb.toString();
-    }
-
-    // Decodes your encoded data to tree.
-    public TreeNode deserialize(String data) {
-        if (data == null || data.isEmpty()) return null;
-        String[] vals = data.split(",");
-        TreeNode root = new TreeNode(Integer.parseInt(vals[0]));
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        int i = 1;
-        while (!queue.isEmpty()) {
-            TreeNode node = queue.poll();
-            if (!vals[i].equals("null")) {          // left node
-                node.left = new TreeNode(Integer.parseInt(vals[i]));
-                queue.offer(node.left);
-            }
-            i++;
-            if (!vals[i].equals("null")) {          // right node 
-                node.right = new TreeNode(Integer.parseInt(vals[i]));
-                queue.offer(node.right);
-            }
-            i++;
-        }
-        return root;
-    }
-}
-```
-
-## 52. 零钱兑换（LeetCode 322）
-
-**题目**：给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。
-
-### DP for both amount and coins value
-
-Time: O(a*c)      
-Space: O(a)
-
-```java
-class Solution {
-    public int coinChange(int[] coins, int amount) {
-        int[] dp = new int[amount + 1];
-        Arrays.fill(dp, amount + 1);
-
-        dp[0] = 0;
-        for (int i = 1; i <= amount; i++) {
-            for (int j = 0; j < coins.length; j++) {
-                if (i - coins[j] >= 0) {
-                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
-                }
-            }
-        }
-        
-        if (dp[amount] == amount + 1) {
-            return -1;
-        } else {
-            return dp[amount];
-        }
-    }
-}
-```
-
-## 53. 比特位计数（LeetCode 338）
-
-**题目**：给你一个整数 n ，对于 0 <= i <= n 中的每个 i ，计算其二进制表示中 1 的个数 ，返回一个长度为 n + 1 的数组 ans 作为答案。
-
-### dynamic programming
-
-Time: O(n)      
-Space: O(1)
-
-```java
-class Solution {
-    public int[] countBits(int n) {
-        int[] res = new int[n + 1];
-        for (int i = 1; i <= n; i++) {
-            res[i] = res[i >> 1] + (i & 1);
-        }
-        return res;
-    }
-}
-```
-
-## 54. 两整数之和（LeetCode 371）
-
-**题目**：给你两个整数 a 和 b ，不使用 运算符 + 和 - ​​​​​​​，计算并返回两整数之和。
-
-### XOR + AND
-
-Time: O(1)      
-Space: O(1)
-
-```java
-class Solution {
-    public int getSum(int a, int b) {
-        while (b != 0) {
-            int temp_add = a ^ b;
-            int temp_carry = (a & b) << 1;
-            a = temp_add;
-            b = temp_carry;
-        } 
-        return a;
-    }
-}
-```
-
-## 55. 另一棵树的子树（LeetCode 572）
-
-**题目**：给你两棵二叉树 root 和 subRoot 。检验 root 中是否包含和 subRoot 具有相同结构和节点值的子树。如果存在，返回 true ；否则，返回 false 。
-
-### recursion
-
-Time: O(m*n)      
-Space: O(h)
-
-```java
-class Solution {
-    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-        if (subRoot == null) return true;
-        if (root == null) return false;
-        if (isSameTree(root, subRoot)) return true;
-        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
-    }
-
-    boolean isSameTree(TreeNode root, TreeNode subRoot) {
-        if (root == null && subRoot == null) return true;
-        if (root == null || subRoot == null) return false;
-        if (root.val != subRoot.val) return false;
-        return isSameTree(root.left, subRoot.left) && isSameTree(root.right, subRoot.right);
-    }
-}
-```
-
-## 56. 回文子串（LeetCode 647）
-
-**题目**：给你一个字符串 s，请你统计并返回这个字符串中 回文子串 的数目。
-
-### Manacher 算法
-
-Time: O(n)  
-Space: O(n)
-
-```java
-class Solution {
-    public int countSubstrings(String s) {
-        // convert s to odd length
-        StringBuilder sb = new StringBuilder("^#");
-        for (char c : s.toCharArray()) {
-            sb.append(c).append("#");
-        }
-        sb.append("$");
-        s = sb.toString();
-
-        int[] p = new int[s.length()];
-        int center = 0;
-        int right = 0;
-        int count = 0;
-
-        for (int i = 1; i < s.length() - 1; i++) {
-            int mirror = 2 * center - i;
-
-            if (i < right) {
-                p[i] = Math.min(right - i, p[mirror]);
-            }
-
-            while (s.charAt(i + p[i] + 1) == s.charAt(i - p[i] - 1)) {
-                p[i]++;
-            }
-            
-            if (i + p[i] > right) {
-                center = i;
-                right = i + p[i];
-            }
-            count += (p[i] + 1) / 2;
-        }
-        return count;
-    }
-}
-```
-
-## 57. 最长公共子序列（LeetCode 1143）
-
-**题目**：给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。如果不存在 公共子序列 ，返回 0 。
-
-### dp
-
-Time: O(n*m)      
-Space: O(n*m)
-
-```java
-class Solution {
-    public int longestCommonSubsequence(String text1, String text2) {
-        int n = text1.length();
-        int m = text2.length();
-        int[][] dp = new int[n + 1][m + 1];
-
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= m; j++) {
-                if (text1.charAt(i-1) == text2.charAt(j-1)) {
-                    dp[i][j] = dp[i-1][j-1] + 1;
-                } else {
-                    dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
-                }
-            }
-        }
-        return dp[n][m];
-    }
-}
-```
-
-## 58. Course Schedule（LeetCode 207）
+## 43. Course Schedule（LeetCode 207）
 
 **题目**：There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
 
@@ -1825,7 +1379,7 @@ class Solution {
 }
 ```
 
-## 59. Implement Trie (Prefix Tree)（LeetCode 208）
+## 44. Implement Trie (Prefix Tree)（LeetCode 208）
 
 **题目**：A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.
 
@@ -1888,7 +1442,7 @@ class Trie {
 }
 ```
 
-## 60. Design Add and Search Words Data Structure（LeetCode 211）
+## 45. Design Add and Search Words Data Structure（LeetCode 211）
 
 **题目**：Design a data structure that supports adding new words and finding if a string matches any previously added string.
 
@@ -1948,7 +1502,7 @@ class WordDictionary {
 }
 ```
 
-## 61. Word Search II（LeetCode 212）
+## 46. Word Search II（LeetCode 212）
 
 **题目**：Given an m x n board of characters and a list of strings words, return all words on the board.
 
@@ -2020,7 +1574,63 @@ class Solution {
 }
 ```
 
-## 62. Contains Duplicate（LeetCode 217）
+## 47. 打家劫舍 II（LeetCode 213）
+
+**题目**：你是一个专业的小偷，计划偷窃沿街的房屋，每间房内都藏有一定的现金。这个地方所有的房屋都 围成一圈 ，这意味着第一个房屋和最后一个房屋是紧挨着的。同时，相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警 。
+
+### DP twice to break the loop
+
+Time: O(n)      
+Space: O(1)
+
+```java
+class Solution {
+    public int rob(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        if (nums.length == 1) return nums[0];
+
+        int case1 = robHelper(nums, 0, nums.length - 1);
+        int case2 = robHelper(nums, 1, nums.length);
+
+        return Math.max(case1, case2);
+    }
+
+    private int robHelper(int[] nums, int start, int end) {
+        int prev1 = 0;  // dp[i-1]
+        int prev2 = 0;  // dp[i-2]
+        for (int i = start; i < end; i++) {
+            int cur = Math.max(prev1, prev2 + nums[i]);
+            prev2 = prev1;
+            prev1 = cur;
+        }
+        return prev1;
+    }
+}
+```
+
+## 48. 存在重复元素（LeetCode 217）
+
+**题目**：给定一个整数数组，判断是否存在重复元素。如果存在一值在数组中出现至少两次，返回 true；否则返回 false。
+
+### 哈希表
+
+Time: O(n)  
+Space: O(n)
+
+```java
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            if (!set.add(num)) return true;
+        }
+        return false;
+    }
+}
+
+```
+
+## 49. Contains Duplicate（LeetCode 217）
 
 **题目**：Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
 
@@ -2040,7 +1650,158 @@ class Solution {
 }
 ```
 
-## 63. Find Median from Data Stream（LeetCode 295）
+## 50. 翻转二叉树（LeetCode 226）
+
+**题目**：给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。
+
+### recursion
+
+Time: O(n)      
+Space: O(h)
+
+```java
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) return root;
+        
+        TreeNode left = invertTree(root.left);
+        TreeNode right = invertTree(root.right);
+
+        root.left = right;
+        root.right = left;
+
+        return root;
+    }
+}
+```
+
+## 51. 二叉搜索树中第 K 小的元素（LeetCode 230）
+
+**题目**：给定一个二叉搜索树的根节点 root ，和一个整数 k ，请你设计一个算法查找其中第 k 小的元素（k 从 1 开始计数）。
+
+### Stack
+
+Time: O(n)      
+Space: O(h)
+
+```java
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        int count = 0;
+        
+        while (cur != null || !stack.isEmpty()) {
+            while (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            }
+            cur = stack.pop();
+            count++;
+            if (count == k) return cur.val;  
+            cur = cur.right;
+        }
+        return -1;
+    }
+}
+```
+
+## 52. 二叉搜索树的最近公共祖先（LeetCode 235）
+
+**题目**：给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
+
+### left -> right
+
+Time: O(h)      
+Space: O(h)
+
+```java
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root.val > p.val && root.val > q.val) {
+            return lowestCommonAncestor(root.left, p, q);
+        } else if (root.val < p.val && root.val < q.val) {
+            return lowestCommonAncestor(root.right, p, q);
+        } else {
+            return root;
+        }
+    }
+}
+```
+
+## 53. 二叉树的最近公共祖先（LeetCode 236）
+
+**题目**：给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+
+### Postorder Traversal
+
+Time: O(n)      
+Space: O(h)
+
+```java
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root == p || root == q) return root;
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left != null && right != null) return root;
+        return left != null ? left : right;
+    }
+}
+```
+
+## 54. 除了自身以外数组的乘积（LeetCode 238）
+
+**题目**：给你一个整数数组 nums，返回数组 answer，其中 answer[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积。题目保证数组元素乘积在 32 位整数范围内。
+
+### 前缀积 + 后缀积（空间 O(1)）
+
+Time: O(n)  
+Space: O(1)（不考虑返回数组）
+
+```java
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int[] res = new int[nums.length];
+        res[0] = 1;
+        for (int i = 1; i < nums.length; i++) {
+            res[i] = res[i - 1] * nums[i - 1];
+        }
+        int suffix = 1;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            res[i] *= suffix;
+            suffix *= nums[i];
+        }
+        return res;
+    }
+}
+
+```
+
+## 55. 有效的字母异位词（LeetCode 242）
+
+**题目**：给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+
+### 计数数组
+
+Time: O(n)  
+Space: O(1)
+
+```java
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) return false;
+        int[] counts = new int[26];
+        for (char c : s.toCharArray()) counts[c - 'a']++;
+        for (char c : t.toCharArray()) counts[c - 'a']--;
+        for (int count : counts) if (count != 0) return false;
+        return true;
+    }
+}
+
+```
+
+## 56. Find Median from Data Stream（LeetCode 295）
 
 **题目**：The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.
 
@@ -2075,7 +1836,119 @@ class MedianFinder {
 }
 ```
 
-## 64. Top K Frequent Elements（LeetCode 347）
+## 57. 二叉树的序列化与反序列化（LeetCode 297）
+
+**题目**：请设计一个算法来实现二叉树的序列化与反序列化。这里不限定你的序列 / 反序列化算法执行逻辑，你只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构。
+
+### BFS
+
+Time: O(n)      
+Space: O(n)
+
+```java
+public class Codec {
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        if (root == null) return "";
+        StringBuilder sb = new StringBuilder();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            if (node == null) {
+                sb.append("null,");
+                continue;
+            }
+            sb.append(node.val).append(",");
+            queue.offer(node.left);
+            queue.offer(node.right);
+        }
+        sb.setLength(sb.length() - 1);  // remove the last comma
+        return sb.toString();
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        if (data == null || data.isEmpty()) return null;
+        String[] vals = data.split(",");
+        TreeNode root = new TreeNode(Integer.parseInt(vals[0]));
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int i = 1;
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            if (!vals[i].equals("null")) {          // left node
+                node.left = new TreeNode(Integer.parseInt(vals[i]));
+                queue.offer(node.left);
+            }
+            i++;
+            if (!vals[i].equals("null")) {          // right node 
+                node.right = new TreeNode(Integer.parseInt(vals[i]));
+                queue.offer(node.right);
+            }
+            i++;
+        }
+        return root;
+    }
+}
+```
+
+## 58. 零钱兑换（LeetCode 322）
+
+**题目**：给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。
+
+### DP for both amount and coins value
+
+Time: O(a*c)      
+Space: O(a)
+
+```java
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, amount + 1);
+
+        dp[0] = 0;
+        for (int i = 1; i <= amount; i++) {
+            for (int j = 0; j < coins.length; j++) {
+                if (i - coins[j] >= 0) {
+                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+                }
+            }
+        }
+        
+        if (dp[amount] == amount + 1) {
+            return -1;
+        } else {
+            return dp[amount];
+        }
+    }
+}
+```
+
+## 59. 比特位计数（LeetCode 338）
+
+**题目**：给你一个整数 n ，对于 0 <= i <= n 中的每个 i ，计算其二进制表示中 1 的个数 ，返回一个长度为 n + 1 的数组 ans 作为答案。
+
+### dynamic programming
+
+Time: O(n)      
+Space: O(1)
+
+```java
+class Solution {
+    public int[] countBits(int n) {
+        int[] res = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            res[i] = res[i >> 1] + (i & 1);
+        }
+        return res;
+    }
+}
+```
+
+## 60. Top K Frequent Elements（LeetCode 347）
 
 **题目**：Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
 
@@ -2106,7 +1979,30 @@ class Solution {
 }
 ```
 
-## 65. Non-overlapping Intervals（LeetCode 435）
+## 61. 两整数之和（LeetCode 371）
+
+**题目**：给你两个整数 a 和 b ，不使用 运算符 + 和 - ​​​​​​​，计算并返回两整数之和。
+
+### XOR + AND
+
+Time: O(1)      
+Space: O(1)
+
+```java
+class Solution {
+    public int getSum(int a, int b) {
+        while (b != 0) {
+            int temp_add = a ^ b;
+            int temp_carry = (a & b) << 1;
+            a = temp_add;
+            b = temp_carry;
+        } 
+        return a;
+    }
+}
+```
+
+## 62. Non-overlapping Intervals（LeetCode 435）
 
 **题目**：Given an array of intervals intervals where intervals[i] = [starti, endi], return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
 
@@ -2130,6 +2026,110 @@ class Solution {
             }
         }
         return count;
+    }
+}
+```
+
+## 63. 另一棵树的子树（LeetCode 572）
+
+**题目**：给你两棵二叉树 root 和 subRoot 。检验 root 中是否包含和 subRoot 具有相同结构和节点值的子树。如果存在，返回 true ；否则，返回 false 。
+
+### recursion
+
+Time: O(m*n)      
+Space: O(h)
+
+```java
+class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        if (subRoot == null) return true;
+        if (root == null) return false;
+        if (isSameTree(root, subRoot)) return true;
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+    }
+
+    boolean isSameTree(TreeNode root, TreeNode subRoot) {
+        if (root == null && subRoot == null) return true;
+        if (root == null || subRoot == null) return false;
+        if (root.val != subRoot.val) return false;
+        return isSameTree(root.left, subRoot.left) && isSameTree(root.right, subRoot.right);
+    }
+}
+```
+
+## 64. 回文子串（LeetCode 647）
+
+**题目**：给你一个字符串 s，请你统计并返回这个字符串中 回文子串 的数目。
+
+### Manacher 算法
+
+Time: O(n)  
+Space: O(n)
+
+```java
+class Solution {
+    public int countSubstrings(String s) {
+        // convert s to odd length
+        StringBuilder sb = new StringBuilder("^#");
+        for (char c : s.toCharArray()) {
+            sb.append(c).append("#");
+        }
+        sb.append("$");
+        s = sb.toString();
+
+        int[] p = new int[s.length()];
+        int center = 0;
+        int right = 0;
+        int count = 0;
+
+        for (int i = 1; i < s.length() - 1; i++) {
+            int mirror = 2 * center - i;
+
+            if (i < right) {
+                p[i] = Math.min(right - i, p[mirror]);
+            }
+
+            while (s.charAt(i + p[i] + 1) == s.charAt(i - p[i] - 1)) {
+                p[i]++;
+            }
+            
+            if (i + p[i] > right) {
+                center = i;
+                right = i + p[i];
+            }
+            count += (p[i] + 1) / 2;
+        }
+        return count;
+    }
+}
+```
+
+## 65. 最长公共子序列（LeetCode 1143）
+
+**题目**：给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。如果不存在 公共子序列 ，返回 0 。
+
+### dp
+
+Time: O(n*m)      
+Space: O(n*m)
+
+```java
+class Solution {
+    public int longestCommonSubsequence(String text1, String text2) {
+        int n = text1.length();
+        int m = text2.length();
+        int[][] dp = new int[n + 1][m + 1];
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (text1.charAt(i-1) == text2.charAt(j-1)) {
+                    dp[i][j] = dp[i-1][j-1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+                }
+            }
+        }
+        return dp[n][m];
     }
 }
 ```

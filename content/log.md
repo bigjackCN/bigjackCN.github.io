@@ -13,7 +13,7 @@ A plain record of my progress as a software engineer, newest first.
 
 ## 2026-09
 
-- Built my [LeetCode practice room](/interview/): about 100 problems, timed mode, run/submit against hidden tests.
+- Built my [interview simulator](/interview/): about 100 problems, timed mode, run/submit against hidden tests.
 - Continued the Blind 75 notes (trees, graphs, tries, heaps, intervals).
 
 ## 2026-08

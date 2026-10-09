@@ -1,64 +1,63 @@
 baseURL = 'https://bigjackCN.github.io/'
-languageCode = 'zh-cn'          # 原 locale = 'en-us' 修正为 languageCode
+languageCode = 'en-us'
 title = '黄人日记'
-theme = "PaperMod"
+theme = 'PaperMod'
 
 [params]
-  defaultTheme = "light"
-  author = "big jack"
-  copyright = "© 2026 big jack"
-  
-  # 自定义样式（合并后移到此处）
-  customCSS = ["css/extended/custom.css"]
+  defaultTheme = 'light'
+  author = 'big jack'
+  copyright = '© 2026 big jack'
+  description = 'Software engineer. Projects, notes and progress.'
+  mainSections = ['posts']
+  ShowReadingTime = true
+  ShowPostNavLinks = true
+  ShowCodeCopyButtons = true
 
-  # 封面图在列表页隐藏（原第二个 params 中的 cover 配置）
-  [params.cover]
-    hiddenInList = true
+  # Home page: a short profile with buttons, no post list
+  [params.profileMode]
+    enabled = true
+    title = '黄人日记'
+    subtitle = 'Software engineer. Java, backend and testing. What I build, what I learn, what I think.'
 
-  # 顶部介绍区域（原 homeInfoParams）
-  [params.homeInfoParams]
-    Title = "你能不能推测一下为什么叫黄人日记"
-    Content = '''
-这个有趣的命名，我斗胆猜测几个方向（猜错了别打我😄）：
+    [[params.profileMode.buttons]]
+      name = 'Projects'
+      url = '/projects/'
+    [[params.profileMode.buttons]]
+      name = 'Blog'
+      url = '/posts/'
+    [[params.profileMode.buttons]]
+      name = 'About'
+      url = '/about/'
 
-“黄”指肤色 / 种族 —— 你可能是黄种人，用“黄人”自嘲或自豪，加上“日记”记录个人生活思考，简单直白。
+  [[params.socialIcons]]
+    name = 'github'
+    url = 'https://github.com/bigjackCN'
+  # [[params.socialIcons]]
+  #   name = 'linkedin'
+  #   url = 'https://www.linkedin.com/in/your-handle/'
+  # [[params.socialIcons]]
+  #   name = 'email'
+  #   url = 'mailto:you@example.com'
 
-“黄”指“黄色”象征 —— 可能代表温暖、阳光、土地，或者是某种审美偏好（比如老照片的泛黄色调），日记则是私密记录。
-
-谐音或双关 —— “黄人”听起来像“惶人”（惶恐之人）或“晃人”（晃眼的人），也许是你对自己状态的某种调侃。
-
-受流行文化影响 —— 比如“黄人”对应“黄种人”，而“日记”可能致敬《安妮日记》或《狂人日记》？你也许想表达一种“小众视角下的真实记录”。
-
-最实在的推测 —— 可能你的姓氏就是“黄”，或者你单纯喜欢黄色，就取了这个名字。毕竟博客名字本来就是很个人的事情。
-
-我猜，你应该是想做一个 “有温度、不装逼、记录真实” 的个人博客，就像“黄人”这个词一样朴实又不失特色。对吗？😉
-
-不管名字的由来如何，希望你的“黄人日记”能一直写下去。
-
-—— deepseek
-'''
-
-# 菜单配置（独立于 params，无需改动）
-[[menu.main]]
-identifier = "tags"
-name = "Tags"
-url = "/tags/"
-weight = 20
+[taxonomies]
+  tag = 'tags'
 
 [[menu.main]]
-identifier = "categories"
-name = "Categories"
-url = "/categories/"
-weight = 30
+  name = 'Projects'
+  url = '/projects/'
+  weight = 10
 
 [[menu.main]]
-identifier = "github"
-name = "GitHub"
-url = "https://github.com/bigjackCN"
-weight = 50
+  name = 'Blog'
+  url = '/posts/'
+  weight = 20
 
 [[menu.main]]
-identifier = "interview"
-name = "Interview"
-url = "/interview/"
-weight = 40
+  name = 'Log'
+  url = '/log/'
+  weight = 50
+
+[[menu.main]]
+  name = 'About'
+  url = '/about/'
+  weight = 60

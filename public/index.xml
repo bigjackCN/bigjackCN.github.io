@@ -5,9 +5,30 @@
     <link>http://localhost:1313/</link>
     <description>Recent content on 黄人日记</description>
     <generator>Hugo</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Wed, 19 Aug 2026 00:00:00 +0800</lastBuildDate>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 09 Oct 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BigJack&#39;s Guitar Shop</title>
+      <link></link>
+      <pubDate>Thu, 01 Oct 2026 00:00:00 +0000</pubDate>
+      <guid></guid>
+      <description>A small single-seller guitar shop: current inventory, pre-orders and a record of past sales.</description>
+    </item>
+    <item>
+      <title>LeetCode</title>
+      <link></link>
+      <pubDate>Sat, 26 Sep 2026 00:00:00 +0000</pubDate>
+      <guid></guid>
+      <description>My LeetCode practice room: a timer, a random problem, a plain editor, and run/submit against hidden tests.</description>
+    </item>
+    <item>
+      <title>Whiteboard</title>
+      <link></link>
+      <pubDate>Fri, 09 Oct 2026 00:00:00 +0000</pubDate>
+      <guid></guid>
+      <description>A blank Java editor that only tells you whether your code compiles. No hints, no autocomplete.</description>
+    </item>
     <item>
       <title>Blind 75 刷题笔记（长期更新）</title>
       <link>http://localhost:1313/posts/blind-75/</link>
@@ -20,7 +41,7 @@
 &lt;h2 id=&#34;1-两数之和leetcode-1&#34;&gt;1. 两数之和（LeetCode 1）&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;题目&lt;/strong&gt;：给定一个整数数组 &lt;code&gt;nums&lt;/code&gt; 和一个目标值 &lt;code&gt;target&lt;/code&gt;，请你在该数组中找出和为目标值的那 &lt;strong&gt;两个&lt;/strong&gt; 整数，并返回它们的数组下标。&lt;/p&gt;
 &lt;h3 id=&#34;哈希表&#34;&gt;哈希表&lt;/h3&gt;
-&lt;p&gt;Time: O(n)
+&lt;p&gt;Time: O(n)&lt;br&gt;
 Space: O(n)&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Solution&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;twoSum&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[]&lt;/span&gt; nums, &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; target) {
@@ -72,6 +93,73 @@ Space: O(n)&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 调用方式&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Singleton.&lt;span style=&#34;color:#a6e22e&#34;&gt;INSTANCE&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;doSomething&lt;/span&gt;();
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;m a software engineer who works mostly in Java. This site is where I keep what I build and what I learn.&lt;/p&gt;
+&lt;h2 id=&#34;experience&#34;&gt;Experience&lt;/h2&gt;
+&lt;div class=&#34;job&#34;&gt;
+  &lt;div class=&#34;job-head&#34;&gt;
+    &lt;strong&gt;Software Engineering Intern&lt;/strong&gt;
+    &lt;span class=&#34;job-dates&#34;&gt;Sep – Dec 2019&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;job-org&#34;&gt;Ontario Ministry of Children, Community and Social Services&lt;/div&gt;
+  &lt;ul class=&#34;stack&#34;&gt;
+    &lt;li&gt;&lt;i class=&#34;devicon-java-plain colored&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;JavaEE&lt;/li&gt;
+    &lt;li&gt;&lt;i class=&#34;devicon-selenium-original colored&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;Selenium&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;job&#34;&gt;
+  &lt;div class=&#34;job-head&#34;&gt;
+    &lt;strong&gt;Software Developer Intern&lt;/strong&gt;
+    &lt;span class=&#34;job-dates&#34;&gt;Jan – Apr 2019&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;job-org&#34;&gt;OpenText&lt;/div&gt;
+  &lt;ul class=&#34;stack&#34;&gt;
+    &lt;li&gt;&lt;i class=&#34;devicon-java-plain colored&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;JavaEE&lt;/li&gt;
+    &lt;li&gt;REST APIs&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;job&#34;&gt;
+  &lt;div class=&#34;job-head&#34;&gt;
+    &lt;strong&gt;Software Engineering Intern&lt;/strong&gt;
+    &lt;span class=&#34;job-dates&#34;&gt;May – Aug 2018&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;job-org&#34;&gt;Uxsino&lt;/div&gt;
+  &lt;ul class=&#34;stack&#34;&gt;
+    &lt;li&gt;&lt;i class=&#34;devicon-python-plain colored&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;Python&lt;/li&gt;
+    &lt;li&gt;&lt;i class=&#34;devicon-django-plain&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;Django&lt;/li&gt;
+    &lt;li&gt;&lt;i class=&#34;devicon-mongodb-plain colored&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;MongoDB&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;skills&#34;&gt;Skills&lt;/h2&gt;
+&lt;ul class=&#34;stack&#34;&gt;
+  &lt;li&gt;&lt;i class=&#34;devicon-java-plain colored&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;Java&lt;/li&gt;
+  &lt;li&gt;&lt;i class=&#34;devicon-java-plain colored&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;JavaEE&lt;/li&gt;
+  &lt;li&gt;REST APIs&lt;/li&gt;
+  &lt;li&gt;&lt;i class=&#34;devicon-selenium-original colored&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;Selenium&lt;/li&gt;
+  &lt;li&gt;&lt;i class=&#34;devicon-python-plain colored&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;Python&lt;/li&gt;
+  &lt;li&gt;&lt;i class=&#34;devicon-django-plain&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;Django&lt;/li&gt;
+  &lt;li&gt;&lt;i class=&#34;devicon-mongodb-plain colored&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;MongoDB&lt;/li&gt;
+  &lt;li&gt;&lt;i class=&#34;devicon-javascript-plain colored&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;JavaScript&lt;/li&gt;
+  &lt;li&gt;&lt;i class=&#34;devicon-git-plain colored&#34; aria-hidden=&#34;true&#34;&gt;&lt;/i&gt;Git&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;contact&#34;&gt;Contact&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/bigjackCN&#34;&gt;GitHub&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Log</title>
+      <link>http://localhost:1313/log/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/log/</guid>
+      <description>What I learned and built, month by month.</description>
     </item>
   </channel>
 </rss>

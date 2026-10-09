@@ -1,0 +1,17 @@
+{{- /* One experience entry. Usage: {{< job role="..." org="..." dates="..." stack="Java, Selenium" >}} */ -}}
+<div class="job">
+  <div class="job-head">
+    <strong>{{ .Get "role" }}</strong>
+    <span class="job-dates">{{ .Get "dates" }}</span>
+  </div>
+  <div class="job-org">{{ .Get "org" }}</div>
+  {{- with .Get "stack" }}
+  <ul class="stack">
+    {{- range split . "," }}
+    {{- $name := trim . " " }}
+    {{- $icon := index (dict "java" "devicon-java-plain colored" "javaee" "devicon-java-plain colored" "selenium" "devicon-selenium-original colored" "python" "devicon-python-plain colored" "django" "devicon-django-plain" "mongodb" "devicon-mongodb-plain colored" "javascript" "devicon-javascript-plain colored" "git" "devicon-git-plain colored") (lower (replace $name " " "")) }}
+    <li>{{ with $icon }}<i class="{{ . }}" aria-hidden="true"></i>{{ end }}{{ $name }}</li>
+    {{- end }}
+  </ul>
+  {{- end }}
+</div>

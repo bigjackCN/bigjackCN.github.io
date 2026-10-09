@@ -1,0 +1,38 @@
+{{- define "main" }}
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+</header>
+
+<div class="project-list">
+  {{- range $i, $p := .Pages.ByWeight }}
+  <a class="project-card" href="{{ $p.Params.link }}"{{ if hasPrefix $p.Params.link "http" }} target="_blank" rel="noopener"{{ end }} style="--i: {{ $i }}">
+    <div class="project-preview">
+      {{- with $p.Params.image }}
+      <img src="{{ . | absURL }}" alt="Screenshot of {{ $p.Title }}" loading="lazy">
+      {{- else }}
+      <iframe src="{{ $p.Params.link }}" title="Preview of {{ $p.Title }}" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>
+      {{- end }}
+    </div>
+    <div class="project-body">
+      <h2>{{ $p.Title }} <span class="project-arrow" aria-hidden="true">{{ if hasPrefix $p.Params.link "http" }}↗{{ else }}→{{ end }}</span></h2>
+      <p>{{ $p.Summary | plainify }}</p>
+      {{- if hasPrefix $p.Params.link "http" }}
+      <span class="project-url">{{ replaceRE "^https?://|/$" "" $p.Params.link }}</span>
+      {{- end }}
+    </div>
+  </a>
+  {{- end }}
+</div>
+
+<script>
+  // Scale the live previews (rendered at desktop width) down to the card width.
+  (function () {
+    var frames = document.querySelectorAll('.project-preview iframe');
+    function fit() {
+      frames.forEach(function (f) { f.style.transform = 'scale(' + (f.parentNode.clientWidth / 1280) + ')'; });
+    }
+    fit();
+    window.addEventListener('resize', fit);
+  })();
+</script>
+{{- end }}

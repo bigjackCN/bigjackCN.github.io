@@ -3,12 +3,6 @@ date = '2026-07-22T01:01:03-04:00'
 draft = false
 title = "单例模式"
 tags = ["Java", "Programming", "Design Pattern"]
-categories = ["学习"]
-
-[cover]
-image = "images/flying-pig.jpg"
-alt = "flying pig"
-caption = ""
 +++
 
 

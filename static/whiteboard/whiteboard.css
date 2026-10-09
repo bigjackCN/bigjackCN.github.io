@@ -1,0 +1,17 @@
+/* Whiteboard - a blank editor plus a compiler verdict. Colours come from ../interview/style.css. */
+.wb { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.wb-code {
+  flex: 1; min-height: 50vh; width: 100%; resize: none; border: 0; outline: none;
+  padding: 16px 18px; background: var(--bg); color: var(--text);
+  font: 15px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  tab-size: 4;
+}
+.wb-out { border-top: 1px solid var(--border); background: var(--panel-2); max-height: 40vh; overflow: auto; }
+.wb-status { padding: 10px 18px; font-weight: 600; }
+.wb-status.ok { color: var(--pass); }
+.wb-status.bad { color: var(--fail); }
+.wb-status.warn { color: var(--warn); }
+.wb-pre {
+  margin: 0; padding: 0 18px 14px; white-space: pre-wrap; word-break: break-word;
+  font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}

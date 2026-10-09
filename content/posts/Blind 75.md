@@ -2,14 +2,8 @@
 date = '2026-08-19T21:57:33+08:00'
 lastmod = '2026-08-19T00:00:00+08:00'
 draft = false
-title = "Blind 75 刷题笔记（长期更新）"
+title = "Blind 75 刷题笔记"
 tags = ["Java", "LeetCode", "Blind 75"]
-categories = ["学习"]
-
-[cover]
-image = "images/blind-75.png"
-alt = "leetcode page"
-caption = ""
 +++
 
 > 本文汇总 Blind 75 中经典题目的 Java 解法，持续更新。每道题均附思路简述、复杂度分析及核心代码。

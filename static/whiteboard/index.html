@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Whiteboard</title>
+<meta name="description" content="A blank Java editor that only tells you whether your code compiles. No hints, no autocomplete, no tests.">
+<meta name="robots" content="noindex">
+<script>
+  // Apply the saved theme before first paint (shares PaperMod's "pref-theme" key).
+  try {
+    var t = localStorage.getItem('pref-theme');
+    if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+</script>
+<link rel="stylesheet" href="../interview/style.css?v=6">
+<link rel="stylesheet" href="whiteboard.css?v=1">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="tb-group">
+    <a class="back" href="/" title="Back to the site">&larr; 黄人日记</a>
+    <span class="brand">Whiteboard</span>
+  </div>
+  <div class="tb-group">
+    <span class="muted small">Java 17 · compile check only</span>
+    <button id="btn-clear" class="btn" type="button">Clear</button>
+    <button id="btn-compile" class="btn btn-go" type="button" title="Compile (Ctrl/Cmd + Enter)">Compile</button>
+  </div>
+</header>
+
+<main class="wb">
+  <textarea id="code" class="wb-code" spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="Java code"
+    placeholder="class Solution {&#10;    public int[] twoSum(int[] nums, int target) {&#10;        &#10;    }&#10;}"></textarea>
+  <section class="wb-out" aria-live="polite">
+    <div id="status" class="wb-status muted">Write Java, then press Compile. Only the compiler speaks here.</div>
+    <pre id="output" class="wb-pre" hidden></pre>
+  </section>
+</main>
+
+<script src="whiteboard.js?v=1"></script>
+</body>
+</html>

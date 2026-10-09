@@ -1,0 +1,4 @@
+# Hugo build output (GitHub Actions builds the site on every push)
+public/
+resources/_gen/
+.hugo_build.lock

@@ -16,7 +16,7 @@ theme = 'PaperMod'
   # Home page: a short profile with buttons, no post list
   [params.profileMode]
     enabled = true
-    title = '黄人日记'
+    title = "Hi, I'm big jack"
     subtitle = 'Software engineer in Toronto. Java and Spring Boot backends, plus what I build, learn and think.'
 
     [[params.profileMode.buttons]]
@@ -26,8 +26,8 @@ theme = 'PaperMod'
       name = 'Blog'
       url = '/posts/'
     [[params.profileMode.buttons]]
-      name = 'About'
-      url = '/about/'
+      name = 'Tags'
+      url = '/tags/'
 
   [[params.socialIcons]]
     name = 'github'
@@ -47,12 +47,12 @@ theme = 'PaperMod'
   weight = 20
 
 [[menu.main]]
-  name = 'About'
-  url = '/about/'
-  weight = 60
+  name = 'Tags'
+  url = '/tags/'
+  weight = 30
 
 # External: PaperMod adds the little outbound arrow for any URL containing "://"
 [[menu.main]]
   name = 'GitHub'
   url = 'https://github.com/bigjackCN'
-  weight = 70
+  weight = 40

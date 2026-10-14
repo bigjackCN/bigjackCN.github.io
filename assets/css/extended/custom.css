@@ -4,6 +4,13 @@ body {
     font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'LXGW WenKai Screen', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* List pages: the section title only repeats the nav item, so hide it everywhere
+   (Blog, Projects, Tags, and each tag's page). Standalone pages can't be reached this
+   way because they share the body with blog posts, so they use `hideTitle` instead. */
+body.list .page-header {
+    display: none;
+}
+
 /* Images inside posts: fit the column and center */
 .post-content img {
     max-width: 100%;
@@ -106,33 +113,8 @@ body {
     .project-card:hover .project-arrow { transition: none; transform: none; }
 }
 
-/* ===== About: experience entries and stack chips ===== */
-.job {
-    margin: 0 0 22px;
-}
-.job-head {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 4px 12px;
-}
-.job-dates,
-.job-org {
-    color: var(--secondary);
-    font-size: 15px;
-}
-.post-content .job-points {
-    margin: 8px 0 0;
-    padding-left: 20px;
-    color: var(--secondary);
-    font-size: 15px;
-    line-height: 1.6;
-}
-.post-content .job-points li {
-    margin: 2px 0;
-}
-.post-content ul.stack {
+/* ===== Stack chips: used by the `stack` shortcode ===== */
+ul.stack {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -140,7 +122,7 @@ body {
     padding: 0;
     margin: 10px 0 0;
 }
-.post-content ul.stack li {
+ul.stack li {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -152,25 +134,10 @@ body {
     background: var(--entry);
     transition: transform .15s ease, border-color .15s ease;
 }
-.post-content ul.stack li:hover {
+ul.stack li:hover {
     transform: translateY(-2px);
     border-color: var(--secondary);
 }
-.post-content ul.stack i {
+ul.stack i {
     font-size: 16px;
-}
-
-/* Skills groups: a small muted caption above each chip row, so the rows read as units. */
-.post-content .skill-group {
-    margin: 0 0 20px;
-}
-.post-content .skill-group:last-child {
-    margin-bottom: 0;
-}
-.post-content .skill-label {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    color: var(--secondary);
 }

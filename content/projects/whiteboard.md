@@ -1,7 +1,7 @@
 +++
 date = '2026-10-09'
 title = 'Whiteboard'
-summary = 'A blank Java editor that only tells you whether your code compiles. No hints, no autocomplete.'
+summary = 'A blank Java editor. No hints, no autocomplete, no compiler: just you and the code.'
 link = '/whiteboard/'
 weight = 4
 [build]

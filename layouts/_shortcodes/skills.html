@@ -1,0 +1,6 @@
+{{- /* One labelled row of skill chips.
+       Usage: {{< skills "Languages" "Java" "Python" "SQL" >}} — the first value is the label. */ -}}
+<div class="skill-group">
+  <div class="skill-label">{{ index .Params 0 }}</div>
+  {{- partial "stack-chips.html" (after 1 .Params) }}
+</div>

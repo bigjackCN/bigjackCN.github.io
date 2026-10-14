@@ -122,6 +122,16 @@ body {
     color: var(--secondary);
     font-size: 15px;
 }
+.post-content .job-points {
+    margin: 8px 0 0;
+    padding-left: 20px;
+    color: var(--secondary);
+    font-size: 15px;
+    line-height: 1.6;
+}
+.post-content .job-points li {
+    margin: 2px 0;
+}
 .post-content ul.stack {
     display: flex;
     flex-wrap: wrap;
@@ -135,7 +145,7 @@ body {
     align-items: center;
     gap: 6px;
     margin: 0;
-    padding: 3px 10px;
+    padding: 4px 11px;
     font-size: 13px;
     border: 1px solid var(--border);
     border-radius: 999px;
@@ -148,4 +158,19 @@ body {
 }
 .post-content ul.stack i {
     font-size: 16px;
+}
+
+/* Skills groups: a small muted caption above each chip row, so the rows read as units. */
+.post-content .skill-group {
+    margin: 0 0 20px;
+}
+.post-content .skill-group:last-child {
+    margin-bottom: 0;
+}
+.post-content .skill-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--secondary);
 }
